@@ -1,0 +1,37 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local environment (sekrety)
+.env
+.env.local
+.env.*.local
+
+# NextJS experimental — zamrożony eksperyment, nie wchodzi do repo
+hadynski-next/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Backup files
+*.backup
+*.bak
+*.orig
+*.old
+
+# Test files (tymczasowe skrypty audytu)
+test_*.html
+audit_*.html
+install_*.py
+mobile_audit.py

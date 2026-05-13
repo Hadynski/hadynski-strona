@@ -1,0 +1,49 @@
+<form class="hero-form" id="hero-form" novalidate>
+        <div class="hf-field">
+          <div class="hf-phone-field" id="hf-phone-field">
+            <button type="button" class="hf-country-btn" id="hf-country-btn" aria-haspopup="listbox" aria-expanded="false">
+              <span class="flag" id="hf-selected-flag">🇵🇱</span>
+              <span class="code" id="hf-selected-code">+48</span>
+              <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 4l3 3 3-3"/></svg>
+            </button>
+            <input type="tel" class="hf-phone-input" id="hf-phone" placeholder="Numer telefonu" inputmode="numeric" autocomplete="tel-national" />
+            <div class="hf-phone-dropdown" id="hf-phone-dropdown" role="listbox"></div>
+          </div>
+        </div>
+
+        <div class="hf-field">
+          <label class="hf-label" for="hf-komornik-trigger">Czy sprawa była u komornika? <span class="req">*</span></label>
+          <div class="hf-select" id="hf-komornik-select">
+            <button type="button" class="hf-select-trigger" id="hf-komornik-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="hf-select-value" id="hf-komornik-value">Kliknij i wybierz</span>
+              <svg class="hf-caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l3 3 3-3"/></svg>
+            </button>
+            <div class="hf-select-menu" id="hf-komornik-menu" role="listbox">
+              <button type="button" class="hf-option" role="option" data-value="tak">Tak</button>
+              <button type="button" class="hf-option" role="option" data-value="nie">Nie</button>
+            </div>
+            <input type="hidden" id="hf-komornik" required />
+          </div>
+        </div>
+
+        <div class="hf-field">
+          <label class="hf-label" for="hf-amount-trigger">Jaka jest łączna kwota długu do odzyskania (brutto)? <span class="req">*</span></label>
+          <div class="hf-select" id="hf-amount-select">
+            <button type="button" class="hf-select-trigger" id="hf-amount-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span class="hf-select-value" id="hf-amount-value">Kliknij i wybierz</span>
+              <svg class="hf-caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l3 3 3-3"/></svg>
+            </button>
+            <div class="hf-select-menu" id="hf-amount-menu" role="listbox">
+              <button type="button" class="hf-option" role="option" data-value="<3k">poniżej 3 000 zł</button>
+              <button type="button" class="hf-option" role="option" data-value="3-6k">3 000 – 6 000 zł</button>
+              <button type="button" class="hf-option" role="option" data-value="6-50k">6 000 – 50 000 zł</button>
+              <button type="button" class="hf-option" role="option" data-value="50-200k">50 000 – 200 000 zł</button>
+              <button type="button" class="hf-option" role="option" data-value=">200k">powyżej 200 000 zł</button>
+            </div>
+            <input type="hidden" id="hf-amount" required />
+          </div>
+        </div>
+
+        <button type="submit" class="hf-submit">Wyślij zgłoszenie <span class="arrow">→</span></button>
+        <p class="hf-disclaimer">Przesyłając formularz akceptujesz <a href="#privacy-policy" target="_blank" rel="noopener">Politykę prywatności</a>.</p>
+      </form>

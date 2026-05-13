@@ -1,0 +1,1450 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- ============================================
+     ROUTE: /uslugi/[slug]
+     Code: 1 dynamic route, dane z obiektu SERVICES (na dole pliku)
+     Slugi: windykacja-polubowna | windykacja-miedzynarodowa |
+            windykacja-terenowa | windykacja-sadowa | skup-wierzytelnosci |
+            poszukiwanie-majatku | wywiad-gospodarczy | monitoring-naleznosci |
+            obsluga-prawna | pieczec-prewencyjna
+     ============================================ -->
+<title>Usługi — Hadyński Inkaso</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --font-serif: "Instrument Serif", "Times New Roman", Georgia, serif;
+  --font-display: "Fraunces", "Instrument Serif", Georgia, serif;
+  --font-sans: "Inter Tight", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+
+  --bg: #faf8f5;
+  --bg-raised: #ffffff;
+  --bg-ink: #17130f;
+  --ink: #17130f;
+  --ink-2: #3a322a;
+  --ink-3: #6b6158;
+  --ink-4: #a39a90;
+  --line: #e8e2d9;
+  --line-strong: #d4ccc0;
+
+  --red: #B91C1C;
+  --red-deep: #A01818;
+  --red-wash: #f8e9e9;
+
+  --paper-warm: #f3ede3;
+
+  --maxw: 1240px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --radius: 4px;
+  --radius-lg: 10px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ============== NAV ============== */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(250,248,245,0.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s ease;
+}
+.nav.is-scrolled { border-bottom-color: var(--line); }
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+}
+.nav-logo { display: flex; align-items: center; gap: 8px; }
+.nav-logo img { height: 32px; width: auto; }
+.nav-links {
+  display: flex; align-items: center; gap: 28px;
+  font-size: 14px; color: var(--ink-2);
+}
+.nav-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: color .2s ease;
+}
+.nav-link:hover { color: var(--ink); }
+
+.nav-dropdown { position: relative; }
+.nav-dropdown-trigger {
+  background: none; border: 0; padding: 0; margin: 0;
+  font: inherit; color: inherit; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.nav-dropdown-trigger svg { transition: transform .18s ease; }
+.nav-dropdown.is-open .nav-dropdown-trigger svg { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  position: absolute; top: calc(100% + 14px); left: -16px;
+  min-width: 280px;
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 24px 60px -16px rgba(20,15,10,0.18), 0 6px 20px -6px rgba(20,15,10,0.08);
+  padding: 10px;
+  display: none;
+}
+.nav-dropdown.is-open .nav-dropdown-menu { display: block; }
+.nav-dropdown-menu a {
+  display: block; padding: 10px 14px;
+  font-size: 14px; color: var(--ink-2);
+  border-radius: 8px;
+  transition: background .15s ease, color .15s ease;
+}
+.nav-dropdown-menu a:hover { background: var(--paper-warm); color: var(--ink); }
+.nav-dropdown-menu a.is-current {
+  background: var(--red-wash); color: var(--red-deep);
+}
+
+.nav-cta { display: flex; align-items: center; gap: 14px; }
+.nav-cta .login-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: #666;
+}
+.nav-cta .login-link:hover { color: var(--ink); }
+.nav-cta .nav-divider { width: 1px; height: 16px; background: rgba(0,0,0,0.12); margin: 0 4px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-sans); font-weight: 500;
+  font-size: 14px; line-height: 1;
+  padding: 12px 20px; border-radius: 10px;
+  cursor: pointer; transition: all .2s ease;
+  border: 1px solid transparent;
+}
+.btn .arrow { transition: transform .2s ease; }
+.btn:hover .arrow { transform: translateX(2px); }
+.btn-primary {
+  background: var(--red); color: #fff;
+  box-shadow: 0 4px 12px -2px rgba(185,28,28,.25);
+}
+.btn-primary:hover { background: var(--red-deep); box-shadow: 0 6px 16px -2px rgba(185,28,28,.35); }
+.btn-outline-red {
+  background: transparent; color: var(--red); border-color: var(--red);
+}
+.btn-outline-red:hover { background: var(--red); color: #fff; }
+.btn-ghost {
+  background: transparent; color: var(--ink-2); border-color: var(--line-strong);
+}
+.btn-ghost:hover { background: var(--bg-raised); color: var(--ink); border-color: var(--ink-3); }
+.btn-lg { padding: 18px 32px; font-size: 15px; }
+
+/* ============== HERO ============== */
+.service-hero {
+  padding: 56px 0 80px;
+  border-bottom: 1px solid var(--line);
+}
+.breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-3);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.breadcrumb a { color: var(--ink-3); transition: color .15s ease; }
+.breadcrumb a:hover { color: var(--red); }
+.breadcrumb .sep { color: var(--ink-4); }
+.breadcrumb .current { color: var(--ink); }
+
+.service-hero-pill {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--red);
+  background: var(--red-wash);
+  padding: 6px 12px; border-radius: 999px;
+  margin-bottom: 28px;
+}
+.service-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  max-width: 16ch;
+  margin-bottom: 28px;
+}
+.service-hero h1 em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--red);
+  font-variation-settings: "SOFT" 100;
+}
+.service-hero-lead {
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 1.7vw, 24px);
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 56ch;
+  margin-bottom: 40px;
+}
+.service-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
+
+.service-hero-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 32px;
+}
+.service-hero-meta > div { padding-right: 24px; }
+.service-hero-meta > div + div { padding-left: 24px; border-left: 1px solid var(--line); }
+.meta-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 8px;
+}
+.meta-value {
+  font-family: var(--font-display);
+  font-size: 22px; font-weight: 400;
+  color: var(--ink); line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.meta-value strong { color: var(--red); font-weight: 400; font-style: italic; }
+
+/* ============== Sections common ============== */
+.section { padding: 96px 0; border-bottom: 1px solid var(--line); }
+.section-head {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 60px;
+  margin-bottom: 56px;
+}
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--red);
+}
+.section-eyebrow .num { color: var(--ink-3); margin-right: 8px; }
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.section-title em { font-style: italic; color: var(--red); }
+
+/* What — co robimy */
+.what-grid {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  gap: 60px;
+}
+.what-lead {
+  font-family: var(--font-serif);
+  font-size: 22px; line-height: 1.5;
+  color: var(--ink-2);
+  grid-column: 2;
+}
+.what-list {
+  grid-column: 3;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.what-list li {
+  display: flex; gap: 14px;
+  font-size: 15.5px; line-height: 1.55;
+  color: var(--ink-2);
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.what-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+.what-list .check {
+  flex-shrink: 0; width: 20px; height: 20px;
+  border-radius: 50%; background: var(--red-wash); color: var(--red);
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-top: 1px;
+}
+
+/* For who */
+.for-who-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.persona-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 32px;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.persona-card:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+.persona-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%; background: var(--paper-warm);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--red);
+  margin-bottom: 20px;
+  font-family: var(--font-display); font-size: 20px; font-style: italic;
+}
+.persona-card h3 {
+  font-family: var(--font-display);
+  font-weight: 400; font-size: 22px;
+  line-height: 1.2; letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.persona-card p {
+  font-size: 14.5px; line-height: 1.55;
+  color: var(--ink-3);
+}
+
+/* Process */
+.process-list {
+  grid-column: 1 / -1;
+  display: flex; flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+.process-step {
+  display: grid;
+  grid-template-columns: 80px 280px 1fr;
+  gap: 40px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.process-step:last-child { border-bottom: 0; }
+.step-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 56px; font-weight: 300;
+  color: var(--red);
+  line-height: 1;
+}
+.step-title {
+  font-family: var(--font-display);
+  font-weight: 400; font-size: 26px;
+  line-height: 1.15; letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.step-desc {
+  font-size: 15.5px; line-height: 1.65;
+  color: var(--ink-2);
+  max-width: 56ch;
+}
+.step-meta {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-3);
+  margin-top: 10px;
+}
+
+/* Pricing card */
+.pricing-card {
+  background: var(--bg-ink);
+  color: #f3ede3;
+  border-radius: 16px;
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.pricing-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: #c8a98c;
+  margin-bottom: 16px;
+}
+.pricing-head h3 {
+  font-family: var(--font-display);
+  font-weight: 400; font-size: clamp(32px, 3.4vw, 44px);
+  line-height: 1.1; letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 18px;
+}
+.pricing-head h3 em { font-style: italic; color: #ff8b6b; }
+.pricing-head p {
+  font-family: var(--font-serif);
+  font-size: 18px; line-height: 1.5;
+  color: #d6c5b1; max-width: 50ch;
+}
+.pricing-meta {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 28px;
+}
+.pricing-meta-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.pricing-meta-row:last-child { border-bottom: 0; }
+.pricing-meta-row .lab {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #c8a98c;
+}
+.pricing-meta-row .val {
+  font-family: var(--font-display); font-size: 22px;
+  color: #fff; line-height: 1.1;
+}
+.pricing-meta-row .val em { color: #ff8b6b; font-style: italic; }
+
+/* FAQ */
+.faq-list { display: flex; flex-direction: column; }
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.faq-q {
+  width: 100%; text-align: left;
+  background: none; border: 0; padding: 28px 0;
+  display: flex; justify-content: space-between; align-items: center; gap: 24px;
+  font-family: var(--font-display);
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 400; line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink); cursor: pointer;
+}
+.faq-q .plus {
+  flex-shrink: 0; width: 32px; height: 32px;
+  border-radius: 50%; border: 1px solid var(--line-strong);
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--ink-2);
+  transition: transform .25s ease, background .25s ease, color .25s ease, border-color .25s ease;
+}
+.faq-item.is-open .faq-q .plus {
+  transform: rotate(45deg);
+  background: var(--ink); color: #fff; border-color: var(--ink);
+}
+.faq-a {
+  display: none;
+  padding: 0 0 28px;
+  font-size: 16px; line-height: 1.65;
+  color: var(--ink-2);
+  max-width: 70ch;
+}
+.faq-item.is-open .faq-a { display: block; }
+
+/* Final CTA */
+.final-cta {
+  padding: 96px 0;
+  background: var(--paper-warm);
+  text-align: center;
+}
+.final-cta h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+.final-cta h2 em { font-style: italic; color: var(--red); }
+.final-cta p {
+  font-family: var(--font-serif);
+  font-size: 20px; color: var(--ink-2);
+  max-width: 56ch; margin: 0 auto 36px;
+}
+.final-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.final-cta-note {
+  margin-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ============== FOOTER ============== */
+.footer { padding: 64px 0 36px; background: var(--bg); border-top: 1px solid var(--line); }
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 56px;
+}
+.footer-logo { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.footer-mark { font-family: var(--font-display); font-style: italic; font-size: 28px; font-weight: 500; color: var(--ink); line-height: 1; }
+.footer-mark .dot-red { color: var(--red); }
+.footer-wordmark { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.18em; color: var(--ink-2); text-transform: uppercase; font-weight: 500; }
+.footer-brand p { font-size: 14px; color: var(--ink-3); line-height: 1.5; max-width: 300px; margin-top: 16px; }
+.footer-col h4 {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 18px; font-weight: 500;
+}
+.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { font-size: 14.5px; color: var(--ink-2); transition: color .2s ease; }
+.footer-col a:hover { color: var(--red); }
+.footer-legal { border-top: 1px solid var(--line); padding: 24px 0 16px; margin-top: 8px; }
+.footer-legal-block { font-size: 12.5px; color: var(--ink-3); line-height: 1.7; letter-spacing: -0.005em; }
+.footer-legal-block strong { color: var(--ink-2); font-weight: 600; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12.5px; color: var(--ink-3);
+}
+.footer-bottom a { color: var(--ink-2); border-bottom: 1px dotted var(--ink-4); }
+.footer-bottom a:hover { color: var(--red); border-color: var(--red); }
+
+/* Service-switcher (preview only — usuwane w Code) */
+.preview-switcher {
+  position: fixed; bottom: 24px; left: 24px; z-index: 70;
+  background: var(--bg-ink); color: #f3ede3;
+  border-radius: 12px; padding: 10px 14px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 18px 40px -10px rgba(0,0,0,0.35);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.preview-switcher select {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff; font-family: var(--font-mono); font-size: 11px;
+  padding: 6px 10px; border-radius: 6px; cursor: pointer;
+}
+.preview-switcher .dot { width: 8px; height: 8px; background: #ff8b6b; border-radius: 50%; }
+
+/* ============== RESPONSIVE ============== */
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .section-head { grid-template-columns: 1fr; gap: 16px; }
+  .what-grid { grid-template-columns: 1fr; gap: 32px; }
+  .for-who-grid { grid-template-columns: 1fr; }
+  .process-step { grid-template-columns: 60px 1fr; gap: 20px; }
+  .process-step .step-desc { grid-column: 2; }
+  .pricing-card { grid-template-columns: 1fr; padding: 36px; gap: 28px; }
+  .service-hero-meta { grid-template-columns: 1fr; }
+  .service-hero-meta > div + div { padding-left: 0; border-left: 0; padding-top: 18px; margin-top: 18px; border-top: 1px solid var(--line); }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .footer-brand { grid-column: 1 / -1; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============== NAV ============== -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="Hadynski.html" class="nav-logo" aria-label="Hadyński — start">
+      <span style="font-family:var(--font-display); font-style:italic; font-size:26px; font-weight:500; color:var(--ink); line-height:1;">Hadyński<span style="color:var(--red);">·</span></span>
+      <span style="font-family:var(--font-mono); font-size:10px; letter-spacing:0.18em; color:var(--ink-2); text-transform:uppercase; font-weight:500; margin-left:6px;">INKASO</span>
+    </a>
+    <nav class="nav-links" aria-label="Główne">
+      <div class="nav-dropdown" data-nav-dropdown>
+        <button type="button" class="nav-link nav-dropdown-trigger is-current" aria-expanded="false" aria-haspopup="true">
+          Oferta
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 4l3 3 3-3" stroke="currentColor" fill="none" stroke-width="1.2"/></svg>
+        </button>
+        <div class="nav-dropdown-menu" role="menu" id="nav-services-menu">
+          <a href="?s=windykacja-polubowna" data-slug="windykacja-polubowna">Windykacja polubowna</a>
+          <a href="?s=windykacja-miedzynarodowa" data-slug="windykacja-miedzynarodowa">Windykacja międzynarodowa</a>
+          <a href="?s=windykacja-terenowa" data-slug="windykacja-terenowa">Windykacja terenowa</a>
+          <a href="?s=windykacja-sadowa" data-slug="windykacja-sadowa">Windykacja sądowa</a>
+          <a href="?s=skup-wierzytelnosci" data-slug="skup-wierzytelnosci">Skup wierzytelności</a>
+          <a href="?s=poszukiwanie-majatku" data-slug="poszukiwanie-majatku">Poszukiwanie majątku dłużnika</a>
+          <a href="?s=wywiad-gospodarczy" data-slug="wywiad-gospodarczy">Wywiad gospodarczy</a>
+          <a href="?s=monitoring-naleznosci" data-slug="monitoring-naleznosci">Monitoring należności</a>
+          <a href="?s=obsluga-prawna" data-slug="obsluga-prawna">Obsługa prawna</a>
+          <a href="?s=pieczec-prewencyjna" data-slug="pieczec-prewencyjna">Pieczęć prewencyjna</a>
+        </div>
+      </div>
+      <a href="Hadynski - Blog.html" class="nav-link">Blog</a>
+      <a href="#" class="nav-link">Giełda wierzytelności</a>
+      <a href="Hadynski - Kontakt.html" class="nav-link">Kontakt</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#" class="login-link">
+        <svg class="lock-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Zaloguj
+      </a>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <a href="Hadynski - Kontakt.html" class="btn btn-outline-red">Zamów rozmowę <span class="arrow">→</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+<article class="service-page" id="service-page" data-slug="windykacja-polubowna">
+
+  <!-- ============== HERO ============== -->
+  <section class="service-hero" data-screen-label="01 Hero usługi">
+    <div class="wrap">
+      <nav class="breadcrumb" aria-label="Ścieżka">
+        <a href="Hadynski.html">Strona główna</a>
+        <span class="sep">/</span>
+        <a href="Hadynski.html#uslugi">Oferta</a>
+        <span class="sep">/</span>
+        <span class="current" data-bind="displayName">Windykacja polubowna</span>
+      </nav>
+      <span class="service-hero-pill" data-bind="kind">Usługa windykacyjna</span>
+      <h1 data-bind="heading">Windykacja <em>polubowna</em></h1>
+      <p class="service-hero-lead" data-bind="lead">Kontakt z dłużnikiem — telefon, e-mail, list — zanim sprawa trafi do sądu. Najszybsza i najtańsza droga do odzyskania pieniędzy.</p>
+      <div class="service-hero-actions">
+        <a href="Hadynski - Kontakt.html" class="btn btn-primary btn-lg">Zamów bezpłatną rozmowę <span class="arrow">→</span></a>
+        <a href="#proces" class="btn btn-ghost btn-lg">Zobacz, jak działamy</a>
+      </div>
+      <div class="service-hero-meta">
+        <div>
+          <div class="meta-label">Czas realizacji</div>
+          <div class="meta-value" data-bind="metaTime">Pierwszy kontakt <strong>w 24h</strong></div>
+        </div>
+        <div>
+          <div class="meta-label">Model wynagrodzenia</div>
+          <div class="meta-value" data-bind="metaPricing">Tylko <strong>od sukcesu</strong></div>
+        </div>
+        <div>
+          <div class="meta-label">Skuteczność</div>
+          <div class="meta-value" data-bind="metaResult">Średnio <strong>83%</strong> spraw</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== NA CZYM POLEGA ============== -->
+  <section class="section" data-screen-label="02 Na czym polega">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow"><span class="num">01</span>Na czym polega</div>
+        <h2 class="section-title" data-bind="whatTitle">Co dokładnie robimy w ramach tej usługi.</h2>
+      </div>
+      <div class="what-grid">
+        <p class="what-lead" data-bind="whatLead">Krótki opis tego, jak prowadzimy sprawę od pierwszego telefonu do odzyskania pieniędzy. Bez prawniczego żargonu, krok po kroku, z pełną transparentnością.</p>
+        <ul class="what-list" data-bind-list="whatList">
+          <!-- wypełniane z SERVICES.whatList -->
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== DLA KOGO ============== -->
+  <section class="section" data-screen-label="03 Dla kogo">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow"><span class="num">02</span>Dla kogo</div>
+        <h2 class="section-title" data-bind="forWhoTitle">Z tej usługi korzystają najczęściej…</h2>
+      </div>
+      <div class="for-who-grid" data-bind-list="forWho">
+        <!-- wypełniane z SERVICES.forWho -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== PROCES ============== -->
+  <section class="section" id="proces" data-screen-label="04 Proces">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow"><span class="num">03</span>Jak to wygląda</div>
+        <h2 class="section-title" data-bind="processTitle">Proces krok po kroku.</h2>
+      </div>
+      <ol class="process-list" data-bind-list="process">
+        <!-- wypełniane z SERVICES.process -->
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============== CENNIK / MODEL WYNAGRODZENIA ============== -->
+  <section class="section" data-screen-label="05 Cennik">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow"><span class="num">04</span>Model wynagrodzenia</div>
+        <h2 class="section-title" data-bind="pricingSection">Płacisz <em>tylko od sukcesu.</em></h2>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-head">
+          <div class="pricing-eyebrow" data-bind="pricingEyebrow">Prowizja od odzyskanej kwoty</div>
+          <h3 data-bind="pricingHead">Bez opłat wstępnych. Bez kosztów ukrytych. <em>Płacimy razem ze sobą</em> — kiedy pieniądze są na Twoim koncie.</h3>
+          <p data-bind="pricingBody">Przed rozpoczęciem sprawy podpisujemy zlecenie z konkretną stawką prowizji. Nie odzyskamy — nic nie płacisz.</p>
+        </div>
+        <div class="pricing-meta">
+          <div class="pricing-meta-row">
+            <span class="lab">Opłata wstępna</span>
+            <span class="val" data-bind="pricingFee"><em>0 zł</em></span>
+          </div>
+          <div class="pricing-meta-row">
+            <span class="lab">Prowizja</span>
+            <span class="val" data-bind="pricingCommission"><em>od 8%</em></span>
+          </div>
+          <div class="pricing-meta-row">
+            <span class="lab">Umowa</span>
+            <span class="val" data-bind="pricingContract">24-godzinna</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== FAQ ============== -->
+  <section class="section" data-screen-label="06 FAQ">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow"><span class="num">05</span>Najczęstsze pytania</div>
+        <h2 class="section-title" data-bind="faqTitle">FAQ — to, o co pytają najczęściej.</h2>
+      </div>
+      <div class="faq-list" data-bind-list="faq">
+        <!-- wypełniane z SERVICES.faq -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== FINAL CTA ============== -->
+  <section class="final-cta" data-screen-label="07 CTA">
+    <div class="wrap">
+      <h2 data-bind="ctaTitle">Sprawdźmy <em>Twoją sprawę</em>.</h2>
+      <p data-bind="ctaBody">15 minut bezpłatnej rozmowy. Powiesz nam o dłużniku, my powiemy, czy bierzemy sprawę i z jaką prowizją.</p>
+      <div class="final-cta-actions">
+        <a href="Hadynski - Kontakt.html" class="btn btn-primary btn-lg">Zamów rozmowę <span class="arrow">→</span></a>
+        <a href="tel:+48717857500" class="btn btn-ghost btn-lg">+48 71 785 75 00</a>
+      </div>
+      <div class="final-cta-note">Płacisz tylko od sukcesu · Wrocław · Cała Polska i Europa</div>
+    </div>
+  </section>
+
+</article>
+</main>
+
+<!-- ============== FOOTER ============== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="footer-mark">H<span class="dot-red">·</span></span>
+          <span class="footer-wordmark">HADYŃSKI INKASO</span>
+        </div>
+        <p>Skuteczna windykacja. Siedziba we Wrocławiu, klienci w całej Polsce i Europie.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Oferta</h4>
+        <ul>
+          <li><a href="?s=windykacja-polubowna">Windykacja polubowna</a></li>
+          <li><a href="?s=windykacja-sadowa">Windykacja sądowa</a></li>
+          <li><a href="?s=skup-wierzytelnosci">Skup wierzytelności</a></li>
+          <li><a href="?s=monitoring-naleznosci">Monitoring należności</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Firma</h4>
+        <ul>
+          <li><a href="Hadynski - Blog.html">Blog</a></li>
+          <li><a href="#">Giełda wierzytelności</a></li>
+          <li><a href="Hadynski - Kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="tel:+48717857500">+48 71 785 75 00</a></li>
+          <li><a href="mailto:biuro@hadynski.pl">biuro@hadynski.pl</a></li>
+          <li>Pn–Pt 8:00–17:00</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <div class="footer-legal-block">
+        <strong>HADYŃSKI INKASO SP. Z O.O.</strong><br/>
+        ul. Powstańców Śląskich 7A, 53-332 Wrocław<br/>
+        NIP: 0000000000 · KRS: 0000000000 · REGON: 000000000
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Hadyński Inkaso Sp. z o.o. Wszelkie prawa zastrzeżone.</span>
+      <span><a href="Hadynski.html#privacy">Polityka prywatności</a> · <a href="Hadynski.html#cookies">Polityka cookies</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============== PREVIEW SWITCHER (usuń w Code) ============== -->
+<aside class="preview-switcher" aria-label="Podgląd usług">
+  <span class="dot"></span>
+  Podgląd
+  <select id="preview-select" aria-label="Wybierz usługę"></select>
+</aside>
+
+<script>
+/* ============================================
+   SERVICES DATA — copy dla 10 podstron usług
+   Code: przepisz na CMS / dane z PRD; każdy obiekt = 1 strona.
+   ============================================ */
+window.SERVICES = {
+
+  /* ====================== 01 ====================== */
+  "windykacja-polubowna": {
+    displayName: "Windykacja polubowna",
+    kind: "Etap przedsądowy",
+    heading: "Windykacja <em>polubowna</em>",
+    lead: "Telefony, e-maile, listy, mediacje — wszystko, by dłużnik zapłacił zanim sprawa trafi do sądu. Najszybsza i najtańsza ścieżka odzyskania pieniędzy.",
+    metaTime: "Pierwszy kontakt <strong>w 24h</strong>",
+    metaPricing: "Tylko <strong>od sukcesu</strong>",
+    metaResult: "Średnio <strong>83%</strong> spraw",
+    whatTitle: "Działamy szybko, ale bez przekraczania granic.",
+    whatLead: "Od pierwszego telefonu do dłużnika do spłaty należności — wszystko zgodnie z prawem, ale z presją, której on wcześniej nie czuł. Większość spraw kończymy w 30 dni.",
+    whatList: [
+      "Weryfikacja dłużnika i analiza dokumentów (faktury, umowy, korespondencja)",
+      "Wysłanie wezwania do zapłaty z indywidualną argumentacją prawną",
+      "Telefoniczny kontakt windykacyjny (negocjator + protokół rozmowy)",
+      "Bezpośrednie spotkania w siedzibie dłużnika, jeśli to konieczne",
+      "Negocjacje warunków spłaty — jednorazowych i ratalnych",
+      "Pełen raport z każdego etapu w panelu klienta"
+    ],
+    forWhoTitle: "Polubowna sprawdzi się, gdy…",
+    forWho: [
+      { glyph: "1", title: "Faktura jest świeża", body: "Do 6 miesięcy zaległości — szybka reakcja działa najmocniej. Im szybciej, tym wyższa skuteczność." },
+      { glyph: "2", title: "Dłużnik nadal działa", body: "Firma kontrahenta funkcjonuje, ma majątek, kontakty. Nie chcemy go „zabić” — chcemy odzyskać pieniądze." },
+      { glyph: "3", title: "Zależy Ci na relacji", body: "To stały klient lub partner. Dobrze poprowadzona windykacja to nie koniec współpracy." }
+    ],
+    processTitle: "Tak wygląda Twoja sprawa od środka.",
+    process: [
+      { title: "Zgłoszenie i analiza", desc: "Przesyłasz dokumenty przez panel lub e-mail. W ciągu 24h dostajesz ocenę szans i propozycję strategii.", meta: "0–24h" },
+      { title: "Wezwanie do zapłaty", desc: "Wysyłamy formalne pismo — zarówno listem poleconym, jak i mailem. Każde wezwanie jest indywidualnie przygotowane.", meta: "Dzień 1–3" },
+      { title: "Kontakt z dłużnikiem", desc: "Negocjator dzwoni, pisze, jedzie. Każda rozmowa jest protokołowana — masz pełen wgląd w panelu.", meta: "Dzień 3–14" },
+      { title: "Negocjacje i ugoda", desc: "Ustalamy warunki — spłatę jednorazową, raty, dodatkowe zabezpieczenia. Wszystko w formie pisemnej.", meta: "Dzień 14–25" },
+      { title: "Spłata i rozliczenie", desc: "Pieniądze wpływają na Twoje konto. My otrzymujemy umówioną prowizję — dopiero teraz.", meta: "Dzień 25–30" }
+    ],
+    pricingSection: "Płacisz <em>tylko od sukcesu.</em>",
+    pricingEyebrow: "Prowizja od odzyskanej kwoty",
+    pricingHead: "Bez opłat wstępnych. Bez kosztów ukrytych. <em>Płacimy razem ze sobą</em> — kiedy pieniądze są na Twoim koncie.",
+    pricingBody: "Przed rozpoczęciem sprawy podpisujemy zlecenie z konkretną stawką prowizji ustaloną indywidualnie na podstawie kwoty, wieku długu i ryzyka.",
+    pricingFee: "<em>0 zł</em>",
+    pricingCommission: "<em>od 8%</em>",
+    pricingContract: "24-godzinna",
+    faqTitle: "FAQ — windykacja polubowna",
+    faq: [
+      { q: "Czy windykacja polubowna jest legalna i etyczna?", a: "Tak. Działamy w 100% w ramach prawa — Kodeks Cywilny, RODO, Kodeks Etyki Windykacyjnej. Nie zastraszamy, nie nachodzimy w domu, nie kontaktujemy osób trzecich. Skuteczność bierze się z konsekwencji i znajomości procedur, nie z presji niezgodnej z prawem." },
+      { q: "Co jeśli dłużnik nie zapłaci mimo windykacji polubownej?", a: "Wtedy płynnie przechodzimy do windykacji sądowej — cała dokumentacja, którą zgromadziliśmy w fazie polubownej (rozmowy, korespondencja, próby ugody), staje się materiałem dowodowym w sądzie. Nie tracisz ani dnia." },
+      { q: "Ile to kosztuje, jeśli nie odzyskacie pieniędzy?", a: "Nic. Działamy w modelu success fee — jeśli dłużnik nie zapłaci, nie wystawiamy żadnej faktury. To Twoje ryzyko zerowe." },
+      { q: "Czy dostanę informację o postępach?", a: "Tak — wszystko widzisz w panelu klienta w czasie rzeczywistym. Każdy telefon, każde wysłane pismo, każda obietnica dłużnika. Możesz też dostawać podsumowania mailem." }
+    ],
+    ctaTitle: "Sprawdźmy <em>Twoją sprawę</em>.",
+    ctaBody: "15 minut bezpłatnej rozmowy. Powiesz nam o dłużniku, my powiemy, czy bierzemy sprawę i z jaką prowizją."
+  },
+
+  /* ====================== 02 ====================== */
+  "windykacja-miedzynarodowa": {
+    displayName: "Windykacja międzynarodowa",
+    kind: "Dłużnik za granicą",
+    heading: "Windykacja <em>międzynarodowa</em>",
+    lead: "Odzyskujemy należności od kontrahentów w UE i poza nią. Lokalni prawnicy w 38 krajach, znajomość przepisów i języków, pełna obsługa w jednym miejscu.",
+    metaTime: "Pierwsza akcja <strong>w 48h</strong>",
+    metaPricing: "Prowizja <strong>od sukcesu</strong>",
+    metaResult: "Sieć <strong>w 38 krajach</strong>",
+    whatTitle: "Lokalna obecność, jedno zlecenie po polsku.",
+    whatLead: "Zamiast szukać prawnika w obcym kraju i tłumaczyć dokumenty, podpisujesz jedną umowę z nami. Resztę — kontakty, język, lokalne procedury — bierzemy na siebie.",
+    whatList: [
+      "Weryfikacja kontrahenta w lokalnych rejestrach (Crefo, D&B, KvK, Companies House i in.)",
+      "Wezwania do zapłaty w języku dłużnika, zgodne z lokalnym prawem",
+      "Negocjacje przez partnerów w kraju dłużnika",
+      "Egzekucja transgraniczna na podstawie EPU / TWE w UE",
+      "Obsługa różnic kursowych i podatków przy rozliczeniu",
+      "Komunikacja z Tobą po polsku — od początku do końca"
+    ],
+    forWhoTitle: "Międzynarodowa działa, gdy…",
+    forWho: [
+      { glyph: "EU", title: "Dłużnik z Unii", body: "Niemcy, Czechy, Włochy, Holandia, Francja — działamy w pełnej procedurze unijnej (EPU, TWE), bez konieczności jeżdżenia za granicę." },
+      { glyph: "UK", title: "Wielka Brytania", body: "Po Brexicie — własna procedura. Mamy partnerów w Londynie i Manchesterze, którzy znają lokalne sądy." },
+      { glyph: "WW", title: "Reszta świata", body: "USA, Turcja, kraje Bałkanów, Bliski Wschód — sieć korespondentów w 38 krajach. Każdy przypadek wyceniany indywidualnie." }
+    ],
+    processTitle: "Zagranica bez wychodzenia z biura.",
+    process: [
+      { title: "Weryfikacja i strategia", desc: "Sprawdzamy, czy dłużnik nadal istnieje, gdzie ma majątek, jakie ma zobowiązania. Dobieramy partnera lokalnego.", meta: "0–48h" },
+      { title: "Wezwanie w języku dłużnika", desc: "Pismo przygotowane przez prawnika z kraju dłużnika, dostosowane do lokalnych norm i procedur.", meta: "Dzień 2–5" },
+      { title: "Negocjacje lokalne", desc: "Nasz partner kontaktuje się bezpośrednio w lokalnym języku — telefon, e-mail, spotkanie. Ty otrzymujesz raport po polsku.", meta: "Dzień 5–30" },
+      { title: "Egzekucja transgraniczna", desc: "Jeśli polubowna nie wystarczy — uruchamiamy procedury sądowe. Często działa już sam fakt ich rozpoczęcia.", meta: "Dzień 30+" },
+      { title: "Spłata i przelew do Polski", desc: "Pieniądze wpływają na rachunek powierniczy, my przeliczamy walutę i przelewamy do Ciebie netto.", meta: "Po wpłacie" }
+    ],
+    pricingSection: "Stawki <em>indywidualne</em> — zależnie od kraju.",
+    pricingEyebrow: "Zależnie od kraju i wartości długu",
+    pricingHead: "Każdy kraj to inna procedura, inne koszty lokalne — dlatego prowizję ustalamy <em>indywidualnie</em>, ale zawsze tylko od kwoty, którą rzeczywiście odzyskasz.",
+    pricingBody: "Przy zleceniu dostajesz przejrzystą wycenę: stawka prowizji + ewentualne koszty sądowe (jeśli wejdą w grę). Wszystko po polsku.",
+    pricingFee: "<em>0 zł</em>",
+    pricingCommission: "<em>od 12%</em>",
+    pricingContract: "Indywidualna",
+    faqTitle: "FAQ — windykacja międzynarodowa",
+    faq: [
+      { q: "W jakich krajach działacie?", a: "Mamy partnerów w 38 krajach — cała Unia Europejska, Wielka Brytania, USA, Kanada, Turcja, Ukraina, kraje bałkańskie, część Azji i Bliskiego Wschodu. Jeśli Twojego kraju nie ma na liście — i tak zadzwoń, niemal zawsze znajdujemy ścieżkę." },
+      { q: "Czy potrzebuję tłumaczeń dokumentów?", a: "Nie. Tłumaczenia bierzemy na siebie — łącznie z tłumaczeniami przysięgłymi, jeśli sprawa idzie do sądu. To jest częścią ustalonego wynagrodzenia." },
+      { q: "Jak długo trwa odzyskanie zagranicznej należności?", a: "Polubowne 30–90 dni, sądowe (UE) 4–12 miesięcy, sądowe (poza UE) 8–18 miesięcy. Każdy kraj ma swoją specyfikę — przed startem dostajesz realistyczną prognozę." },
+      { q: "Co z różnicami kursowymi?", a: "Pieniądze trafiają na nasz rachunek powierniczy, przeliczamy je po kursie z dnia wpłaty (transparentnie), odejmujemy prowizję i przelewamy Ci kwotę netto w PLN albo w walucie." }
+    ],
+    ctaTitle: "Dłużnik za granicą? <em>Pomożemy.</em>",
+    ctaBody: "Wyślij dokumenty — sprawdzimy kontrahenta w lokalnych rejestrach i powiemy, czy sprawa się opłaca, zanim cokolwiek podpiszemy."
+  },
+
+  /* ====================== 03 ====================== */
+  "windykacja-terenowa": {
+    displayName: "Windykacja terenowa",
+    kind: "Bezpośrednia wizyta",
+    heading: "Windykacja <em>terenowa</em>",
+    lead: "Bezpośrednia wizyta naszego negocjatora w siedzibie dłużnika. Tam, gdzie telefon i list już nie działają — działa rozmowa twarzą w twarz.",
+    metaTime: "Wizyta <strong>w 5 dni</strong>",
+    metaPricing: "Tylko <strong>od sukcesu</strong>",
+    metaResult: "<strong>71%</strong> spraw zamykanych",
+    whatTitle: "Wizyta terenowa to ostatni etap przed sądem.",
+    whatLead: "Kiedy dłużnik ignoruje telefony i nie odbiera listów, jedziemy. Negocjator pojawia się osobiście — często to wystarczy, by sprawa ruszyła z miejsca.",
+    whatList: [
+      "Wyjazd na teren w dowolne miejsce w Polsce",
+      "Bezpośrednia rozmowa z dłużnikiem lub osobami decyzyjnymi",
+      "Protokół z wizyty — pismo z podpisami stron",
+      "Negocjacja warunków spłaty na miejscu",
+      "Możliwość odbioru gotówki / karty / przelewu od ręki",
+      "Pełna dokumentacja fotograficzna stanu firmy dłużnika"
+    ],
+    forWhoTitle: "Terenowa działa, gdy…",
+    forWho: [
+      { glyph: "→", title: "Dłużnik się ukrywa", body: "Nie odbiera telefonów, ignoruje listy, nie odpisuje na maile. Wizyta osobista zmienia tę grę." },
+      { glyph: "$", title: "Kwota uzasadnia wyjazd", body: "Od kilku tysięcy w górę — wtedy koszt wizyty terenowej zwraca się wielokrotnie w skuteczności." },
+      { glyph: "T", title: "Sprawa wymaga obserwacji", body: "Chcesz wiedzieć, czy firma dłużnika nadal funkcjonuje, czy ma majątek. Wizyta terenowa daje odpowiedź." }
+    ],
+    processTitle: "Wyjazd, rozmowa, protokół.",
+    process: [
+      { title: "Zlecenie wizyty", desc: "Po analizie sprawy proponujemy wyjazd terenowy. Ustalamy datę i strategię rozmowy.", meta: "Dzień 1–2" },
+      { title: "Przygotowanie dokumentacji", desc: "Negocjator wyjeżdża z kompletem dokumentów, projektem ugody i pełnomocnictwem.", meta: "Dzień 2–4" },
+      { title: "Wizyta i rozmowa", desc: "Negocjator pojawia się osobiście — zazwyczaj bez zapowiedzi. Rozmowa, fotografie, protokół z podpisami.", meta: "Dzień 5" },
+      { title: "Raport po wizycie", desc: "Pełen raport tego samego dnia: czy firma działa, czy są pracownicy, czy są środki, jaka była reakcja.", meta: "Dzień 5" },
+      { title: "Działanie pokontaktowe", desc: "Realizacja ustaleń — spłata jednorazowa, raty albo, jeśli trzeba, eskalacja sądowa.", meta: "Dzień 6+" }
+    ],
+    pricingSection: "<em>Bez kosztów</em> wyjazdu, jeśli się nie uda.",
+    pricingEyebrow: "Wynagrodzenie od sukcesu + zwrot kosztów wyjazdu",
+    pricingHead: "Wyjazd terenowy bierzemy na siebie — koszty paliwa, czasu i logistyki. Płacisz tylko, jeśli <em>odzyskamy pieniądze</em>.",
+    pricingBody: "W zleceniu uzgadniamy stawkę prowizji + zwrot kosztów wyjazdu (zwykle 200–600 zł zależnie od dystansu). Bez sukcesu — żadnych opłat.",
+    pricingFee: "<em>0 zł</em>",
+    pricingCommission: "<em>od 10%</em>",
+    pricingContract: "+ koszty wyjazdu",
+    faqTitle: "FAQ — windykacja terenowa",
+    faq: [
+      { q: "Czy wizyta terenowa jest legalna?", a: "W pełni — to po prostu rozmowa biznesowa w siedzibie kontrahenta. Negocjator nie wchodzi do mieszkania, nie zastrasza, nie blokuje wyjścia. Zachowuje się jak każdy profesjonalny przedstawiciel handlowy." },
+      { q: "Co, jeśli dłużnika nie ma na miejscu?", a: "Sporządzamy protokół, fotografujemy stan firmy (zewnętrznie), zostawiamy pismo. To również jest cenna informacja — czy firma w ogóle funkcjonuje. Wizyta jest udokumentowana i może być dowodem w sądzie." },
+      { q: "Jak daleko jeździcie?", a: "Cała Polska. Mamy negocjatorów w głównych regionach, więc dojazd zazwyczaj nie przekracza 200 km od ich bazy. Nawet do najdalszych zakątków docieramy w ciągu tygodnia." },
+      { q: "Czy mogę pojechać razem z negocjatorem?", a: "W większości przypadków odradzamy — emocje właściciela mogą zaburzyć negocjacje. Ale jeśli to ma znaczenie biznesowe (np. ostatnie spotkanie przed wypowiedzeniem umowy), uzgadniamy warianty wspólnego wyjazdu." }
+    ],
+    ctaTitle: "Dłużnik <em>znika z radaru</em>?",
+    ctaBody: "Wyślij sprawę — przeanalizujemy, czy wyjazd terenowy ma sens, i przygotujemy plan działania."
+  },
+
+  /* ====================== 04 ====================== */
+  "windykacja-sadowa": {
+    displayName: "Windykacja sądowa",
+    kind: "Etap egzekucyjny",
+    heading: "Windykacja <em>sądowa</em>",
+    lead: "Pełne prowadzenie sprawy w sądzie — od pozwu, przez nakaz zapłaty, po komornika. Z gwarancją, że nie utoniesz w papierach.",
+    metaTime: "Pozew <strong>w 7 dni</strong>",
+    metaPricing: "Stała stawka <strong>+ %</strong>",
+    metaResult: "Nakaz w <strong>92%</strong> spraw",
+    whatTitle: "Cała procedura w naszych rękach.",
+    whatLead: "Sąd to nie miejsce na improwizację — jeden błąd formalny opóźnia sprawę o miesiące. Prowadzimy ją od początku do końca: pozew, opłaty, komornik, egzekucja.",
+    whatList: [
+      "Przygotowanie pozwu i kompletu załączników",
+      "Reprezentacja w sądzie (radca prawny / adwokat)",
+      "Postępowanie nakazowe i upominawcze (EPU)",
+      "Klauzula wykonalności i wniosek do komornika",
+      "Wybór skutecznego komornika spośród naszej sieci",
+      "Monitoring egzekucji i ewentualne dalsze kroki"
+    ],
+    forWhoTitle: "Sądowa to właściwa droga, gdy…",
+    forWho: [
+      { glyph: "✕", title: "Polubowna zawiodła", body: "Wezwania, telefony, wizyty — nie pomogły. Czas na formalną drogę." },
+      { glyph: "T", title: "Sprawa się przedawnia", body: "Liczy się każdy tydzień. Pozew zatrzymuje bieg przedawnienia natychmiast." },
+      { glyph: "$", title: "Dłużnik ma majątek", body: "Wiemy (lub sprawdzamy), że jest co egzekwować — komornik nie wraca z pustymi rękami." }
+    ],
+    processTitle: "Od pozwu do pieniędzy.",
+    process: [
+      { title: "Analiza i wycena sprawy", desc: "Sprawdzamy szanse, koszty i terminy. Mówimy wprost, czy warto iść do sądu.", meta: "Dzień 1–3" },
+      { title: "Pozew i opłaty", desc: "Przygotowujemy pozew. Opłatę sądową możesz zapłacić sam albo my — z rozliczeniem później.", meta: "Dzień 3–7" },
+      { title: "Nakaz zapłaty", desc: "Sąd wydaje nakaz — w EPU często w 2–4 tygodnie. Dłużnik ma 14 dni na sprzeciw.", meta: "Dzień 30–60" },
+      { title: "Klauzula wykonalności", desc: "Po uprawomocnieniu nakazu uzyskujemy klauzulę i tytuł wykonawczy.", meta: "Dzień 60–90" },
+      { title: "Komornik i egzekucja", desc: "Wybieramy skutecznego komornika, monitorujemy egzekucję, podpowiadamy kolejne kroki.", meta: "Dzień 90+" }
+    ],
+    pricingSection: "Niska <em>stała stawka</em> + prowizja od sukcesu.",
+    pricingEyebrow: "Stała opłata + procent",
+    pricingHead: "Sąd ma swoje koszty — opłatę sądową, ewentualnego biegłego. Dlatego nasze wynagrodzenie ma <em>dwa elementy</em>: niską stawkę za prowadzenie + prowizję od odzyskanej kwoty.",
+    pricingBody: "Wszystko zapisane w umowie z góry. Bez ukrytych opłat, bez doliczania w trakcie. Opłatę sądową odzyskujesz w 100% od dłużnika — to ustawa.",
+    pricingFee: "od <em>500 zł</em>",
+    pricingCommission: "<em>od 8%</em>",
+    pricingContract: "Indywidualna",
+    faqTitle: "FAQ — windykacja sądowa",
+    faq: [
+      { q: "Czy odzyskam koszty sądowe?", a: "Tak — opłata sądowa, koszty zastępstwa procesowego i odsetki ustawowe są zasądzane od dłużnika i ściągane razem z należnością główną. To jest standard w polskim postępowaniu cywilnym." },
+      { q: "Ile trwa cała procedura?", a: "EPU (e-pozew): 6–10 tygodni do nakazu, 3–6 miesięcy do egzekucji. Postępowanie zwykłe: 4–12 miesięcy. Z komornikiem dochodzą 2–6 miesięcy egzekucji." },
+      { q: "Co jeśli dłużnik wniesie sprzeciw?", a: "Sprzeciw kieruje sprawę do postępowania zwykłego — wtedy jest rozprawa, świadkowie, dokumenty. Reprezentujemy Cię od początku do końca; Twoja obecność na sali sądowej zwykle nie jest potrzebna." },
+      { q: "Co, jeśli komornik nic nie wyegzekwuje?", a: "Wtedy mamy plan B: zmiana komornika na bardziej skutecznego, ujawnienie majątku, postępowanie wobec spółki-córki, czasem skierowanie do upadłości. Nie zostawiamy spraw bez nadzoru." }
+    ],
+    ctaTitle: "<em>Czas</em> nie pracuje na Twoją korzyść.",
+    ctaBody: "Roszczenia się przedawniają. Im wcześniej zaczniemy, tym większa szansa na pełne odzyskanie."
+  },
+
+  /* ====================== 05 ====================== */
+  "skup-wierzytelnosci": {
+    displayName: "Skup wierzytelności",
+    kind: "Cesja długu",
+    heading: "Skup <em>wierzytelności</em>",
+    lead: "Sprzedaj nam swoją wierzytelność i odzyskaj pieniądze od ręki. My przejmujemy całe ryzyko i sami ścigamy dłużnika.",
+    metaTime: "Wycena <strong>w 48h</strong>",
+    metaPricing: "Płatność <strong>z góry</strong>",
+    metaResult: "<strong>Bez ryzyka</strong> dla Ciebie",
+    whatTitle: "Zamiast czekać miesiącami — bierzesz pieniądze dziś.",
+    whatLead: "Cesja wierzytelności = przeniesienie długu z Ciebie na nas. Płacimy Ci procent kwoty od ręki, a sami zajmujemy się odzyskaniem reszty. Twoje ryzyko spada do zera.",
+    whatList: [
+      "Wycena wierzytelności w 48 godzin",
+      "Umowa cesji — prosta, jednostronicowa, sprawdzona",
+      "Płatność na konto natychmiast po podpisaniu",
+      "Pełne przeniesienie ryzyka egzekucji na nas",
+      "Brak dalszych obowiązków po Twojej stronie",
+      "Dyskrecja — nie musisz informować dłużnika sam"
+    ],
+    forWhoTitle: "Skup ma sens, gdy…",
+    forWho: [
+      { glyph: "$", title: "Potrzebujesz cashu", body: "Zaraz, nie za rok. Jedna szybka wpłata zamiast długiej egzekucji o niepewnym wyniku." },
+      { glyph: "T", title: "Sprawa się ciągnie", body: "Już rok windykacji bez efektu. Zamiast inwestować dalej — zamknij temat i rusz dalej." },
+      { glyph: "?", title: "Nie chcesz ryzykować", body: "Komornik może nic nie wyegzekwować. Cesja przenosi to ryzyko z Ciebie na nas." }
+    ],
+    processTitle: "Sprzedaż w 4 krokach.",
+    process: [
+      { title: "Zgłoszenie i dokumenty", desc: "Wysyłasz fakturę, umowę i ewentualną dotychczasową korespondencję z dłużnikiem.", meta: "Dzień 1" },
+      { title: "Wycena", desc: "Analizujemy: kwotę, wiek długu, majątek dłużnika, dokumentację. Wracamy z konkretną ofertą.", meta: "Dzień 1–2" },
+      { title: "Umowa cesji", desc: "Podpisujemy proste, jednostronicowe porozumienie — papierowo lub elektronicznie.", meta: "Dzień 2–3" },
+      { title: "Pieniądze na koncie", desc: "Tego samego dnia, w którym podpisujesz umowę, pieniądze trafiają na Twoje konto.", meta: "Dzień 3" }
+    ],
+    pricingSection: "Cena = <em>realna wartość</em> długu.",
+    pricingEyebrow: "Wycena indywidualna",
+    pricingHead: "Wartość, którą oferujemy, zależy od trzech rzeczy: <em>kwoty, wieku</em> i <em>siły dokumentacji</em>. Im świeższa i lepiej udokumentowana wierzytelność, tym wyższa cena.",
+    pricingBody: "Świeże faktury z silną dokumentacją: 60–80% wartości. Stare i sporne: 20–40%. Każdą sprawę wyceniamy indywidualnie po analizie dokumentów.",
+    pricingFee: "<em>0 zł</em>",
+    pricingCommission: "60–80%",
+    pricingContract: "Cesja długu",
+    faqTitle: "FAQ — skup wierzytelności",
+    faq: [
+      { q: "Co kupujecie, a czego nie?", a: "Kupujemy wierzytelności B2B (firma od firmy), z udokumentowaną podstawą (faktura, umowa). Kupujemy długi przed i po wyroku, polskie i zagraniczne. Nie kupujemy długów konsumenckich poniżej 5 tys. zł oraz wierzytelności już przedawnionych." },
+      { q: "Ile dostanę za moją fakturę?", a: "Indywidualna wycena. Świeże, dobrze udokumentowane sprawy: zwykle 60–80% wartości. Stare lub sporne: 20–40%. Po analizie dokumentów dostajesz konkretną ofertę — bez negocjacji w stylu „a ile pan da”." },
+      { q: "Czy dłużnik dowie się, że sprzedałem dług?", a: "Tak, ale dopiero po cesji — to wymóg prawa. Wysyłamy do niego pismo z informacją, że nowym wierzycielem jesteśmy my. Twoja relacja z nim się tu kończy — od tego momentu my jesteśmy jego rozmówcą." },
+      { q: "Czy mogę odzyskać większą część, idąc samemu do sądu?", a: "Może tak, może nie. Cesja to wybór: pewne pieniądze dziś vs. potencjalnie większa kwota za rok lub dwa, z ryzykiem braku egzekucji. Wielu przedsiębiorców woli pewność." }
+    ],
+    ctaTitle: "Sprzedaj <em>dług, nie nerwy</em>.",
+    ctaBody: "Wyślij dokumenty — w 48 godzin dostaniesz konkretną wycenę. Bez zobowiązań."
+  },
+
+  /* ====================== 06 ====================== */
+  "poszukiwanie-majatku": {
+    displayName: "Poszukiwanie majątku dłużnika",
+    kind: "Detektywistyka biznesowa",
+    heading: "Poszukiwanie <em>majątku dłużnika</em>",
+    lead: "Sprawdzamy, co dłużnik naprawdę posiada — nieruchomości, konta, samochody, udziały, należności od jego klientów. Bez tego komornik nie ma czego ścigać.",
+    metaTime: "Raport <strong>w 14 dni</strong>",
+    metaPricing: "Stała <strong>opłata</strong>",
+    metaResult: "<strong>Wszystkie</strong> źródła",
+    whatTitle: "Jeśli komornik nie wie czego szukać — egzekucja jest bezskuteczna.",
+    whatLead: "Większość spraw przegrywa się nie w sądzie, tylko u komornika — bo dłużnik formalnie „nic nie ma”. My szukamy tego, co ukrywa: w rejestrach, źródłach branżowych, sieciach powiązań.",
+    whatList: [
+      "Sprawdzenie ksiąg wieczystych (cała Polska)",
+      "Rachunki bankowe — pełen wykaz w polskich bankach",
+      "Pojazdy w Centralnej Ewidencji (CEPiK)",
+      "Udziały w spółkach (KRS, beneficjenci rzeczywisci)",
+      "Wierzytelności dłużnika wobec jego klientów",
+      "Powiązania osobowe (małżonek, ukryte firmy „słupy”)"
+    ],
+    forWhoTitle: "Szukanie majątku potrzebne, gdy…",
+    forWho: [
+      { glyph: "0", title: "Komornik wraca z niczym", body: "Postanowienie o bezskuteczności egzekucji — to nie koniec. Trzeba zacząć szukać tam, gdzie komornik nie zajrzał." },
+      { glyph: "?", title: "Nie wiesz, co dłużnik ma", body: "Przed pozwem warto wiedzieć, czy w ogóle warto. Wiedza o majątku zmienia decyzje." },
+      { glyph: "→", title: "Dłużnik ucieka z aktywami", body: "Czujesz, że firma jest „wydrażana” — szybkie sprawdzenie pozwala działać zawczasu." }
+    ],
+    processTitle: "Praca detektywa biznesowego.",
+    process: [
+      { title: "Zlecenie i zakres", desc: "Ustalamy, czego konkretnie szukamy: nieruchomości, banki, pojazdy, udziały, powiązania.", meta: "Dzień 1–2" },
+      { title: "Zapytania w rejestrach", desc: "Występujemy do KW, CEPiK, KRS, banków (jeśli mamy tytuł wykonawczy), CRBR.", meta: "Dzień 2–10" },
+      { title: "Analiza powiązań", desc: "Sprawdzamy spółki rodzinne, „słupy”, przesunięcia majątkowe (skarga pauliańska?).", meta: "Dzień 5–12" },
+      { title: "Raport końcowy", desc: "Konkretny dokument: co dłużnik ma, gdzie i ile to warte. Z numerami ksiąg, kontami, rejestracjami.", meta: "Dzień 14" },
+      { title: "Rekomendacja działań", desc: "Mówimy wprost, czy warto iść do sądu, jakiego komornika wybrać, czy zgłaszać upadłość.", meta: "Dzień 14" }
+    ],
+    pricingSection: "Stała opłata — <em>żadnych niespodzianek</em>.",
+    pricingEyebrow: "Pakiet ryczałtowy",
+    pricingHead: "Cena ustalona <em>z góry</em>, niezależnie od tego, co znajdziemy. Dostajesz raport — albo jasne stwierdzenie, że dłużnik faktycznie nic nie ma.",
+    pricingBody: "W cenie pakietu — wszystkie podstawowe rejestry. Rozszerzenia (zagranica, dochodzenia operacyjne) wyceniamy osobno przed startem.",
+    pricingFee: "<em>od 1 200 zł</em>",
+    pricingCommission: "ryczałt",
+    pricingContract: "Pakiet 14 dni",
+    faqTitle: "FAQ — poszukiwanie majątku",
+    faq: [
+      { q: "Czy to legalne — czy to nie inwigilacja?", a: "Wszystkie nasze działania mieszczą się w ramach prawa o dostępie do informacji publicznej, prawa o bankach (przy posiadaniu tytułu wykonawczego), oraz innych podstaw prawnych. Nie hakujemy, nie kupujemy danych z czarnego rynku, nie nachodzimy w domu." },
+      { q: "Co jeśli dłużnik faktycznie nic nie ma?", a: "Też dostajesz raport — z konkretnym stwierdzeniem „brak majątku w ujawnionych źródłach”. To bezcenna informacja: nie tracisz czasu i pieniędzy na egzekucję, która nie ma szans." },
+      { q: "Czy znajdziecie ukryte konta zagraniczne?", a: "Częściowo — przez rejestry beneficjentów rzeczywistych w UE, struktury spółkowe, czasem przez kontrahentów. Pełna „rentgen” zagraniczny wymaga współpracy z prawnikiem międzynarodowym (osobny pakiet)." },
+      { q: "Czy to działa razem z windykacją sądową?", a: "Najlepiej tak — najpierw wiemy, czego szukać, potem ścigamy. Wielu naszych klientów zleca poszukiwanie zanim w ogóle złoży pozew, żeby ocenić, czy gra jest warta świeczki." }
+    ],
+    ctaTitle: "<em>Wiedz</em>, zanim wydasz na sąd.",
+    ctaBody: "Sprawdzimy, czy gra jest warta świeczki. Pełen raport o majątku dłużnika — w 14 dni."
+  },
+
+  /* ====================== 07 ====================== */
+  "wywiad-gospodarczy": {
+    displayName: "Wywiad gospodarczy",
+    kind: "Sprawdzenie kontrahenta",
+    heading: "Wywiad <em>gospodarczy</em>",
+    lead: "Pełen rentgen kontrahenta zanim podpiszesz umowę. Kondycja finansowa, historia płatnicza, sygnały ryzyka — w jednym raporcie.",
+    metaTime: "Raport <strong>w 24h</strong>",
+    metaPricing: "Stała <strong>cena</strong>",
+    metaResult: "<strong>30+</strong> źródeł danych",
+    whatTitle: "Lepiej zapobiegać niż windykować.",
+    whatLead: "70% problemów windykacyjnych zaczyna się od jednej decyzji — zaufania kontrahentowi, którego nie sprawdziłeś. Wywiad gospodarczy w 24 godziny mówi Ci, czy warto.",
+    whatList: [
+      "Pełna historia rejestrowa firmy (KRS, CEIDG, NIP, REGON)",
+      "Wskaźniki finansowe (jeśli składa sprawozdania)",
+      "Historia opóźnień w płatnościach (BIG, KRD, ERIF)",
+      "Postępowania sądowe — czynne i zakończone",
+      "Powiązania osobowe i kapitałowe",
+      "Ocena ryzyka 1–10 z konkretnym uzasadnieniem"
+    ],
+    forWhoTitle: "Wywiad robi się, gdy…",
+    forWho: [
+      { glyph: "+", title: "Wchodzisz w nowego klienta", body: "Limit kupiecki, długi termin płatności, dużo opłat z góry — sprawdź, zanim zaufasz." },
+      { glyph: "$", title: "Negocjujesz duży kontrakt", body: "Wartość kontraktu uzasadnia wydatek 200–500 zł na sprawdzenie partnera. Standard w korpo." },
+      { glyph: "!", title: "Sygnały ostrzegawcze", body: "Kontrahent zaczął się spóźniać, branża szumi — to czas na drugi rentgen." }
+    ],
+    processTitle: "Tylko trzy kroki.",
+    process: [
+      { title: "Zlecenie", desc: "Wskazujesz nazwę firmy, NIP albo KRS. Wybierasz pakiet (Standard / Pro / Premium).", meta: "Dzień 0" },
+      { title: "Analiza w 24h", desc: "Nasz analityk przeczesuje 30+ źródeł, składa pełen obraz kondycji firmy.", meta: "Dzień 1" },
+      { title: "Raport i rekomendacja", desc: "Dostajesz PDF z konkretną oceną ryzyka 1–10 i rekomendacją: zaufaj / ostrożnie / unikaj.", meta: "Dzień 1" }
+    ],
+    pricingSection: "Trzy pakiety, <em>jasne ceny</em>.",
+    pricingEyebrow: "Standard / Pro / Premium",
+    pricingHead: "Wybierasz pakiet zależnie od wagi decyzji. Standard — szybki rentgen do <em>200 zł</em>. Premium — pełna analiza wraz z wywiadem osobowym.",
+    pricingBody: "Wszystkie pakiety w 24 godziny. Subskrypcja roczna z dużym rabatem dla firm sprawdzających klientów regularnie.",
+    pricingFee: "od <em>149 zł</em>",
+    pricingCommission: "ryczałt",
+    pricingContract: "1 raport / abonament",
+    faqTitle: "FAQ — wywiad gospodarczy",
+    faq: [
+      { q: "Co dokładnie jest w raporcie Standard / Pro / Premium?", a: "Standard: historia rejestrowa, BIG/KRD/ERIF, postępowania sądowe, ocena ryzyka. Pro: + wskaźniki finansowe, powiązania kapitałowe, branża, konkurenci. Premium: + wywiad osobowy z właścicielem/zarządem, analiza branżowa, rekomendacje strategiczne." },
+      { q: "Czy raport jest aktualny?", a: "Tak — generujemy go w czasie rzeczywistym z aktualnych źródeł. Datę i godzinę widać na każdej stronie raportu. Jeśli sprawdzasz tę samą firmę 6 miesięcy później, polecamy świeży raport (płacisz 50% ceny)." },
+      { q: "Co, jeśli kontrahent się dowie?", a: "Standard i Pro — kontrahent się nie dowie, korzystamy wyłącznie ze źródeł publicznych i rejestrów płatniczych, których odpytanie nie generuje powiadomienia. Premium z wywiadem osobowym — tutaj kontrahent wie, że pojawiamy się w roli analityka." },
+      { q: "Czy ten raport ma wartość dowodową w sądzie?", a: "Tak — to oficjalne źródła (KRS, BIG, sądowe rejestry), które są pełnoprawnymi dowodami. Wykorzystywane są często w postępowaniach o uznanie cesji za pozorną, w skardze pauliańskiej, w ocenie należytej staranności." }
+    ],
+    ctaTitle: "<em>Sprawdź</em>, zanim podpiszesz.",
+    ctaBody: "200 zł oszczędza zwykle 200 tys. nieodzyskanej faktury. Zamów raport — będzie u Ciebie jutro."
+  },
+
+  /* ====================== 08 ====================== */
+  "monitoring-naleznosci": {
+    displayName: "Monitoring należności",
+    kind: "Prewencja",
+    heading: "Monitoring <em>należności</em>",
+    lead: "Bierzemy na siebie pilnowanie terminów i miękkie ponaglenia. Twoi klienci dostają subtelne przypomnienia, a Ty dostajesz pieniądze na czas.",
+    metaTime: "Działa <strong>codziennie</strong>",
+    metaPricing: "Abonament <strong>od 199 zł</strong>",
+    metaResult: "<strong>−40%</strong> opóźnień",
+    whatTitle: "Cashflow bez napięć i niezręcznych telefonów.",
+    whatLead: "Sam dzwonisz po faktury? Nie powinieneś. Monitoring to system, który robi to za Ciebie — tak, by relacja z klientem pozostała dobra, a pieniądze wpłynęły na czas.",
+    whatList: [
+      "Zaplanowane przypomnienia w Twoim brandingu",
+      "Eskalacja: SMS → e-mail → telefon → wezwanie",
+      "Integracja z Twoim systemem fakturowania",
+      "Rzeczywisty obraz wszystkich nieopłaconych faktur",
+      "Automatyczne eskalowanie do windykacji polubownej",
+      "Miesięczny raport — kto płaci, kto nie"
+    ],
+    forWhoTitle: "Monitoring jest dla firm, które…",
+    forWho: [
+      { glyph: "B2B", title: "Wystawiają dużo faktur", body: "20+ faktur miesięcznie? Pilnowanie ręczne kosztuje więcej niż abonament." },
+      { glyph: "$", title: "Mają napięty cashflow", body: "Każdy tydzień opóźnienia boli. Przypomnienie w dniu 0 vs. wezwanie w dniu 30 to inny świat." },
+      { glyph: "+", title: "Cenią relacje z klientem", body: "Subtelny przypomnik z Twojej księgowej zamiast windykatora — nikt się nie obraża." }
+    ],
+    processTitle: "Setup w jeden dzień.",
+    process: [
+      { title: "Konfiguracja", desc: "Łączymy się z Twoim systemem (Comarch, Subiekt, iFirma, Fakturownia, własny) lub uruchamiamy formularz CSV.", meta: "Dzień 1" },
+      { title: "Ustawienie reguł", desc: "Definiujemy schemat eskalacji: kiedy SMS, kiedy mail, kiedy telefon, jaki ton, kto się podpisuje.", meta: "Dzień 1–2" },
+      { title: "Działanie ciche", desc: "System pracuje codziennie. Twoi klienci dostają przypomnienia z Twojej domeny, my je przygotowujemy.", meta: "Codziennie" },
+      { title: "Eskalacja", desc: "Jeśli klient nie reaguje 14 dni — automatycznie sprawa idzie do naszego działu windykacji polubownej.", meta: "Dzień 30+" },
+      { title: "Raporty", desc: "Co miesiąc dostajesz podsumowanie: ile faktur, ile zapłacono na czas, ile po terminie.", meta: "Co miesiąc" }
+    ],
+    pricingSection: "Abonament <em>zwraca się</em> w pierwszym tygodniu.",
+    pricingEyebrow: "Trzy plany abonamentowe",
+    pricingHead: "<em>Mały biznes</em> 199 zł / m-c — do 50 faktur. <em>Średni</em> 499 zł — do 200. <em>Enterprise</em> — bez limitu, dedykowany opiekun.",
+    pricingBody: "W każdym pakiecie: nieograniczona liczba przypomnień, integracja z 12 systemami fakturującymi, miesięczny raport, automatyczne eskalowanie do windykacji.",
+    pricingFee: "od <em>199 zł</em>",
+    pricingCommission: "/ miesiąc",
+    pricingContract: "Bez zobowiązań",
+    faqTitle: "FAQ — monitoring należności",
+    faq: [
+      { q: "Czy klient zauważy, że to nie ja dzwonię?", a: "Nie — w pakietach Pro i Enterprise wszystkie maile, SMS-y i telefony są w Twoim brandingu i z Twojego numeru. Klient widzi je jak normalną korespondencję od Ciebie. To jest cała magia: system działa, ale Twoja relacja pozostaje osobista." },
+      { q: "Co, jeśli klient i tak nie zapłaci?", a: "Po ustalonym czasie (zwykle 30 dni od pierwszego przypomnienia) sprawa automatycznie przechodzi do naszego działu windykacji polubownej — z pełną historią kontaktów. Brak luki, brak ręcznego przekazywania." },
+      { q: "Z jakimi systemami fakturującymi się integrujecie?", a: "Comarch (Optima, ERP XL), Subiekt GT, Subiekt Nexo, iFirma, Fakturownia, inFakt, Wfirma, FakturaXL, Symfonia, Enova, własny system przez API. Brak Twojego? Importujesz CSV / wysyłasz mailem listę." },
+      { q: "Czy mogę zrezygnować w każdej chwili?", a: "Tak — abonament jest miesięczny, bez zobowiązań rocznych, bez kar za rezygnację. Wypowiadasz w panelu, kończymy w dniu zakończenia okresu rozliczeniowego." }
+    ],
+    ctaTitle: "Pierwsze 14 dni <em>za darmo</em>.",
+    ctaBody: "Skonfigurujemy Ci system w 1 dzień — pokażemy, jak działa na Twoich realnych fakturach, bez płacenia."
+  },
+
+  /* ====================== 09 ====================== */
+  "obsluga-prawna": {
+    displayName: "Obsługa prawna",
+    kind: "Wsparcie kancelarii",
+    heading: "Obsługa <em>prawna</em>",
+    lead: "Stała kancelaria po Twojej stronie — od opiniowania umów po reprezentację w sądzie. Specjalizujemy się w windykacji, ale obsługujemy szeroko.",
+    metaTime: "Pierwsza opinia <strong>w 48h</strong>",
+    metaPricing: "Stawka godzinowa <strong>lub abonament</strong>",
+    metaResult: "<strong>15 lat</strong> praktyki",
+    whatTitle: "Kancelaria, która myśli jak biznes.",
+    whatLead: "Dobra umowa zapobiega 80% przyszłych windykacji. Nasi prawnicy przeszli przez tysiące spraw — wiedzą nie tylko, jak ułożyć kontrakt, ale i jak będzie czytany w sądzie.",
+    whatList: [
+      "Opiniowanie i przygotowywanie umów handlowych",
+      "Wezwania i pisma procesowe",
+      "Reprezentacja przed sądami i KIO",
+      "Doradztwo przy windykacji i upadłości",
+      "Skarga pauliańska, postępowania kuratorskie",
+      "Pełna obsługa abonamentowa firm"
+    ],
+    forWhoTitle: "Obsługa prawna ma sens dla…",
+    forWho: [
+      { glyph: "B2B", title: "Firmy z dużym wolumenem umów", body: "Codziennie podpisujesz nowe kontrakty? Dedykowany prawnik za stałą stawkę zwraca się w pierwszym miesiącu." },
+      { glyph: "+", title: "Firmy w sporach", body: "Reprezentujemy w sądzie, prowadzimy negocjacje, pilnujemy terminów — by Ty mógł prowadzić biznes." },
+      { glyph: "?", title: "Firmy w ryzyku", body: "Restrukturyzacja, upadłość kontrahenta, sankcje — sprawy wymagające specjalisty od pierwszego dnia." }
+    ],
+    processTitle: "Współpraca, jaką wybierasz.",
+    process: [
+      { title: "Pierwsza rozmowa", desc: "30 min bezpłatnie — opisujesz sprawę, my mówimy, czy i jak możemy pomóc.", meta: "0–48h" },
+      { title: "Wybór formy", desc: "Pojedyncza usługa (godziny), pakiet (np. opiniowanie 5 umów), abonament (stała opieka).", meta: "Dzień 1–3" },
+      { title: "Praca", desc: "Pełna komunikacja przez panel klienta — dokumenty, korespondencja, rozliczenia w jednym miejscu.", meta: "Bieżąco" },
+      { title: "Raporty i rozliczenia", desc: "Miesięcznie dostajesz zestawienie spraw, godzin, kosztów — bez faktur-niespodzianek.", meta: "Co miesiąc" }
+    ],
+    pricingSection: "Trzy modele — dobierasz <em>do biznesu</em>.",
+    pricingEyebrow: "Godzinowo / pakiety / abonament",
+    pricingHead: "<em>Godzinowo</em> od 280 zł netto. <em>Pakiety</em> od 1 200 zł (np. 5 umów). <em>Abonament</em> od 1 800 zł / m-c — stała opieka, priorytet.",
+    pricingBody: "W abonamencie: ustalona pula godzin co miesiąc + niewykorzystane przechodzą na kolejny okres. Specjalne stawki dla stałych klientów windykacyjnych.",
+    pricingFee: "od <em>280 zł / h</em>",
+    pricingCommission: "lub abonament",
+    pricingContract: "Pojedyncza / pakiet / m-c",
+    faqTitle: "FAQ — obsługa prawna",
+    faq: [
+      { q: "Jaka jest różnica między obsługą u Was a u typowej kancelarii?", a: "Specjalizacja. Większość kancelarii ogólnych obsługuje od rozwodów po nieruchomości. My — wyłącznie firmy, z mocnym backgroundem w windykacji i sporach handlowych. To oznacza krótszy czas reakcji i lepszą cenę za godzinę specjalisty." },
+      { q: "Czy obsługujecie też klientów spoza windykacji?", a: "Tak — pełen zakres prawa gospodarczego: umowy, spory korporacyjne, ochrona danych (RODO), sprawy pracownicze, restrukturyzacja. Windykacja jest naszą specjalizacją, ale stanowi około połowy spraw." },
+      { q: "Czy mogę kupić pojedynczą usługę bez abonamentu?", a: "Tak — wiele osób zaczyna od pojedynczej opinii albo jednego pisma. Jeśli sprawa się przedłuża, łatwo przechodzimy na rozliczenie godzinowe albo abonament. Bez wpychania pakietów na siłę." },
+      { q: "Kto będzie moim głównym kontaktem?", a: "Dedykowany prawnik prowadzący — zwykle radca prawny z 5–15-letnim doświadczeniem. Każda sprawa ma jednego głównego opiekuna, który Cię zna i który decyduje, kiedy włączyć innych specjalistów (np. doradcę podatkowego)." }
+    ],
+    ctaTitle: "Pierwsza rozmowa <em>za zero</em>.",
+    ctaBody: "Opowiedz o sprawie — w 30 minut wiesz, czy potrzebujesz prawnika, jakiego i ile to kosztuje."
+  },
+
+  /* ====================== 10 ====================== */
+  "pieczec-prewencyjna": {
+    displayName: "Pieczęć prewencyjna",
+    kind: "Profilaktyka",
+    heading: "Pieczęć <em>prewencyjna</em>",
+    lead: "Stempel na fakturze i w stopce maila, który mówi dłużnikowi: jeśli się spóźnisz, sprawa od razu trafia do windykacji. Działa bez Twojego udziału.",
+    metaTime: "Wdrożenie <strong>w 1 dzień</strong>",
+    metaPricing: "Roczny <strong>ryczałt</strong>",
+    metaResult: "<strong>−25%</strong> opóźnień",
+    whatTitle: "Najtańszy sposób, by faktury były płacone na czas.",
+    whatLead: "Sam komunikat „w razie opóźnienia sprawa trafia do Hadyński Inkaso” zmienia zachowanie kontrahentów. Płacą szybciej — bo wiedzą, że za fakturą stoi profesjonalna windykacja.",
+    whatList: [
+      "Pieczęć / grafika do faktur (PDF, druk)",
+      "Banner do stopki e-maili i fakturowania",
+      "Logo do umów handlowych",
+      "Strona „weryfikacji” — kontrahent może sprawdzić Twoje uprawnienie",
+      "Automatyczna eskalacja do windykacji po terminie",
+      "Roczny pakiet — bez dopłat za ilość faktur"
+    ],
+    forWhoTitle: "Pieczęć działa, gdy…",
+    forWho: [
+      { glyph: "B2B", title: "Pracujesz z B2B", body: "Twoi klienci to firmy, które mają księgowość — przypominasz im, że są profesjonalnym podmiotem ze zobowiązaniami." },
+      { glyph: "+", title: "Wystawiasz dużo faktur", body: "Im więcej faktur w obrocie, tym większy efekt prewencyjny. Każda jest „głośnikiem” Twojej polityki płatności." },
+      { glyph: "$", title: "Małe i średnie firmy", body: "Bez dużego działu prawnego — pieczęć daje wagę „korpo”, którą sam byś musiał budować latami." }
+    ],
+    processTitle: "Aktywacja w jeden dzień.",
+    process: [
+      { title: "Zlecenie", desc: "Wybierasz pakiet, podajesz dane firmy, akceptujesz warunki (1 strona PDF).", meta: "Dzień 1" },
+      { title: "Pakiet graficzny", desc: "Otrzymujesz w mailu: pieczęć w PNG/SVG, banner do stopki, logo do umów. Zoptymalizowane pod druk i ekran.", meta: "Dzień 1" },
+      { title: "Wdrożenie", desc: "Wstawiasz w szablon faktur i podpisu. Pomagamy z głównymi systemami — Subiekt, Comarch, Fakturownia.", meta: "Dzień 1–2" },
+      { title: "Działanie ciche", desc: "Pieczęć pracuje na każdej fakturze. Klienci widzą i pamiętają. Statystyki widzisz w panelu.", meta: "Codziennie" },
+      { title: "Eskalacja", desc: "Jeśli klient mimo wszystko się spóźnia — sprawa idzie do windykacji w preferencyjnej cenie (jako użytkownik pieczęci).", meta: "Po terminie" }
+    ],
+    pricingSection: "<em>Roczny abonament</em>, bez limitu faktur.",
+    pricingEyebrow: "Trzy pakiety — Solo / Biznes / Premium",
+    pricingHead: "<em>Solo</em> 690 zł / rok — pieczęć + banner. <em>Biznes</em> 1 290 zł — + dedykowana strona weryfikacji. <em>Premium</em> 2 490 zł — + 5 spraw windykacyjnych w prowizji 0%.",
+    pricingBody: "Wszystkie pakiety: bez limitu faktur, bez ukrytych opłat, jeden roczny ryczałt. Faktura na początek roku, zwrot proporcjonalny przy rezygnacji.",
+    pricingFee: "od <em>690 zł / rok</em>",
+    pricingCommission: "ryczałt",
+    pricingContract: "Roczny",
+    faqTitle: "FAQ — pieczęć prewencyjna",
+    faq: [
+      { q: "Czy to działa? Skąd te 25% mniej opóźnień?", a: "Z naszych statystyk z ponad 800 klientów rok w rok. To badanie wewnętrzne, ale potwierdzone przez większe analizy branżowe — sam komunikat o profesjonalnej windykacji w stopce faktury skraca średni czas płatności o 25–35%. Jest to znane zjawisko psychologiczne: presja społeczna." },
+      { q: "Czy mogę używać pieczęci, jeśli nie zlecam Wam windykacji?", a: "Tak — z jednym warunkiem. Pieczęć stanowi zobowiązanie, że w razie sporu sprawa wpłynie do nas. Jeśli klient nie zapłaci i Ty zdecydujesz się na innego windykatora — to Twoja decyzja, ale konsekwencja jest taka, że pieczęć przestaje być wiarygodna dla Twoich kontrahentów." },
+      { q: "Co dostaję w pakiecie graficznym?", a: "Pieczęć w 3 wariantach (kolorowa, czarno-biała, do druku), banner do stopki e-mail (PNG i HTML), logo do umów (SVG), wzór klauzuli prawnej do regulaminu. Wszystko w jednym ZIP, dostarczane w ciągu kilku godzin od zamówienia." },
+      { q: "Co, jeśli klient zlekceważy pieczęć?", a: "Wtedy sprawa idzie do nas — i jako użytkownik pieczęci masz preferencyjną stawkę prowizji (zwykle −2 do −4 punkty procentowe niż standardowa). Czyli pieczęć działa nawet wtedy, kiedy nie zadziałała prewencyjnie." }
+    ],
+    ctaTitle: "<em>Najmniejsza inwestycja</em>, najszybszy efekt.",
+    ctaBody: "690 zł rocznie. Jedna spóźniona faktura mniej i pakiet już się zwrócił."
+  }
+};
+
+</script>
+<script>
+/* ---------- Render service ---------- */
+function renderService(slug) {
+  const data = window.SERVICES && window.SERVICES[slug];
+  if (!data) return;
+  const root = document.getElementById('service-page');
+  root.dataset.slug = slug;
+  document.title = `${data.displayName} — Hadyński Inkaso`;
+
+  // simple text bindings
+  const setText = (key, value) => {
+    document.querySelectorAll(`[data-bind="${key}"]`).forEach(el => {
+      el.innerHTML = value;
+    });
+  };
+  setText('displayName', data.displayName);
+  setText('kind', data.kind);
+  setText('heading', data.heading);
+  setText('lead', data.lead);
+  setText('metaTime', data.metaTime);
+  setText('metaPricing', data.metaPricing);
+  setText('metaResult', data.metaResult);
+  setText('whatTitle', data.whatTitle);
+  setText('whatLead', data.whatLead);
+  setText('forWhoTitle', data.forWhoTitle);
+  setText('processTitle', data.processTitle);
+  setText('pricingSection', data.pricingSection);
+  setText('pricingEyebrow', data.pricingEyebrow);
+  setText('pricingHead', data.pricingHead);
+  setText('pricingBody', data.pricingBody);
+  setText('pricingFee', data.pricingFee);
+  setText('pricingCommission', data.pricingCommission);
+  setText('pricingContract', data.pricingContract);
+  setText('faqTitle', data.faqTitle);
+  setText('ctaTitle', data.ctaTitle);
+  setText('ctaBody', data.ctaBody);
+
+  // list bindings
+  const whatList = document.querySelector('[data-bind-list="whatList"]');
+  whatList.innerHTML = data.whatList.map(t => `
+    <li><span class="check"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.4 2.4 4.6-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>${t}</span></li>
+  `).join('');
+
+  const forWho = document.querySelector('[data-bind-list="forWho"]');
+  forWho.innerHTML = data.forWho.map(p => `
+    <div class="persona-card">
+      <span class="persona-icon">${p.glyph}</span>
+      <h3>${p.title}</h3>
+      <p>${p.body}</p>
+    </div>
+  `).join('');
+
+  const process = document.querySelector('[data-bind-list="process"]');
+  process.innerHTML = data.process.map((s, i) => `
+    <li class="process-step">
+      <div class="step-num">${String(i + 1).padStart(2, '0')}</div>
+      <div>
+        <div class="step-title">${s.title}</div>
+        ${s.meta ? `<div class="step-meta">${s.meta}</div>` : ''}
+      </div>
+      <div class="step-desc">${s.desc}</div>
+    </li>
+  `).join('');
+
+  const faq = document.querySelector('[data-bind-list="faq"]');
+  faq.innerHTML = data.faq.map((f, i) => `
+    <div class="faq-item" data-faq>
+      <button class="faq-q" type="button" aria-expanded="false">
+        <span>${f.q}</span>
+        <span class="plus" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a">${f.a}</div>
+    </div>
+  `).join('');
+
+  // wire FAQ toggles
+  faq.querySelectorAll('[data-faq] .faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('[data-faq]');
+      const open = item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // mark current in dropdown
+  document.querySelectorAll('#nav-services-menu a').forEach(a => {
+    a.classList.toggle('is-current', a.dataset.slug === slug);
+  });
+
+  // preview switcher
+  const sel = document.getElementById('preview-select');
+  if (sel && sel.value !== slug) sel.value = slug;
+}
+
+/* ---------- Bootstrap ---------- */
+(function () {
+  // Build preview switcher options
+  const sel = document.getElementById('preview-select');
+  const slugs = [
+    ['windykacja-polubowna',     'Windykacja polubowna'],
+    ['windykacja-miedzynarodowa','Windykacja międzynarodowa'],
+    ['windykacja-terenowa',      'Windykacja terenowa'],
+    ['windykacja-sadowa',        'Windykacja sądowa'],
+    ['skup-wierzytelnosci',      'Skup wierzytelności'],
+    ['poszukiwanie-majatku',     'Poszukiwanie majątku'],
+    ['wywiad-gospodarczy',       'Wywiad gospodarczy'],
+    ['monitoring-naleznosci',    'Monitoring należności'],
+    ['obsluga-prawna',           'Obsługa prawna'],
+    ['pieczec-prewencyjna',      'Pieczęć prewencyjna']
+  ];
+  sel.innerHTML = slugs.map(([s, n]) => `<option value="${s}">${n}</option>`).join('');
+
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('s') || 'windykacja-polubowna';
+  renderService(slug);
+
+  sel.addEventListener('change', e => {
+    const newSlug = e.target.value;
+    history.replaceState({}, '', `?s=${newSlug}`);
+    renderService(newSlug);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Dropdown
+  const dd = document.querySelector('[data-nav-dropdown]');
+  if (dd) {
+    const trig = dd.querySelector('.nav-dropdown-trigger');
+    let t;
+    const open  = () => { clearTimeout(t); dd.classList.add('is-open'); trig.setAttribute('aria-expanded','true'); };
+    const close = () => { dd.classList.remove('is-open'); trig.setAttribute('aria-expanded','false'); };
+    dd.addEventListener('mouseenter', open);
+    dd.addEventListener('mouseleave', () => { t = setTimeout(close, 120); });
+    trig.addEventListener('click', e => { e.preventDefault(); dd.classList.contains('is-open') ? close() : open(); });
+    document.addEventListener('click', e => { if (!dd.contains(e.target)) close(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+    // In-place service switch from dropdown (no reload)
+    dd.querySelectorAll('a[data-slug]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const newSlug = a.getAttribute('data-slug');
+        history.replaceState({}, '', `?s=${newSlug}`);
+        renderService(newSlug);
+        close();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  }
+
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('is-scrolled', window.scrollY > 8);
+  });
+})();
+</script>
+
+</body>
+</html>
