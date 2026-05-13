@@ -2939,7 +2939,19 @@ section {
 .reels-nav.prev { left: clamp(16px, 4vw, 48px); }
 .reels-nav.next { right: clamp(16px, 4vw, 48px); }
 .reels-nav svg { width: 18px; height: 18px; }
-@media (max-width: 767px) { .reels-nav { display: none; } }
+@media (max-width: 767px) {
+  .reels-nav {
+    display: flex !important;
+    width: 38px;
+    height: 38px;
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 4px 12px -2px rgba(0,0,0,0.25);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .reels-nav.prev { left: 12px; }
+  .reels-nav.next { right: 12px; }
+  .reels-nav svg { width: 16px; height: 16px; }
+}
 
 /* --- Dots --- */
 .reels-dots {
@@ -5424,7 +5436,7 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
         </div>
 
         <button type="submit" class="hf-submit">Wyślij zgłoszenie <span class="arrow">→</span></button>
-        <p class="hf-disclaimer">Przesyłając formularz akceptujesz <a href="Hadynski - Polityka Prywatnosci.html" target="_blank" rel="noopener">Politykę prywatności</a>.</p>
+        <p class="hf-disclaimer">Przesyłając formularz akceptujesz <a href="javascript:void(0)" onclick="event.preventDefault(); window.openPolicyModal('privacy'); return false;">Politykę prywatności</a>.</p>
       </form>
 
       <div class="hero-form-success" id="hero-form-success">
@@ -6338,11 +6350,12 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     if (window.audioUnlocked) return;
     window.audioUnlocked = true;
     stopHint();
-    // Unmute active video
+    // Unmute active video + restart od początku z dźwiękiem
     const card = cards[vIndex];
     const v = card && card.querySelector('.reel-video');
     if (v) {
       v.muted = false;
+      try { v.currentTime = 0; } catch(e) {}
       const p = v.play(); if (p && p.catch) p.catch(() => {});
       setSoundBtnState(card, true);
     }
@@ -6452,8 +6465,12 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     v.muted = !wantUnmute;
     setSoundBtnState(card, wantUnmute);
     window.audioUnlocked = wantUnmute; // sync: muting here means keep subsequent muted too
-    if (wantUnmute) stopHint();
-    if (wantUnmute) { const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+    if (wantUnmute) {
+      stopHint();
+      // Restart od początku z dźwiękiem
+      try { v.currentTime = 0; } catch(e) {}
+      const p = v.play(); if (p && p.catch) p.catch(() => {});
+    }
   });
 
   // Swipe
@@ -6788,7 +6805,7 @@ faqList.querySelectorAll('.faq-item').forEach(item => {
         </div>
 
         <button type="submit" class="btn btn-primary modal-submit">Wyślij zgłoszenie</button>
-        <p class="modal-disclaimer">Przesyłając formularz akceptujesz <a href="Hadynski - Polityka Prywatnosci.html">Politykę prywatności</a>.</p>
+        <p class="modal-disclaimer">Przesyłając formularz akceptujesz <a href="javascript:void(0)" onclick="event.preventDefault(); window.openPolicyModal('privacy'); return false;">Politykę prywatności</a>.</p>
       </form>
 
       <div class="modal-success" id="modal-success">
