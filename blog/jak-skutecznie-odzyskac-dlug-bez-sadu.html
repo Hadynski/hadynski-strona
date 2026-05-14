@@ -480,20 +480,44 @@ a:hover { text-decoration: underline; }
 }
 .article-cta h3 {
   font-family: var(--font-display);
-  font-size: clamp(26px, 3.5vw, 34px);
+  font-size: clamp(22px, 3.5vw, 34px);
   font-weight: 400;
   letter-spacing: -0.02em;
-  line-height: 1.15;
-  margin-bottom: 12px;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  text-wrap: balance;
+  max-width: 18ch;
+  margin-inline: auto;
+  color: #fff;
 }
-.article-cta h3 em { font-style: normal; color: #ff8a8a; }
+.article-cta h3 em { font-style: normal; color: #ff8a8a; white-space: nowrap; }
 .article-cta p {
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.55;
   color: rgba(255,255,255,0.78);
   margin-bottom: 28px;
-  max-width: 480px;
+  max-width: 420px;
   margin-inline: auto;
+}
+@media (max-width: 480px) {
+  .article-cta {
+    padding: 36px 22px;
+    margin: 32px 0;
+  }
+  .article-cta h3 {
+    font-size: 22px;
+    line-height: 1.25;
+    max-width: 100%;
+  }
+  .article-cta p {
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
+  .article-cta .btn {
+    padding: 14px 24px;
+    font-size: 15px;
+    white-space: normal;
+  }
 }
 .article-cta .btn {
   display: inline-flex;
