@@ -48,6 +48,23 @@
   letter-spacing: -0.01em !important;
 }
 
+/* Text-links w treści — minimum 24px tap-target (PSI wymóg) */
+.service-link,
+a.read-more,
+a.read-link,
+.footer a,
+.hero-form a,
+.hf-disclaimer a,
+.coming-soon-inline,
+.faq-a-inner a,
+.urgency-footer a,
+.forbes-section a,
+.faq-section a {
+  min-height: 24px;
+  display: inline-block;
+  padding-block: 4px;
+}
+
 @media (max-width: 980px) {
   .nav-burger {
     min-width: 44px;
