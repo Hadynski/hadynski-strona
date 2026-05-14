@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="format-detection" content="telephone=no">
+
+<title>Monitoring należności — jak go zorganizować żeby działał | Hadyński Inkaso</title>
+<meta name="description" content="Excel, system księgowy, dedykowane narzędzie? Trzy modele monitoringu należności i jak wybrać ten odpowiedni dla skali Twojej firmy." />
+
+<link rel="canonical" href="https://hadynski.pl/blog/monitoring-naleznosci-w-praktyce.html" />
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="pl_PL" />
+<meta property="og:site_name" content="Hadyński Inkaso" />
+<meta property="og:title" content="Monitoring należności — jak go zorganizować żeby działał | Hadyński Inkaso" />
+<meta property="og:description" content="Excel, system księgowy, dedykowane narzędzie? Trzy modele monitoringu należności i jak wybrać ten odpowiedni dla skali Twojej firmy." />
+<meta property="og:url" content="https://hadynski.pl/blog/monitoring-naleznosci-w-praktyce.html" />
+<meta property="og:image" content="https://hadynski.pl/assets/bartosz-hero.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="article:published_time" content="2025-11-03T08:00:00+01:00" />
+<meta property="article:author" content="Bartosz Hadyński" />
+<meta property="article:section" content="Zarządzanie należnościami" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Monitoring należności — jak go zorganizować żeby działał | Hadyński Inkaso" />
+<meta name="twitter:description" content="Excel, system księgowy, dedykowane narzędzie? Trzy modele monitoringu należności i jak wybrać ten odpowiedni dla skali Twojej firmy." />
+<meta name="twitter:image" content="https://hadynski.pl/assets/bartosz-hero.jpg" />
+
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="alternate icon" type="image/png" href="../assets/logo.png">
+<link rel="apple-touch-icon" href="../assets/logo.png">
+<meta name="theme-color" content="#17130f">
+
+<link rel="stylesheet" href="../assets/fixes-mobile-a11y.css">
+<link rel="stylesheet" href="../assets/blog-article.css">
+<script src="../assets/fixes-mobile-a11y.js" defer></script>
+
+<!-- GA4-PLACEHOLDER -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Monitoring należności — jak go zorganizować żeby działał | Hadyński Inkaso",
+  "description": "Excel, system księgowy, dedykowane narzędzie? Trzy modele monitoringu należności i jak wybrać ten odpowiedni dla skali Twojej firmy.",
+  "image": "https://hadynski.pl/assets/bartosz-hero.jpg",
+  "datePublished": "2025-11-03T08:00:00+01:00",
+  "dateModified": "2026-05-14T08:00:00+01:00",
+  "author": {"@type": "Person", "name": "Bartosz Hadyński", "jobTitle": "Prezes Zarządu", "url": "https://hadynski.pl/Hadynski.html#o-firmie"},
+  "publisher": {"@type": "Organization", "name": "Hadyński Inkaso Sp. z o.o.", "logo": {"@type": "ImageObject", "url": "https://hadynski.pl/assets/logo.png"}},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://hadynski.pl/blog/monitoring-naleznosci-w-praktyce.html"},
+  "articleSection": "Zarządzanie należnościami",
+  "keywords": "monitoring należności, DSO, aging, cash flow"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "Jaki DSO jest normalny w B2B?", "acceptedAnswer": {"@type": "Answer", "text": "Zależy od branży. Handel: 30-45 dni. Usługi: 40-60 dni. Budownictwo: 60-90 dni. Powyżej 75-80 dni w typowym B2B = problem. Świetne firmy mają DSO 25-35."}},
+    {"@type": "Question", "name": "Czy Excel wystarcza dla firmy na 200 faktur miesięcznie?", "acceptedAnswer": {"@type": "Answer", "text": "Granica jest płynna. Excel + przypomnienia działa do ~100 faktur. Powyżej automatyzacja w systemie księgowym jest dużo efektywniejsza."}},
+    {"@type": "Question", "name": "Kto powinien prowadzić monitoring — księgowa czy windykator?", "acceptedAnswer": {"@type": "Answer", "text": "Wczesny monitoring (do 30 dnia) — księgowa lub osoba sprzedaży. Po 30 dniach lepiej dedykowany windykator lub zewnętrzna firma windykacyjna. Im wcześniej windykator widzi sprawę, tym lepsze wyniki."}},
+    {"@type": "Question", "name": "Czy monitoring można zlecić zewnętrznej firmie?", "acceptedAnswer": {"@type": "Answer", "text": "Tak. Hadyński Inkaso oferuje monitoring należności jako część abonamentu Plus. Otrzymujesz dashboard, raporty, automatyczną eskalację. Sprawa idzie do windykacji automatycznie po Twojej akceptacji."}}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Strona główna", "item": "https://hadynski.pl/"},
+    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://hadynski.pl/Hadynski%20-%20Blog.html"},
+    {"@type": "ListItem", "position": 3, "name": "Monitoring należności w praktyce"}
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="../Hadynski.html" class="nav-logo" aria-label="Hadyński — start">
+      <img src="../assets/logo.png" alt="Hadyński — skuteczna windykacja" width="200" height="48">
+    </a>
+    <nav class="nav-links" aria-label="Główne">
+      <a href="../Hadynski.html">Strona główna</a>
+      <a href="../Hadynski - Usluga.html">Windykacja</a>
+      <a href="../Hadynski - Blog.html">Blog</a>
+      <a href="../Hadynski - Kontakt.html">Kontakt</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="../Hadynski - Kontakt.html" class="btn">Zamów rozmowę <span class="arrow">→</span></a>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="wrap">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="../Hadynski.html">Strona główna</a> /
+      <a href="../Hadynski - Blog.html">Blog</a> /
+      Monitoring należności w praktyce
+    </nav>
+
+    <header class="article-header">
+      <span class="article-eyebrow"><span class="dot"></span>Praktyka</span>
+      <h1 class="article-h1">Monitoring należności — jak go zorganizować, <em>żeby działał</em></h1>
+      <p class="article-lead">Excel, system księgowy, dedykowane narzędzie? Trzy modele monitoringu należności i jak wybrać ten odpowiedni dla skali Twojej firmy.</p>
+      <div class="article-meta">
+        <span><strong>Bartosz Hadyński</strong> · Prezes Zarządu</span>
+        <span class="sep">·</span>
+        <time datetime="2025-11-03">3 listopada 2025</time>
+        <span class="sep">·</span>
+        <span>6 min czytania</span>
+      </div>
+    </header>
+
+    <div class="article-body">
+
+      <h2><span class="num">01</span>Po co monitoring należności</h2>
+      
+      <p>Bez systematycznego monitorowania faktury „starzeją się" w cichości:</p>
+      <ul>
+        <li>Po 30 dniach po terminie szanse odzyskania spadają o 10%</li>
+        <li>Po 60 dniach o kolejne 15%</li>
+        <li>Po 90 dniach o 25%</li>
+      </ul>
+      <p><strong>Monitoring nie jest opcją — to obowiązek</strong> jeśli prowadzisz biznes na fakturach z odroczonym terminem płatności.</p>
+      <p>Cel: każda przeterminowana faktura zauważona w ciągu 24 godzin, działanie windykacyjne w ciągu 7 dni.</p>
+
+
+
+      <h2><span class="num">02</span>Model 1: Excel + przypomnienia (do 50 faktur/m-c)</h2>
+      
+      <p>Dla małych firm wystarczy:</p>
+      <ul>
+        <li>Tabela: nr faktury, kontrahent, kwota, termin, status</li>
+        <li>Formuła <code>=DZIŚ()-data_terminu</code> — pokazuje dni opóźnienia</li>
+        <li>Filtrowanie po statusie / opóźnieniu</li>
+        <li>Przypomnienia w kalendarzu Google: raz w tygodniu sprawdzasz tabelę</li>
+      </ul>
+      <p><strong>Plusy:</strong> bezpłatne, proste. <strong>Minusy:</strong> wymaga dyscypliny, łatwo zapomnieć, dane się rozjeżdżają z księgowością.</p>
+
+
+
+      <h2><span class="num">03</span>Model 2: Moduł w systemie księgowym</h2>
+      
+      <p>Większość systemów księgowych (Comarch Optima, Symfonia, InsERT, fakturownia.pl) ma moduł monitoringu należności:</p>
+      <ul>
+        <li>Automatyczna lista faktur po terminie</li>
+        <li>Generowanie wezwań do zapłaty z szablonu</li>
+        <li>Wysyłka mailowa monitów</li>
+        <li>Eskalacja statusów (1. monit, 2. monit, do windykacji)</li>
+      </ul>
+      <p><strong>Plusy:</strong> zintegrowane z resztą księgowości, automatyczne. <strong>Minusy:</strong> w niektórych systemach moduł jest ograniczony, brak rich reporting.</p>
+      <p>Dla firm 50-500 faktur miesięcznie to wystarczy.</p>
+
+
+
+      <h2><span class="num">04</span>Model 3: Dedykowane narzędzia</h2>
+      
+      <p>Powyżej 500 faktur miesięcznie warto narzędzie dedykowane:</p>
+      <ul>
+        <li><strong>HINGO</strong> (panel Hadyński Inkaso) — dla klientów współpracujących z nami. Każda sprawa, status, komunikacja w jednym miejscu.</li>
+        <li><strong>OpenInvoice / Bilbo</strong> — SaaS dla faktur i windykacji</li>
+        <li><strong>Aplikacje z modułem windykacji</strong> (Coyote Logistics, Comarch ERP XL)</li>
+      </ul>
+      <p>Funkcje które ma sens:</p>
+      <ul>
+        <li>Automatyczna eskalacja po X dniach</li>
+        <li>Bezpośrednia integracja z firmą windykacyjną</li>
+        <li>Dashboard DSO, aging, churn</li>
+        <li>API do księgowości</li>
+      </ul>
+
+
+
+      <h2><span class="num">05</span>Co mierzyć — kluczowe wskaźniki</h2>
+      
+      <h3>DSO (Days Sales Outstanding)</h3>
+      <p>Średnia liczba dni od wystawienia faktury do otrzymania płatności:</p>
+      <p><code>DSO = (należności / przychody) × dni okresu</code></p>
+      <p>Cel: DSO &lt; 45 dni (B2B z terminami 30-dniowymi). Powyżej 60 = problem cash flow.</p>
+
+      <h3>Aging report</h3>
+      <p>Rozbicie należności po wieku:</p>
+      <ul>
+        <li>W terminie: 60-70%</li>
+        <li>1-30 dni po: 20-25%</li>
+        <li>31-60 dni po: 5-10%</li>
+        <li>61-90 dni po: 2-5%</li>
+        <li>&gt;90 dni: max 1-2%</li>
+      </ul>
+      <p>Jeśli wieksze procenty trafiają w stare wiadra — masz problem windykacyjny.</p>
+
+      <h3>Churn rate (utrata klientów)</h3>
+      <p>Ilu klientów co kwartał przestaje płacić w terminie? Cel: &lt;5% miesięcznie.</p>
+
+
+
+      <h2><span class="num">06</span>Eskalacja — kiedy przekazać do windykacji</h2>
+      
+      <p>Standardowa procedura eskalacji:</p>
+      <ol>
+        <li><strong>Dzień +1 po terminie:</strong> automatyczny mail-przypomnienie</li>
+        <li><strong>Dzień +7:</strong> drugi mail + telefon (notuj wynik)</li>
+        <li><strong>Dzień +14:</strong> wezwanie do zapłaty listem poleconym</li>
+        <li><strong>Dzień +30:</strong> drugie wezwanie + informacja o KRD</li>
+        <li><strong>Dzień +45:</strong> przekazanie do firmy windykacyjnej</li>
+        <li><strong>Dzień +60:</strong> jeśli polubowna bez efektu — przygotowanie pozwu</li>
+      </ol>
+      <p>To <strong>twardy harmonogram</strong>. Nie czekaj „aż dłużnik zapłaci sam" — statystyka wskazuje że nie zapłaci.</p>
+
+
+
+      <div class="article-cta">
+        <h3>Twój DSO <em>rośnie?</em></h3>
+        <p>Audyt portfela należności + automatyczna eskalacja + windykacja od 45 dnia opóźnienia. Pełen panel HINGO bez kosztów wstępnych.</p>
+        <a href="../Hadynski - Kontakt.html" class="btn">Zamów bezpłatną analizę <span>→</span></a>
+      </div>
+
+    </div>
+  </div>
+
+  <section class="faq-section">
+    <div class="wrap">
+      <p class="faq-eyebrow">Często zadawane pytania</p>
+      <h2 class="faq-h2">FAQ</h2>
+      
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Jaki DSO jest normalny w B2B?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Zależy od branży. Handel: 30-45 dni. Usługi: 40-60 dni. Budownictwo: 60-90 dni. Powyżej 75-80 dni w typowym B2B = problem. Świetne firmy mają DSO 25-35.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Czy Excel wystarcza dla firmy na 200 faktur miesięcznie?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Granica jest płynna. Excel + przypomnienia działa do ~100 faktur. Powyżej automatyzacja w systemie księgowym jest dużo efektywniejsza.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Kto powinien prowadzić monitoring — księgowa czy windykator?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Wczesny monitoring (do 30 dnia) — księgowa lub osoba sprzedaży. Po 30 dniach lepiej dedykowany windykator lub zewnętrzna firma windykacyjna. Im wcześniej windykator widzi sprawę, tym lepsze wyniki.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>Czy monitoring można zlecić zewnętrznej firmie?</span><span class="plus">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Tak. Hadyński Inkaso oferuje monitoring należności jako część abonamentu Plus. Otrzymujesz dashboard, raporty, automatyczną eskalację. Sprawa idzie do windykacji automatycznie po Twojej akceptacji.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="related">
+    <div class="wrap">
+      <p class="related-eyebrow">Czytaj dalej</p>
+      <h2 class="related-h2">Powiązane wpisy</h2>
+      <div class="related-grid">
+        <a href="../Hadynski - Usluga Masowa Windykacja.html" class="related-card"><h4>Masowa windykacja</h4><p>Obsługa dużych portfeli — od 50 do kilku tysięcy spraw jednocześnie. Panel HINGO.</p></a>
+        <a href="./5-bledow-w-wezwaniach-do-zaplaty.html" class="related-card"><h4>5 błędów w wezwaniach do zapłaty</h4><p>Lista 5 rzeczy które robią windykatorzy w monitoringu, a brakuje w typowych firmach.</p></a>
+      </div>
+    </div>
+  </section>
+</article>
+
+<footer class="article-footer">
+  <div class="wrap">
+    <p>© 2026 Hadyński Inkaso Sp. z o.o. · <a href="../Hadynski - Polityka Prywatnosci.html">Polityka prywatności</a> · <a href="../Hadynski.html">Strona główna</a></p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.faq-item .faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const open = item.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+});
+</script>
+
+</body>
+</html>
