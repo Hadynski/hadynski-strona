@@ -1869,7 +1869,7 @@ h1, h2, h3, h4, h5, h6, em, strong, p, span, a, time, button, .footer-mark { fon
    BLOG POSTS — w Code: zastąp obiektem z CMS / MDX / fetch
    ============================================ */
 window.BLOG_POSTS = [
-  { slug: "jak-skutecznie-odzyskac-dlug-polubownie", title: "Jak skutecznie odzyskać dług polubownie", lead: "Pierwsze 30 dni windykacji polubownej decyduje o wszystkim. 70% spraw zamykamy w tym czasie — pokazujemy, co dokładnie się wtedy dzieje.", category: "Praktyka", date: "2026-01-22", dateLabel: "22 stycznia 2026", readingTime: "7 min czytania", author: "Mariusz Hadyński", featured: true, cover: "linear-gradient(135deg, #2a221b 0%, #443327 60%, #6b4a35 100%)", coverNote: "Spotkanie z dłużnikiem" },
+  { slug: "jak-skutecznie-odzyskac-dlug-bez-sadu", title: "Jak skutecznie odzyskać dług bez sądu — 7 sposobów", lead: "70% spraw kończy się polubownie zanim w ogóle dojdzie do pozwu. Pokazujemy 7 metod windykacji polubownej — wezwanie do zapłaty, mediacje, KRD, pieczęć prewencyjna — krok po kroku z przykładami.", category: "Praktyka", date: "2026-01-22", dateLabel: "22 stycznia 2026", readingTime: "7 min czytania", author: "Bartosz Hadyński", featured: true, cover: "linear-gradient(135deg, #2a221b 0%, #443327 60%, #6b4a35 100%)", coverNote: "Spotkanie z dłużnikiem" },
   { slug: "windykacja-zagraniczna-co-warto-wiedziec", title: "Windykacja zagraniczna — co warto wiedzieć przed wysłaniem faktury", lead: "Niemcy, Czechy, Wielka Brytania, USA — każdy rynek rządzi się własnymi regułami. Cztery rzeczy, które warto wpisać do umowy zanim wystawisz pierwszą fakturę kontrahentowi z zagranicy.", category: "Strategia", date: "2026-01-14", dateLabel: "14 stycznia 2026", readingTime: "9 min czytania", author: "Anna Kowalska", cover: "linear-gradient(135deg, #1a2e3a 0%, #2c4856 60%, #486b7c 100%)", coverNote: "Mapa Europy z markerami" },
   { slug: "kiedy-skup-wierzytelnosci-jest-oplacalny", title: "Kiedy skup wierzytelności jest opłacalny — i kiedy nie", lead: "Sprzedaż długu daje pieniądze od ręki, ale zwykle 30–60% nominału. Liczymy na konkretnym przykładzie, kiedy lepiej sprzedać, a kiedy poczekać i windykować.", category: "Strategia", date: "2026-01-07", dateLabel: "7 stycznia 2026", readingTime: "6 min czytania", author: "Mariusz Hadyński", cover: "linear-gradient(135deg, #3a2a1a 0%, #5a3f28 60%, #8b6244 100%)", coverNote: "Tabele i kalkulacje" },
   { slug: "pieczec-prewencyjna-jak-dziala", title: "Pieczęć prewencyjna — narzędzie, o którym mało kto wie", lead: "Mała pieczątka na fakturze potrafi zmienić zachowanie kontrahenta szybciej niż wezwanie do zapłaty. Wyjaśniamy, czemu.", category: "Narzędzia", date: "2025-12-19", dateLabel: "19 grudnia 2025", readingTime: "4 min czytania", author: "Anna Kowalska", cover: "linear-gradient(135deg, #2e1a1a 0%, #4a2828 60%, #7a4444 100%)", coverNote: "Czerwona pieczęć" },
@@ -1921,7 +1921,7 @@ window.BLOG_POSTS = [
   const fEl = document.getElementById('featured-card');
   if (featured && fEl) {
     fEl.innerHTML = `
-      <a href="Hadynski - Blog Post.html?slug=${featured.slug}" class="featured-cover" style="background:${featured.cover};">
+      <a href="blog/${featured.slug}.html" class="featured-cover" style="background:${featured.cover};">
         <span class="cover-note">${featured.coverNote || ''}</span>
       </a>
       <div>
@@ -1932,9 +1932,9 @@ window.BLOG_POSTS = [
           <span class="dot"></span>
           <span>${featured.readingTime}</span>
         </div>
-        <h2><a href="Hadynski - Blog Post.html?slug=${featured.slug}">${featured.title}</a></h2>
+        <h2><a href="blog/${featured.slug}.html">${featured.title}</a></h2>
         <p class="lead">${featured.lead}</p>
-        <a href="Hadynski - Blog Post.html?slug=${featured.slug}" class="read-more">Czytaj artykuł <span>→</span></a>
+        <a href="blog/${featured.slug}.html" class="read-more">Czytaj artykuł <span>→</span></a>
       </div>
     `;
   }
@@ -1945,7 +1945,7 @@ window.BLOG_POSTS = [
   if (gEl) {
     gEl.innerHTML = rest.map(p => `
       <article class="post-card">
-        <a href="Hadynski - Blog Post.html?slug=${p.slug}" class="post-cover" style="background:${p.cover};">
+        <a href="blog/${p.slug}.html" class="post-cover" style="background:${p.cover};">
           <span class="cover-note">${p.coverNote || ''}</span>
         </a>
         <div class="post-meta">
@@ -1955,9 +1955,9 @@ window.BLOG_POSTS = [
           <span class="dot"></span>
           <span>${p.readingTime}</span>
         </div>
-        <h3><a href="Hadynski - Blog Post.html?slug=${p.slug}">${p.title}</a></h3>
+        <h3><a href="blog/${p.slug}.html">${p.title}</a></h3>
         <p>${p.lead}</p>
-        <a href="Hadynski - Blog Post.html?slug=${p.slug}" class="read-link">Czytaj <span>→</span></a>
+        <a href="blog/${p.slug}.html" class="read-link">Czytaj <span>→</span></a>
       </article>
     `).join('');
   }
