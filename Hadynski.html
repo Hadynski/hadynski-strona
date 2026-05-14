@@ -62,7 +62,9 @@ document.addEventListener('keydown', function(e) {
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<!-- Fonts async (non-blocking) — z fallbackiem dla no-JS -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"></noscript>
 
 <!-- HLS.js for Cloudflare Stream playback in Chrome/Firefox/Edge -->
 <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.15/dist/hls.min.js" defer></script>
@@ -1650,7 +1652,8 @@ section {
 .hero-v4 .portrait-header .badge-row .dash {
   width: 16px; height: 1px; background: var(--red);
 }
-.hero-v4 .portrait-header h3 {
+.hero-v4 .portrait-header h3,
+.hero-v4 .portrait-header .portrait-name {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 22px;
@@ -1660,6 +1663,7 @@ section {
   font-variation-settings: "opsz" 144, "SOFT" 30;
   margin-bottom: 4px;
 }
+.hero-v4 .portrait-header .portrait-name strong { font-weight: 400; }
 .hero-v4 .portrait-header .sub {
   font-family: var(--font-sans);
   font-size: 13px;
@@ -6247,7 +6251,7 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
         <div class="hf-tick">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 7"/></svg>
         </div>
-        <h3>Dziękujemy za zgłoszenie.</h3>
+        <h2>Dziękujemy za zgłoszenie.</h2>
         <p>Oddzwonimy maksymalnie w ciągu 24h w dni robocze (pon–pt). Zazwyczaj wcześniej.</p>
         <p>Zgłoszenia wysłane w weekend obsługujemy w poniedziałek rano.</p>
       </div>
@@ -6274,7 +6278,12 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
 
     <div class="hero-portrait-wrap">
       <div class="hero-portrait">
-        <img src="assets/bartosz-portrait.jpg" alt="Bartosz Hadyński, Prezes Hadyński Inkaso" class="portrait-img" loading="lazy" decoding="async" width="800" height="1200" />
+        <img src="assets/bartosz-portrait-800.jpg"
+             srcset="assets/bartosz-portrait-500.jpg 500w,
+                     assets/bartosz-portrait-800.jpg 800w,
+                     assets/bartosz-portrait.jpg 1066w"
+             sizes="(max-width: 600px) 500px, (max-width: 1024px) 800px, 1066px"
+             alt="Bartosz Hadyński, Prezes Hadyński Inkaso" class="portrait-img" loading="lazy" decoding="async" width="800" height="1200" />
       <div class="portrait-overlay">
         <p class="portrait-overlay-quote"><span class="big">70%</span> spraw zamykamy sukcesem w&nbsp;pierwszym miesiącu.</p>
         <p class="portrait-overlay-attrib">— z wywiadu w Forbes Polska, 2024</p>
@@ -6385,7 +6394,7 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
     <div class="hero-portrait-card reveal">
       <div class="portrait-header">
         <span class="badge-row"><span class="dash"></span>Założyciel<span class="dash"></span></span>
-        <h3>Bartosz Hadyński</h3>
+        <p class="portrait-name"><strong>Bartosz Hadyński</strong></p>
         <p class="sub">Prezes Hadyński Inkaso · Wrocław</p>
       </div>
       <div class="portrait-frame">
@@ -6754,7 +6763,11 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
 <section class="about-section" id="o-firmie" data-screen-label="09 O Bartoszu">
   <div class="wrap about-inner">
     <div class="about-photo reveal">
-      <img src="assets/bartosz-hero.jpg" alt="Bartosz Hadyński, sesja Forbes" loading="lazy" decoding="async" width="1230" height="691" />
+      <img src="assets/bartosz-hero.jpg"
+           srcset="assets/bartosz-hero-600.jpg 600w,
+                   assets/bartosz-hero.jpg 1230w"
+           sizes="(max-width: 600px) 600px, 1230px"
+           alt="Bartosz Hadyński, sesja Forbes" loading="lazy" decoding="async" width="1230" height="691" />
     </div>
 
     <div class="about-body reveal">
@@ -7729,7 +7742,7 @@ faqList.querySelectorAll('.faq-item').forEach(item => {
         <div class="tick-big">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 7"/></svg>
         </div>
-        <h3>Dziękujemy za zgłoszenie.</h3>
+        <h2>Dziękujemy za zgłoszenie.</h2>
         <p>Oddzwonimy maksymalnie w ciągu 24h w dni robocze (pon–pt). Zazwyczaj wcześniej.</p>
         <p>Zgłoszenia wysłane w weekend obsługujemy w poniedziałek rano.</p>
       </div>
