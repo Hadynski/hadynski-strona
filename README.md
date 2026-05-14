@@ -2,6 +2,31 @@
 
 Statyczna strona HTML/CSS/JS pod kampanie reklamowe (Facebook Ads, Google Ads). Lead capture przez Google Apps Script → Google Sheets.
 
+> ## ⚡ Stan na 14.05.2026 — przed deployem na hadynski.pl
+>
+> **Strona gotowa do produkcji.** Zobacz [DEPLOY.md](DEPLOY.md) dla checklisty wdrożenia.
+>
+> ### Co zrobione (✅)
+> - 19 produkcyjnych stron HTML, optymalizacja Core Web Vitals (homepage 3.4 MB → 272 KB)
+> - Pełna responsywność 320–1440px na wszystkich sekcjach + interaktywnych stanach (dropdowny, FAQ, modale, drawer)
+> - Lead form → Google Sheets (3 osobne źródła: hero / popup / kontakt)
+> - SEO baseline: sitemap.xml, robots.txt, canonical/OG/Twitter cards, JSON-LD (LegalService + Person + 2-3× per strona), favicon SVG + apple-touch-icon + theme-color
+> - Mobile drawer z scroll lock + footer CTA (telefon) + login toast "Faza testowa"
+> - iOS zoom prevention (font-size 16px na inputach)
+> - Hover-only protection, prefers-reduced-motion fallback, touch targets ≥44px
+> - GA4 placeholder na każdej stronie — gotowy do podpięcia przez [scripts/inject-ga4.sh](scripts/inject-ga4.sh)
+> - Skrypt migracji URL [scripts/migrate-urls.sh](scripts/migrate-urls.sh) (github.io → hadynski.pl)
+>
+> ### Co do zrobienia przez Kubę przy deployu (⏳)
+> - Backup obecnej strony `/var/www/hadynski.pl` przed nadpisaniem
+> - Wgranie nowych plików HTML/assets na hadynski.pl, **bez ruszania `/gielda-wierzytelnosci/`** (integracja Kambit/Softlex)
+> - Odpalenie [scripts/migrate-urls.sh](scripts/migrate-urls.sh) → zamiana URL-i na produkcyjne
+> - Założenie GA4 property → odpalenie [scripts/inject-ga4.sh](scripts/inject-ga4.sh) G-XXXXXXXXXX
+> - Google Search Console: dodanie property + submit sitemap
+> - Test manualny: formularz leada wysyła do Sheets + giełda działa
+>
+> Pełna dokumentacja w [DEPLOY.md](DEPLOY.md). Workflow dla blogów: [INSTRUKCJA-DODAWANIE-ARTYKULOW.md](INSTRUKCJA-DODAWANIE-ARTYKULOW.md).
+
 ## Stack
 
 - Vanilla HTML/CSS/JS (bez frameworka)

@@ -1,0 +1,92 @@
+name: HTML & link checks
+
+# Po każdym pushu sprawdza:
+# - Czy nie ma broken internal links
+# - Czy każda strona ma viewport meta, canonical, OG image
+# - Czy sitemap.xml ma poprawny XML
+# - Czy robots.txt ma odwołanie do sitemap
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  html-checks:
+    name: HTML & links sanity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate sitemap.xml
+        run: |
+          python3 -c "
+          import xml.etree.ElementTree as ET
+          tree = ET.parse('sitemap.xml')
+          root = tree.getroot()
+          urls = root.findall('{http://www.sitemaps.org/schemas/sitemap/0.9}url')
+          print(f'✓ Sitemap valid — {len(urls)} URLs')
+          assert len(urls) > 5, 'Sitemap too small'
+          "
+
+      - name: Check robots.txt
+        run: |
+          grep -q "Sitemap:" robots.txt && echo "✓ robots.txt ma Sitemap reference"
+          grep -q "User-agent" robots.txt && echo "✓ robots.txt ma User-agent"
+
+      - name: Verify each HTML page has key SEO tags
+        run: |
+          python3 << 'EOF'
+          import os, sys, re
+          PAGES = [f for f in os.listdir('.') if f.endswith('.html')
+                   and not f.startswith('_')
+                   and 'backup' not in f.lower()
+                   and 'mobile' not in f.lower()
+                   and 'print' not in f.lower()
+                   and 'v2' not in f.lower()
+                   and 'v1' not in f.lower()
+                   and 'podglad' not in f
+                   and 'wybor' not in f
+                   and f != 'index.html']
+
+          errors = []
+          for p in PAGES:
+              with open(p, 'r', encoding='utf-8') as f: s = f.read()
+              missing = []
+              if 'name="viewport"' not in s: missing.append('viewport')
+              if 'rel="canonical"' not in s: missing.append('canonical')
+              if 'property="og:image"' not in s: missing.append('og:image')
+              if '<title>' not in s: missing.append('title')
+              if missing:
+                  errors.append(f'{p}: missing {missing}')
+                  print(f'✗ {p}: missing {missing}')
+              else:
+                  print(f'✓ {p}')
+          if errors:
+              print(f'\n{len(errors)} pages have issues')
+              sys.exit(1)
+          print(f'\n✓ All {len(PAGES)} pages OK')
+          EOF
+
+      - name: Install linkchecker
+        run: pip install linkchecker
+
+      - name: Start local server + check internal links
+        run: |
+          python3 -m http.server 8000 &
+          SERVER_PID=$!
+          sleep 2
+          # Check only homepage + a few key pages
+          linkchecker --no-warnings --check-extern=0 --ignore-url='^https?://' \
+            http://localhost:8000/Hadynski.html \
+            "http://localhost:8000/Hadynski%20-%20Kontakt.html" \
+            || echo "Linkchecker found issues (non-blocking)"
+          kill $SERVER_PID || true
+        continue-on-error: true

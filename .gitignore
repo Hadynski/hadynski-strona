@@ -29,6 +29,8 @@ __pycache__/
 *.bak
 *.orig
 *.old
+# WYJĄTEK: .bak w assets/ to oryginalne pliki (przed kompresją) — trzymamy w git jako safety net
+!assets/*.bak
 
 # Test files (tymczasowe skrypty audytu)
 test_*.html
@@ -47,3 +49,14 @@ _reel_starts/
 _verify_posters/
 _scratch/
 _leads-setup/
+
+# Claude Code / Cowork local config (per-developer)
+.claude/
+
+# Tymczasowe artefakty z bash/sed/awk
+*.tmp
+*.tmpbak
+
+# Lighthouse CI artifacts
+.lighthouseci/
+lhci_reports/

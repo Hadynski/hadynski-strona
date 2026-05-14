@@ -1,0 +1,320 @@
+/* ============================================================
+   FIXES: mobile a11y + touch targets + reduced motion
+   Loaded last → wygrywa specyficznością wstawiania.
+   ============================================================ */
+
+/* 1. Reduced motion — globalne (a11y + INP win) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 2. Hover protection — bez "stuck states" na touch */
+@media (hover: none) {
+  a:hover,
+  button:hover,
+  .btn:hover,
+  .btn-primary:hover,
+  .nav-link:hover,
+  .hf-submit:hover,
+  .cookie-btn:hover,
+  .nav-burger:hover,
+  .drawer-group-trigger:hover,
+  .reels-nav:hover,
+  .faq-q:hover {
+    transform: none !important;
+    filter: none !important;
+    box-shadow: inherit;
+  }
+}
+
+/* 3. Touch targets — minimum 44×44 (WCAG 2.5.5 / Apple HIG)
+   + ujednolicony styling buttona "Zamów rozmowę" w nav (różnił się między stronami) */
+.nav-cta .btn,
+.nav-cta .login,
+.nav-cta .login-link {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-cta .btn.btn-outline-red {
+  border-width: 1.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+}
+
+@media (max-width: 980px) {
+  .nav-burger {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  .nav-drawer a,
+  .drawer-group-trigger {
+    min-height: 44px;
+  }
+  /* Cookie banner buttons na mobile */
+  .cookie-btn {
+    min-height: 44px;
+    padding-block: 12px;
+  }
+  /* Form selects — touch-friendly */
+  .hf-select-trigger,
+  .hf-country-btn,
+  .hf-option {
+    min-height: 44px;
+  }
+  .hf-submit {
+    min-height: 48px;
+  }
+}
+
+/* 4. Hero form + nav na bardzo wąskich ekranach (≤360px / iPhone SE 1)
+   Pełen napis "Zamów rozmowę" mieści się — zmniejszamy tylko padding i font żeby zostawić miejsce na hamburger */
+@media (max-width: 360px) {
+  .hero-form {
+    padding-inline: 4px;
+  }
+  .hf-submit {
+    font-size: 14px;
+  }
+  .nav-cta .btn {
+    padding: 8px 10px !important;
+    font-size: 11px !important;
+    letter-spacing: -0.01em;
+  }
+  .nav-cta .btn .arrow { display: none !important; }
+  .nav-logo img {
+    height: 24px !important;
+  }
+  .wrap {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+}
+
+/* 5. Poprawa CLS — explicit aspect-ratio na obrazach bez width/height */
+img:not([width]):not([height]) {
+  aspect-ratio: attr(width) / attr(height);
+}
+
+/* 6. Smooth scroll respect dla prefers-reduced-motion */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* 6a. iOS zoom prevention — Safari auto-zoomuje na focused input
+   jeśli font-size < 16px. Po dotknięciu pola telefonu strona "skakała".
+   Fix: wymuszenie 16px na wszystkich form fields na mobile. */
+@media (max-width: 768px) {
+  .hero-form .hf-phone-input,
+  .hero-form .hf-select-trigger,
+  .hero-form .hf-select-value,
+  .hero-form .hf-option,
+  .form-grid input,
+  .form-grid select,
+  .form-grid textarea,
+  .phone-input,
+  input[type="tel"],
+  input[type="email"],
+  input[type="text"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* 6b. Mobile drawer scroll lock — iOS Safari ignoruje overflow:hidden na body.
+   Wymuszamy position:fixed dla pełnego scroll-lock. Współpracuje z JS który
+   zapisuje pozycję scroll przed lock'em. */
+body.nav-open {
+  position: fixed !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* 6c. Drawer footer area z kontaktem — eliminuje "puste białe pole" na dole
+   i daje użytkownikowi szybką akcję CTA prosto z menu. */
+.nav-drawer .drawer-footer {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--line, #e8e2d9);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.nav-drawer .drawer-footer-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--red, #B91C1C);
+  color: #fff;
+  padding: 14px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  min-height: 48px;
+}
+.nav-drawer .drawer-footer-phone {
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--ink-3, #6b6158);
+}
+.nav-drawer .drawer-footer-phone a {
+  color: var(--ink, #17130f);
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   Login info toast — "Faza testowa — brak dostępu"
+   ============================================================ */
+.login-info-toast {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 24px;
+  transform: translateY(80px);
+  background: var(--bg-ink, #17130f);
+  color: #fff;
+  padding: 16px 20px;
+  border-radius: 14px;
+  font-family: var(--font-sans, sans-serif);
+  font-size: 14px;
+  line-height: 1.45;
+  max-width: 440px;
+  margin: 0 auto;
+  box-shadow: 0 12px 40px -8px rgba(0,0,0,0.45);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 240ms ease-out;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.login-info-toast.is-visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.login-info-toast .toast-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--red, #B91C1C);
+}
+.login-info-toast .toast-body strong {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.login-info-toast .toast-body span {
+  display: block;
+  color: rgba(255,255,255,0.85);
+  font-size: 13.5px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .login-info-toast { transition: opacity 0.01ms !important; transform: translateY(0); }
+}
+
+/* 6b. Hero form dropdowns muszą być NAD następnymi sekcjami
+   .hero-form ma transform (page-load animation) → tworzy stacking context.
+   Bez explicit z-index na hero form, jej menu drop-downy są malowane POD
+   sekcjami które przychodzą później w DOM (stats, Forbes).
+   Fix: hero-form stacking context dostaje wyższy priorytet. */
+.hero,
+.hero-v1 {
+  position: relative;
+  z-index: 10;
+}
+.hero-form {
+  position: relative;
+  z-index: 20;
+}
+.hero-form .hf-select-menu,
+.hero-form .hf-phone-dropdown {
+  z-index: 100;
+}
+
+/* 7. Grid items na bardzo wąskich ekranach — zapobieganie overflow
+   1fr w grid default expanduje do min-content. minmax(0, 1fr) wymusza
+   skalowanie do dostępnej szerokości, blokuje overflow. */
+/* Grid containers fix — minmax(0, 1fr) prevents 1fr columns from
+   expanding past parent width when child has wide min-content.
+   Applies on ALL mobile breakpoints (≤768) as safety net. */
+@media (max-width: 768px) {
+  .panel-grid,
+  .hero-v1 .hero-inner,
+  .hero-v2 .hero-inner,
+  .hero-v3 .hero-inner,
+  .hero-v4 .hero-inner,
+  .hero-grid,
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .panel-grid > *,
+  .hero-inner > *,
+  .hero-grid > *,
+  .form-grid > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .services-grid,
+  .process-grid,
+  .cases-grid,
+  .testimonials-grid,
+  .start-grid,
+  .costs-grid,
+  .methods-grid,
+  .urgency-grid,
+  .footer-inner {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .services-grid > *,
+  .process-grid > *,
+  .cases-grid > *,
+  .testimonials-grid > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  /* Long headline words mogą się łamać */
+  .hero .headline,
+  .hero h1 {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  /* Buttony z długim tekstem na małych ekranach — zwiń padding zamiast obcinać */
+  .btn-primary,
+  .btn {
+    max-width: 100%;
+  }
+  .process-section .btn-primary,
+  .process-section .btn {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    font-size: 14px !important;
+    text-align: center;
+  }
+}
