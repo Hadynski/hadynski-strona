@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Wewnętrzne pliki — nie indeksować
+Disallow: /podglad-klatek.html
+Disallow: /wybor-posterow.html
+Disallow: /Mobile podglad.html
+Disallow: /Hadynski-print.html
+Disallow: /_backup_pre_*/
+Disallow: /audit/
+Disallow: /_scratch/
+Disallow: /hadynski-next/
+
+Sitemap: https://hadynski.github.io/hadynski-strona/sitemap.xml

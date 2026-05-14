@@ -41,8 +41,24 @@ document.addEventListener('keydown', function(e) {
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Eksmisje lokatorów — Hadyński Inkaso</title>
-<meta name="description" content="Pomoc właścicielom nieruchomości w eksmisji lokatorów. Procedura przedsądowa, wezwania, postępowanie eksmisyjne, egzekucja komornicza." />
+<title>Eksmisje lokatorów — 82% wyprowadza się w 14 dni | Hadyński</title>
+<meta name="description" content="Pomoc właścicielom nieruchomości w eksmisji lokatorów. Procedura przedsądowa, wezwania, postępowanie eksmisyjne, egzekucja komornicza."
+<!-- SEO_TAGS_v1 -->
+<link rel="canonical" href="https://hadynski.github.io/hadynski-strona/Hadynski%20-%20Usluga%20Eksmisje%20Lokatorow.html" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pl_PL" />
+<meta property="og:site_name" content="Hadyński Inkaso" />
+<meta property="og:title" content="Eksmisje lokatorów — 82% wyprowadza się w 14 dni | Hadyński" />
+<meta property="og:description" content="Pomoc właścicielom nieruchomości w eksmisji lokatorów. Procedura przedsądowa, wezwania, postępowanie eksmisyjne, egzekucja komornicza." />
+<meta property="og:url" content="https://hadynski.github.io/hadynski-strona/Hadynski%20-%20Usluga%20Eksmisje%20Lokatorow.html" />
+<meta property="og:image" content="https://hadynski.github.io/hadynski-strona/assets/bartosz-hero.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Eksmisje lokatorów — 82% wyprowadza się w 14 dni | Hadyński" />
+<meta name="twitter:description" content="Pomoc właścicielom nieruchomości w eksmisji lokatorów. Procedura przedsądowa, wezwania, postępowanie eksmisyjne, egzekucja komornicza." />
+<meta name="twitter:image" content="https://hadynski.github.io/hadynski-strona/assets/bartosz-hero.jpg" />
+<!-- /SEO_TAGS_v1 --> />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1694,6 +1710,563 @@ section { padding: clamp(80px, 9vw, 120px) 0; }
 .cookie-banner { z-index: 95; }
 
 
+/* PROPAGATION_MARKER_v2 — premium drawer */
+@media (max-width: 760px) {
+  /* Horizontal overflow safety net — strona NIGDY nie ma poziomego scrolla */
+  html {
+    overflow-x: clip !important;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+  }
+  body {
+    overflow-x: clip !important;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+    position: relative !important;
+  }
+  /* Zabezpieczenie głównych kontenerów przed wystawaniem */
+  section, header, footer, main, nav {
+    max-width: 100vw !important;
+  }
+  img, video, iframe {
+    max-width: 100% !important;
+  }
+
+  /* Horizontal overflow safety net — strona NIGDY nie ma poziomego scrolla na mobile */
+  html, body {
+    overflow-x: clip !important;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
+  }
+  section, header, footer, main, nav, article, aside {
+    max-width: 100vw !important;
+  }
+  img, video, iframe, svg {
+    max-width: 100% !important;
+    height: auto;
+  }
+
+  /* Mobile drawer — slide-in z prawej, premium feel (letsautomate style) */
+  .nav-drawer {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed !important;
+    top: 58px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: calc(100vh - 58px) !important;
+    min-height: calc(100dvh - 58px) !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    z-index: 9999 !important;
+    padding: 24px 24px 48px !important;
+    overflow-y: auto !important;
+    box-shadow: -8px 0 32px -12px rgba(0,0,0,0.12);
+    border-top: 1px solid var(--line, #e8e2d9);
+    gap: 0 !important;
+    /* Slide-in z prawej */
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 380ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 280ms ease-out,
+      visibility 0s linear 380ms;
+  }
+  .nav-drawer.open {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transition:
+      transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 240ms ease-out,
+      visibility 0s linear 0s;
+  }
+
+  /* Backdrop fade — semi-transparent overlay za drawerem */
+  .nav-drawer-backdrop {
+    position: fixed;
+    top: 58px; left: 0; right: 0; bottom: 0;
+    background: rgba(23, 19, 15, 0.32);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 280ms ease-out, visibility 0s linear 280ms;
+  }
+  body.nav-open .nav-drawer-backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 280ms ease-out, visibility 0s linear 0s;
+  }
+
+  /* Stagger reveal items — pojawiają się po otwarciu drawera */
+  .nav-drawer > * {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  .nav-drawer.open > * {
+    animation: drawerItemReveal 460ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .nav-drawer.open > *:nth-child(1) { animation-delay: 120ms; }
+  .nav-drawer.open > *:nth-child(2) { animation-delay: 170ms; }
+  .nav-drawer.open > *:nth-child(3) { animation-delay: 220ms; }
+  .nav-drawer.open > *:nth-child(4) { animation-delay: 270ms; }
+  .nav-drawer.open > *:nth-child(5) { animation-delay: 320ms; }
+  .nav-drawer.open > *:nth-child(6) { animation-delay: 370ms; }
+  @keyframes drawerItemReveal {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Hide login link + divider w mobile nav (jest już w drawer jako "Logowanie do panelu") */
+  .nav-cta .login-link,
+  .nav-cta .nav-divider {
+    display: none !important;
+  }
+
+  /* Logo mobile — większe i nie ścieśnione */
+  .nav-logo img {
+    height: 32px !important;
+    width: auto !important;
+    max-width: 160px;
+  }
+  .nav-logo {
+    flex-shrink: 0;
+  }
+
+  /* Panel HINGO mockup — mobile fix */
+  .panel-mockup-v2 {
+    transform: none !important; /* no rotate na mobile */
+    padding: 20px 18px 18px !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    border-radius: 14px !important;
+  }
+  .panel-mockup-v2 .pm2-floating {
+    position: relative !important;
+    top: 0 !important; right: 0 !important;
+    margin: 0 0 14px auto !important;
+    width: fit-content;
+    transform: none !important;
+  }
+  .panel-mockup-v2 .pm2-head {
+    flex-wrap: wrap;
+    gap: 10px !important;
+  }
+  .panel-mockup-v2 .pm2-head-left h4 { font-size: 17px !important; }
+  .panel-mockup-v2 .pm2-head-meta { font-size: 11px !important; }
+  .panel-mockup-v2 .pm2-new-btn {
+    font-size: 11.5px !important;
+    padding: 7px 11px !important;
+  }
+  .panel-mockup-v2 .pm2-case {
+    flex-wrap: wrap;
+    padding: 11px 12px !important;
+    gap: 8px;
+  }
+  .panel-mockup-v2 .pm2-case-name { font-size: 14px !important; }
+  .panel-mockup-v2 .pm2-case-amount { font-size: 13px !important; margin-bottom: 4px !important; }
+  .panel-mockup-bg {
+    padding: 0 !important;
+  }
+  .panel-mockup-bg::before {
+    display: none !important; /* usuń background ozdoby na mobile */
+  }
+
+  /* Hamburger morph na X gdy drawer open */
+  body.nav-open .nav-burger span {
+    background: transparent !important;
+  }
+  body.nav-open .nav-burger span::before {
+    top: 0 !important;
+    transform: rotate(45deg);
+  }
+  body.nav-open .nav-burger span::after {
+    top: 0 !important;
+    transform: rotate(-45deg);
+  }
+  .nav-burger span,
+  .nav-burger span::before,
+  .nav-burger span::after {
+    transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms ease-out, top 320ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* Drawer link — top-level items */
+  .nav-drawer .drawer-link {
+    display: block;
+    padding: 14px 4px;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--ink, #17130f);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    pointer-events: auto !important;
+  }
+  .nav-drawer .drawer-link:last-child { border-bottom: none; }
+
+  /* Drawer accordion group */
+  .nav-drawer .drawer-group {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .nav-drawer .drawer-group-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 4px;
+    background: none;
+    border: 0;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--ink, #17130f);
+    cursor: pointer;
+    text-align: left;
+    min-height: 44px;
+  }
+  .nav-drawer .drawer-chevron {
+    font-size: 22px;
+    color: var(--red, #B91C1C);
+    font-weight: 300;
+    transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    line-height: 1;
+    display: inline-block;
+  }
+  .nav-drawer .drawer-group.is-open .drawer-chevron {
+    transform: rotate(45deg); /* + → × */
+  }
+
+  /* Accordion — max-height dynamicznie ustawione w JS (idealnie dopasowane do contentu) */
+  .nav-drawer .drawer-group-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-drawer .drawer-chevron {
+    transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* Drawer items hover/active */
+  .nav-drawer .drawer-link,
+  .nav-drawer .drawer-group-trigger {
+    transition: background 180ms ease-out, color 180ms ease-out;
+  }
+  .nav-drawer .drawer-link:active,
+  .nav-drawer .drawer-group-trigger:active {
+    background: var(--paper-warm, #f3ede3);
+  }
+  .nav-drawer .drawer-group-items a {
+    transition: background 180ms ease-out, color 180ms ease-out, padding-left 200ms ease-out;
+  }
+  .nav-drawer .drawer-group-items a:active {
+    background: var(--paper-warm, #f3ede3);
+    padding-left: 22px;
+  }
+  .nav-drawer .drawer-group-items a {
+    display: block;
+    padding: 10px 4px 10px 16px;
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    line-height: 1.3;
+    color: var(--ink-2, #3a322a);
+    text-decoration: none;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    pointer-events: auto !important;
+  }
+  .nav-drawer .drawer-group-items a:first-child { border-top: 0; padding-top: 4px; }
+  .nav-drawer .drawer-group-items a:last-child { padding-bottom: 12px; }
+
+  /* Login link — wyróżniony */
+  .nav-drawer .drawer-login {
+    color: var(--red, #B91C1C) !important;
+    margin-top: 12px;
+    font-size: 16px !important;
+  }
+
+  /* Blokuj clicks na body content gdy drawer open */
+  body.nav-open main,
+  body.nav-open section,
+  body.nav-open footer {
+    pointer-events: none;
+  }
+
+  /* Drawer extra padding-bottom removed — no sticky bar anymore */
+  .nav-drawer { padding-bottom: 40px !important; }
+
+  /* Form labels — pozwalaj na wrap "(brutto)? *" jeśli trzeba, ale nbsp utrzymuje "? *" razem */
+  .hf-label .nb-end,
+  .field-label .nb-end {
+    white-space: normal;
+  }
+
+  /* Hero — kill the giant padding-top, max 12px above headline */
+  section.hero,
+  .hero.hero-v1,
+  .hero.hero-variant {
+    padding-top: 12px !important;
+    padding-bottom: 32px !important;
+  }
+  .hero-v1 .hero-inner {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    gap: 24px !important;
+  }
+  .hero-v1 .hero-text {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Stats — 2x2 editorial grid with red dash bar above each */
+  .hero-v1 .hero-stats {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 28px 20px !important;
+    max-width: 100% !important;
+    padding-top: 28px !important;
+    margin-top: 24px !important;
+  }
+  .hero-v1 .hero-stats > div {
+    position: relative;
+    padding-top: 14px;
+  }
+  .hero-v1 .hero-stats > div::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0; left: 0;
+    width: 28px;
+    height: 2px;
+    background: var(--red, #B91C1C);
+  }
+  .hero-v1 .hero-stats > div:last-child {
+    grid-column: auto !important;
+    text-align: left !important;
+  }
+  .hero-v1 .stat-num { font-size: 34px !important; line-height: 1 !important; }
+  .hero-v1 .stat-num em { font-size: 34px !important; }
+  .hero-v1 .stat-lbl {
+    font-size: 11px !important;
+    letter-spacing: 0.08em !important;
+    margin-top: 6px !important;
+  }
+
+  /* Portret card — center w flex column, keep full width, restore image */
+  .hero-portrait-wrap {
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 480px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .hero-portrait-wrap .hero-portrait,
+  .hero-v1 .hero-portrait {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .hero-v1 .hero-portrait img,
+  .hero-portrait .portrait-img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4/5 !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+}
+/* END PROPAGATION_MARKER_v2 */
+
+/* BURGER_BASE_CSS_v1 */
+/* Burger base styles — propagated from home */
+.nav-burger { display: none; background: transparent; border: 0; padding: 0; cursor: pointer; }
+@media (max-width: 760px) {
+  .nav-burger {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+  .nav-burger span {
+    display: block; width: 18px; height: 1.5px;
+    background: var(--ink-1, #17130f);
+    position: relative;
+  }
+  .nav-burger span::before, .nav-burger span::after {
+    content: ''; position: absolute; left: 0;
+    width: 18px; height: 1.5px;
+    background: var(--ink-1, #17130f);
+  }
+  .nav-burger span::before { top: -6px; }
+  .nav-burger span::after { top: 6px; }
+}
+/* END BURGER_BASE_CSS_v1 */
+
+/* NAV_CTA_MOBILE_FIX_v1 */
+/* NAV_CTA_MOBILE_FIX_v1 — match home behavior on mobile */
+@media (max-width: 760px) {
+  .nav-cta { gap: 10px !important; }
+  .nav-cta .login,
+  .nav-cta .login-link,
+  .nav-cta .nav-divider { display: none !important; }
+  .nav-cta .btn { padding: 10px 14px !important; font-size: 13px !important; }
+  .nav-cta .btn .arrow { display: none !important; }
+}
+/* END NAV_CTA_MOBILE_FIX_v1 */
+
+/* MOBILE_SPACING_FIX_v1 */
+/* MOBILE_SPACING_FIX_v1 — spójne odstępy między sekcjami i blokami */
+@media (max-width: 760px) {
+  section { padding: 48px 0 !important; }
+  .section-header { margin-bottom: 28px !important; }
+  .section-header h2, section h2 { font-size: clamp(28px, 7vw, 36px) !important; line-height: 1.12 !important; }
+
+  /* Wewnątrz-sekcyjne marginesy — max 32px */
+  .panel-final-cta { margin-top: 40px !important; }
+  .panel-mockups, .panel-stack { margin-top: 32px !important; }
+  .process-cta { margin-top: 32px !important; }
+  .hero-v1 .hero-cta { margin-bottom: 28px !important; }
+  .hero-v2 .hero-cta { margin-bottom: 32px !important; }
+
+  /* Hero — spójne paddingi */
+  .hero { padding: 48px 0 56px !important; }
+
+  /* Site footer */
+  .site-footer { margin-top: 0 !important; }
+}
+/* END MOBILE_SPACING_FIX_v1 */
+
+/* SUBPAGE_HERO_TOP_v1 */
+/* SUBPAGE_HERO_TOP_v1 — zmniejszony top na podstronach mobile */
+@media (max-width: 760px) {
+  /* Sekcje hero podstron — bez wielkiego top paddingu */
+  .s-hero,
+  section.s-hero,
+  section.hero-sub,
+  section.page-hero,
+  .contact-hero, section.contact-hero,
+  .blog-hero, section.blog-hero,
+  .post-hero, section.post-hero,
+  .policy-hero, section.policy-hero,
+  .service-hero, section.service-hero { padding-top: 16px !important; padding-bottom: 40px !important; }
+
+  /* Breadcrumb — kompaktowy na mobile */
+  .breadcrumb { margin: 4px 0 18px !important; font-size: 10px !important; gap: 6px !important; }
+}
+/* END SUBPAGE_HERO_TOP_v1 */
+
+/* NAV_DRAWER_HIDE_DESKTOP_v1 */
+/* NAV_DRAWER_HIDE_DESKTOP_v1 — drawer ukryty domyślnie, widoczny tylko w media query mobile */
+.nav-drawer { display: none; }
+.nav-drawer-backdrop { display: none; }
+.nav-burger { display: none; background: transparent; border: 0; padding: 0; cursor: pointer; }
+/* END NAV_DRAWER_HIDE_DESKTOP_v1 */
+
+/* COMING_SOON_BADGE_v1 */
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  margin-left: 10px;
+  background: rgba(200, 37, 58, 0.07);
+  color: var(--red, #c8253a);
+  border: 1px solid rgba(200, 37, 58, 0.22);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.coming-soon-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--red, #c8253a);
+  border-radius: 50%;
+  animation: cs-pulse 2s ease-in-out infinite;
+}
+@keyframes cs-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+.coming-soon-inline {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--red, #c8253a);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+@media (max-width: 760px) {
+  .coming-soon-badge { display: inline-flex; margin: 8px 0 0; }
+  .section-header .coming-soon-badge { margin-left: 0; }
+}
+/* END COMING_SOON_BADGE_v1 */
+
+/* LOGIN_TOOLTIP_v1 — "Zaloguj — wkrótce" tooltip w nav */
+.nav-cta .login-link, .nav-cta .login { position: relative; }
+.login-soon-tip {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px) scale(0.96);
+  background: var(--ink, #17130f);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  padding: 8px 13px;
+  border-radius: 9px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  box-shadow: 0 8px 24px -6px rgba(0,0,0,0.28);
+  transition: opacity 200ms ease-out, transform 240ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 240ms;
+  z-index: 200;
+}
+.login-soon-tip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: var(--ink, #17130f);
+}
+.nav-cta .login-link:hover .login-soon-tip,
+.nav-cta .login:hover .login-soon-tip,
+.nav-cta .login-link:focus-visible .login-soon-tip,
+.nav-cta .login:focus-visible .login-soon-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition: opacity 200ms ease-out, transform 240ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0s;
+}
+@media (max-width: 760px) {
+  .login-soon-tip { display: none; }
+}
+/* END LOGIN_TOOLTIP_v1 */
 </style>
 <script type="application/ld+json">
 {
@@ -1746,6 +2319,48 @@ section { padding: clamp(80px, 9vw, 120px) 0; }
 <!-- Lead capture (Google Sheets via Apps Script) -->
 <script src="leads-config.js"></script>
 <script src="leads.js"></script>
+
+<!-- SCHEMA_v1_START -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Strona główna",
+      "item": "https://hadynski.github.io/hadynski-strona/Hadynski.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Eksmisje lokatorów",
+      "item": "https://hadynski.github.io/hadynski-strona/Hadynski%20-%20Usluga%20Eksmisje%20Lokatorow.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Eksmisje lokatorów",
+  "name": "Eksmisje lokatorów",
+  "description": "Pomoc właścicielom nieruchomości w eksmisji. 82% wyprowadza się w 14 dni. 100% skuteczność w sądzie.",
+  "provider": {
+    "@type": "LegalService",
+    "name": "Hadyński Inkaso Sp. z o.o.",
+    "url": "https://hadynski.github.io/hadynski-strona/Hadynski.html"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Polska"
+  },
+  "url": "https://hadynski.github.io/hadynski-strona/Hadynski%20-%20Usluga%20Eksmisje%20Lokatorow.html"
+}
+</script>
+<!-- SCHEMA_v1_END -->
 </head>
 <body>
 
@@ -1791,12 +2406,51 @@ section { padding: clamp(80px, 9vw, 120px) 0; }
       <a href="#" class="login-link">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
         Zaloguj
-      </a>
+      <span class="login-soon-tip" role="tooltip">Panel klienta — premiera wkrótce</span></a>
       <span class="nav-divider" aria-hidden="true"></span>
       <button type="button" class="btn btn-outline-red" data-open-modal>Zamów rozmowę <span class="arrow">→</span></button>
+      <button class="nav-burger" id="nav-burger" aria-label="Menu" aria-expanded="false"><span></span></button>
     </div>
   </div>
 </header>
+
+<nav class="nav-drawer" id="nav-drawer" aria-label="Menu mobilne">
+    <a href="Hadynski.html" class="drawer-link">Strona główna</a>
+
+    <div class="drawer-group" data-drawer-group>
+      <button type="button" class="drawer-group-trigger" aria-expanded="false">
+        <span>Windykacja</span>
+        <span class="drawer-chevron" aria-hidden="true">+</span>
+      </button>
+      <div class="drawer-group-items">
+        <a href="Hadynski - Usluga Skup Wierzytelnosci.html">Skup wierzytelności</a>
+        <a href="Hadynski - Usluga Masowa Windykacja.html">Masowa windykacja</a>
+        <a href="Hadynski - Usluga Eksmisje Lokatorow.html">Eksmisje lokatorów</a>
+        <a href="Hadynski - Usluga Windykacja Terenowa.html">Windykacja terenowa</a>
+        <a href="Hadynski - Usluga Windykacja Miedzynarodowa.html">Windykacja międzynarodowa</a>
+        <a href="Hadynski - Usluga Windykacja Sadowa.html">Windykacja sądowa</a>
+      </div>
+    </div>
+
+    <div class="drawer-group" data-drawer-group>
+      <button type="button" class="drawer-group-trigger" aria-expanded="false">
+        <span>Doradztwo</span>
+        <span class="drawer-chevron" aria-hidden="true">+</span>
+      </button>
+      <div class="drawer-group-items">
+        <a href="Hadynski - Usluga Obsluga Prawna.html">Obsługa prawna</a>
+        <a href="Hadynski - Usluga Wywiad Gospodarczy.html">Wywiad gospodarczy</a>
+        <a href="Hadynski - Usluga Pieczec Prewencyjna.html">Pieczęć prewencyjna</a>
+        <a href="Hadynski - Usluga Poszukiwanie Majatku.html">Poszukiwanie majątku</a>
+      </div>
+    </div>
+
+    <a href="Hadynski - Gielda.html" class="drawer-link">Giełda wierzytelności</a>
+    <a href="Hadynski - Kontakt.html" class="drawer-link">Kontakt</a>
+    <a href="#" class="drawer-link drawer-login">Logowanie do panelu <span class="coming-soon-inline">(wkrótce)</span></a>
+  </nav>
+  <div class="nav-drawer-backdrop" id="nav-drawer-backdrop" aria-hidden="true"></div>
+
 
 <main>
 
@@ -1813,7 +2467,7 @@ section { padding: clamp(80px, 9vw, 120px) 0; }
 
       <div class="s-hero-grid">
         <div>
-          <h1 class="s-hero-h1">Twój lokator <em>wyprowadzi się</em> — bo bardziej mu się to opłaci.</h1>
+          <h1 class="s-hero-h1">Eksmisje <em>lokatorów</em></h1>
           <p class="s-hero-lede"><strong>82% dzikich lokatorów wyprowadza się dobrowolnie w 14 dni</strong> od naszego pierwszego kontaktu. Pozostałe sprawy kierujemy do postępowania eksmisyjnego — i tam mamy <strong>100% skuteczności</strong>. Wywodzimy się z windykacji, więc znamy narzędzia, które działają zgodnie z prawem, ale wystarczająco mocno, żeby najemcy bardziej opłacało się wyjść niż zostać.</p>
           <div class="s-hero-cta">
             <button type="button" class="btn btn-primary btn-lg" data-open-modal>
@@ -2301,6 +2955,10 @@ section { padding: clamp(80px, 9vw, 120px) 0; }
   object-fit: cover;
   background: #0a0a0a;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
 }
 .reel-bg { position: absolute; inset: 0; background: #0a0a0a; pointer-events: none; }
 .reel-overlay {
@@ -2702,14 +3360,14 @@ window.SUBMIT_ENDPOINT = "/api/contact";
 
 /* ---------- Reels carousel (infinite loop) ---------- */
 (function(){
-  const STREAM = 'https://customer-iwk69hz1tvlvtv2z.cloudflarestream.com';
+  const STREAM = 'https://customer-au9qwixf3asv6vq1.cloudflarestream.com';
   const REELS = [
-    { title: 'Windykacja terenowa',         desc: 'Windykator pojawia się w siedzibie dłużnika',              vid: '27f86402ae8a51ff4b632b92f32ea579' },
-    { title: 'Antyreklama w Google',        desc: 'Dłużnik widoczny jako pierwszy w wyszukiwarce',            vid: '07826ac262143bd3d123097957ea2b5c' },
-    { title: 'Pisma od kancelarii',         desc: 'Pisma z pieczątką kancelarii prawnej',                       vid: 'dcb6dd9e60e2086e4cb3a4b9ea66a59c' },
-    { title: 'Telefony do otoczenia',       desc: 'Kontakt z bliskim otoczeniem dłużnika',                    vid: 'c7c5b13b7b3a05d20fa5d34c67eb2d3a' },
-    { title: 'Działania w social mediach',  desc: 'Publiczne komunikowanie zadłużenia',                       vid: '5a29ce15b50375e48cabbeca174f07d6' },
-    { title: 'Wezwania z konsekwencjami',   desc: 'Wezwania pokazujące konkretne konsekwencje braku spłaty',  vid: 'cb42ceb4a1ae727d0349b8bbdbb6be65' }
+    { title: 'Windykacja terenowa',         desc: 'Windykator pojawia się w siedzibie dłużnika',              vid: 'dd33b192b4a23c4c878024274962f297', t: '3s' },
+    { title: 'Antyreklama w Google',        desc: 'Dłużnik widoczny jako pierwszy w wyszukiwarce',            vid: '36959f2669bc894c534f54303265e454', t: '48s' },
+    { title: 'Wpis do BIG',                 desc: 'Negatywna informacja w Biurze Informacji Gospodarczej',    vid: 'bd41aa8cf2fc47bf0670a31ccd147eda', t: '31s' },
+    { title: 'Wpływ na otoczenie biznesowe',desc: 'Kontrahenci dłużnika dowiadują się o zaległościach',       vid: 'f17a4b819ee2128777e36cc3d130e5a2', t: '27s' },
+    { title: 'Działania w social mediach',  desc: 'Publiczne komunikowanie zadłużenia',                       vid: '8dda3947588f4c3387ca2ba9567e9b60', t: '27s' },
+    { title: 'Wezwania z konsekwencjami',   desc: 'Wezwania pokazujące konkretne konsekwencje braku spłaty',  vid: 'da2d5e4dc9b1a7627768530e3ac0890c', t: '10s' }
   ];
 
   const stage = document.querySelector('[data-reels]');
@@ -2723,14 +3381,28 @@ window.SUBMIT_ENDPOINT = "/api/contact";
   const N = REELS.length;
   const CLONES = 3;
 
+  // Preload wszystkich 6 posterów równolegle (fetchpriority high)
+  function _reelPosterUrl(r) {
+    return `${STREAM}/${r.vid}/thumbnails/thumbnail.jpg?time=${r.t || '15s'}&width=1080&height=1920&fit=crop&v=4`;
+  }
+  REELS.forEach(r => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = _reelPosterUrl(r);
+    link.setAttribute('fetchpriority', 'high');
+    document.head.appendChild(link);
+  });
+
   function cardHTML(r, realIdx, isClone) {
     const n = String(realIdx + 1).padStart(2, '0');
     const hlsUrl = `${STREAM}/${r.vid}/manifest/video.m3u8`;
-    const poster = `${STREAM}/${r.vid}/thumbnails/thumbnail.jpg?time=1s&height=900`;
+    const poster = `${STREAM}/${r.vid}/thumbnails/thumbnail.jpg?time=${r.t || '15s'}&width=1080&height=1920&fit=crop&v=4`;
     return `
       <article class="reel-card" data-reel-real="${realIdx}"${isClone ? ' data-clone="1"' : ''}>
         <div class="reel-bg"></div>
-        <video class="reel-video" data-src="${hlsUrl}" poster="${poster}" muted loop playsinline preload="metadata" aria-label="${r.title}"></video>
+        <video class="reel-video" data-src="${hlsUrl}"
+               data-poster-time="${tSec}" poster="${poster}" fetchpriority="high" muted loop playsinline preload="metadata" aria-label="${r.title}"></video>
         <div class="reel-overlay"></div>
         <span class="reel-index">${n} <em>/ 06</em></span>
         <button class="reel-sound" aria-label="Włącz dźwięk" type="button">
@@ -2816,12 +3488,31 @@ window.SUBMIT_ENDPOINT = "/api/contact";
   function realOf(v) { return ((v - CLONES) % N + N) % N; }
   function updateActiveVideo() {
     cards.forEach((el, i) => {
-      const v = el.querySelector('.reel-video'); if (!v) return;
+      const v = el.querySelector('.reel-video');
+      if (!v) return;
       if (i === vIndex) {
         v.muted = !window.audioUnlocked;
         setSoundBtnState(el, !v.muted);
-        const p = v.play(); if (p && p.catch) p.catch(() => {});
+        if (v.paused) {
+          try { v.currentTime = 0; } catch(e) {}
+        }
+        const p = v.play();
+        if (p && p.catch) {
+          p.catch(() => {
+            v.muted = true;
+            setSoundBtnState(el, false);
+            v.play().catch(() => {});
+          });
+        }
       } else {
+        if (!v.paused) v.pause();
+        const posterTime = parseFloat(v.dataset.posterTime || '0');
+        try { v.currentTime = posterTime || 0; } catch(e){}
+        v.muted = true;
+        setSoundBtnState(el, false);
+      }
+    });
+  } else {
         if (!v.paused) v.pause();
         try { v.currentTime = 0; } catch(e){}
         v.muted = true;
@@ -2867,15 +3558,14 @@ window.SUBMIT_ENDPOINT = "/api/contact";
   const prev = () => step(-1);
   function goToReal(real) { if (animating) return; animating = true; vIndex = CLONES + ((real % N) + N) % N; update(true); }
 
-  btnNext.addEventListener('click', () => { unlockAudio(); next(); });
-  btnPrev.addEventListener('click', () => { unlockAudio(); prev(); });
-  dots.forEach((d, i) => d.addEventListener('click', () => { unlockAudio(); goToReal(i); }));
+  btnNext.addEventListener('click', () => { next(); });
+  btnPrev.addEventListener('click', () => { prev(); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { goToReal(i); }));
   cards.forEach((el, i) => {
     el.addEventListener('click', (e) => {
       if (i === vIndex) return;
       if (e.target.closest('.reel-sound')) return;
       if (animating) return;
-      unlockAudio();
       animating = true;
       vIndex = i;
       update(true);
@@ -2898,14 +3588,14 @@ window.SUBMIT_ENDPOINT = "/api/contact";
   track.addEventListener('touchmove', (e) => { if (!touching) return; dx = e.touches[0].clientX - startX; }, { passive: true });
   track.addEventListener('touchend', () => {
     if (!touching) return; touching = false;
-    if (Math.abs(dx) > 50) { unlockAudio(); if (dx < 0) next(); else prev(); }
+    if (Math.abs(dx) > 50) { if (dx < 0) next(); else prev(); }
   });
   document.addEventListener('keydown', (e) => {
     const rect = stage.getBoundingClientRect();
     const inView = rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4;
     if (!inView) return;
-    if (e.key === 'ArrowRight') { unlockAudio(); next(); }
-    else if (e.key === 'ArrowLeft') { unlockAudio(); prev(); }
+    if (e.key === 'ArrowRight') { next(); }
+    else if (e.key === 'ArrowLeft') { prev(); }
   });
   window.addEventListener('resize', () => { update(false); });
   if ('IntersectionObserver' in window) {
@@ -3191,6 +3881,56 @@ window.SUBMIT_ENDPOINT = "/api/contact";
   });
 })();
 
+</script>
+<script>
+/* ---------- Mobile burger ---------- */
+(function(){
+  const burger = document.getElementById('nav-burger');
+  const drawer = document.getElementById('nav-drawer');
+  if (!burger || !drawer) return;
+  const close = () => {
+    drawer.classList.remove('open');
+    document.body.classList.remove('nav-open');
+    burger.setAttribute('aria-expanded', 'false');
+  };
+  burger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    document.body.classList.toggle('nav-open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  window.addEventListener('resize', () => { if (window.innerWidth > 760) close(); });
+
+  // Close on backdrop click
+  const backdrop = document.getElementById('nav-drawer-backdrop');
+  if (backdrop) backdrop.addEventListener('click', close);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) close();
+  });
+
+  // Accordion groups — toggle expand/collapse z dynamic max-height (smooth open + close)
+  drawer.querySelectorAll('[data-drawer-group]').forEach(group => {
+    const trigger = group.querySelector('.drawer-group-trigger');
+    const items = group.querySelector('.drawer-group-items');
+    if (!trigger || !items) return;
+    trigger.addEventListener('click', () => {
+      const isOpen = group.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (isOpen) {
+        // Set exact height contentu — smooth slide-down
+        items.style.maxHeight = items.scrollHeight + 'px';
+      } else {
+        // Sequence: najpierw set current height (zamiast auto), potem 0 — smooth slide-up
+        items.style.maxHeight = items.scrollHeight + 'px';
+        // Force reflow before setting 0 (browser musi widzieć current height)
+        items.offsetHeight;
+        items.style.maxHeight = '0';
+      }
+    });
+  });
+})();
 </script>
 </body>
 </html>

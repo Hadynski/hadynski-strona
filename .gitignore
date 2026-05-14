@@ -35,3 +35,15 @@ test_*.html
 audit_*.html
 install_*.py
 mobile_audit.py
+
+# Dev scripts (propagacja zmian między plikami, nie część strony)
+_*.py
+
+# Backupy i tymczasowe foldery (nie wchodzą do repo / na produkcję)
+_backup_pre_*/
+_reel_frames/
+_reel_check/
+_reel_starts/
+_verify_posters/
+_scratch/
+_leads-setup/

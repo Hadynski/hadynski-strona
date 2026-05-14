@@ -40,7 +40,24 @@ document.addEventListener('keydown', function(e) {
   }
 });
 </script>
-<title>Hadyński — Odzyskamy Twoje pieniądze</title>
+<title>Hadyński Inkaso — windykacja należności B2B | 78% skuteczności</title>
+<meta name="description" content="Hadyński Inkaso — windykacja należności B2B od 14 lat. Bezpłatna analiza sprawy, płatność tylko od odzyskanej kwoty. 78% skuteczności, 42 000+ spraw." />
+<!-- SEO_TAGS_v1 -->
+<link rel="canonical" href="https://hadynski.github.io/hadynski-strona/Hadynski.html" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="pl_PL" />
+<meta property="og:site_name" content="Hadyński Inkaso" />
+<meta property="og:title" content="Hadyński Inkaso — windykacja należności B2B | 78% skuteczności" />
+<meta property="og:description" content="Hadyński Inkaso — windykacja należności B2B od 14 lat. Bezpłatna analiza sprawy, płatność tylko od odzyskanej kwoty. 78% skuteczności, 42 000+ spraw." />
+<meta property="og:url" content="https://hadynski.github.io/hadynski-strona/Hadynski.html" />
+<meta property="og:image" content="https://hadynski.github.io/hadynski-strona/assets/bartosz-hero.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Hadyński Inkaso — windykacja należności B2B | 78% skuteczności" />
+<meta name="twitter:description" content="Hadyński Inkaso — windykacja należności B2B od 14 lat. Bezpłatna analiza sprawy, płatność tylko od odzyskanej kwoty. 78% skuteczności, 42 000+ spraw." />
+<meta name="twitter:image" content="https://hadynski.github.io/hadynski-strona/assets/bartosz-hero.jpg" />
+<!-- /SEO_TAGS_v1 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2430,6 +2447,16 @@ section {
   border: 1px solid rgba(0,0,0,0.04);
   transform: rotate(1deg);
   z-index: 3;
+  translate: 0 0;
+}
+@keyframes pm2FloatY {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .pm2-floating {
+    animation: pm2FloatY 3.6s ease-in-out infinite;
+  }
 }
 .pm2-floating-icon {
   width: 40px; height: 40px;
@@ -2766,6 +2793,25 @@ section {
   object-fit: cover;
   background: #0a0a0a;
   display: block;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -webkit-transform: translateZ(0); /* GPU acceleration, ostrzejszy rendering */
+  backface-visibility: hidden;
+}
+/* Miniaturka overlay — pokrywa video TYLKO na nieaktywnych kartach */
+.reel-poster-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  display: block;
+  pointer-events: none;
+  transition: opacity 100ms ease-out;
+}
+.reel-card.is-active .reel-poster-overlay {
+  opacity: 0;
 }
 .reel-bg {
   position: absolute;
@@ -4466,6 +4512,21 @@ section {
   .cases-grid { grid-template-columns: 1fr !important; }
   .case-card { padding: 24px !important; }
   .case-card h3 { font-size: 22px !important; }
+  /* Mobile — etykiety nad wartościami zamiast obok, czytelniej na 375px */
+  .case-card dl > div {
+    flex-direction: column !important;
+    gap: 4px !important;
+    padding: 12px 0 !important;
+  }
+  .case-card dl dt {
+    min-width: 0 !important;
+    font-size: 12px !important;
+    color: var(--ink-3) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+  .case-card dl dd { font-size: 15px !important; }
 
   /* ABOUT */
   .about-inner { grid-template-columns: 1fr !important; gap: 40px !important; }
@@ -4487,10 +4548,21 @@ section {
   .urgency-footer { flex-direction: column; align-items: flex-start; gap: 20px; }
   .urgency-footer .btn { width: 100%; justify-content: center; }
 
-  /* SECTION HEADERS / SPACING */
+  /* SECTION HEADERS / SPACING — spójne odstępy na mobile */
   .section-header h2, section h2 { font-size: clamp(28px, 7vw, 36px) !important; line-height: 1.12 !important; }
-  .section-header { margin-bottom: 40px !important; }
-  section { padding: 64px 0 !important; }
+  .section-header { margin-bottom: 28px !important; }
+  section { padding: 48px 0 !important; }
+
+  /* Spójne marginesy między blokami wewnątrz sekcji — max 32px na mobile */
+  .panel-final-cta { margin-top: 40px !important; }
+  .panel-mockups, .panel-stack { margin-top: 32px !important; }
+  .process-cta { margin-top: 32px !important; }
+  .hero-v1 .hero-cta { margin-bottom: 28px !important; }
+  .hero-v2 .hero-cta { margin-bottom: 32px !important; }
+  .start-grid, .methods-grid, .costs-grid, .cases-grid,
+  .testimonials-grid, .urgency-grid, .services-grid { margin-top: 0 !important; }
+  /* Footer odstęp od ostatniej sekcji */
+  .site-footer { margin-top: 0 !important; }
 
   /* FOOTER */
   .footer-inner { grid-template-columns: 1fr 1fr !important; gap: 32px !important; }
@@ -5112,13 +5184,324 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
     max-width: 100% !important;
   }
 
-  /* Mobile drawer — solid background, above sticky elements */
-  .nav-drawer {
-    background-color: #faf8f5 !important;
-    z-index: 200 !important;
-    opacity: 1 !important;
+  /* Horizontal overflow safety net — strona NIGDY nie ma poziomego scrolla na mobile */
+  html, body {
+    overflow-x: clip !important;
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+    width: 100% !important;
   }
-  .nav-drawer.open { display: flex !important; }
+  section, header, footer, main, nav, article, aside {
+    max-width: 100vw !important;
+  }
+  img, video, iframe, svg {
+    max-width: 100% !important;
+    height: auto;
+  }
+
+  /* Mobile drawer — slide-in z prawej, premium feel (letsautomate style) */
+  .nav-drawer {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed !important;
+    top: 58px !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    height: calc(100vh - 58px) !important;
+    min-height: calc(100dvh - 58px) !important;
+    background-color: #ffffff !important;
+    background-image: none !important;
+    z-index: 9999 !important;
+    padding: 24px 24px 48px !important;
+    overflow-y: auto !important;
+    box-shadow: -8px 0 32px -12px rgba(0,0,0,0.12);
+    border-top: 1px solid var(--line, #e8e2d9);
+    gap: 0 !important;
+    /* Slide-in z prawej */
+    transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      transform 380ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 280ms ease-out,
+      visibility 0s linear 380ms;
+  }
+  .nav-drawer.open {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transition:
+      transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 240ms ease-out,
+      visibility 0s linear 0s;
+  }
+
+  /* Backdrop fade — semi-transparent overlay za drawerem */
+  .nav-drawer-backdrop {
+    position: fixed;
+    top: 58px; left: 0; right: 0; bottom: 0;
+    background: rgba(23, 19, 15, 0.32);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 280ms ease-out, visibility 0s linear 280ms;
+  }
+  body.nav-open .nav-drawer-backdrop {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 280ms ease-out, visibility 0s linear 0s;
+  }
+
+  /* Stagger reveal items — pojawiają się po otwarciu drawera */
+  .nav-drawer > * {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  .nav-drawer.open > * {
+    animation: drawerItemReveal 460ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .nav-drawer.open > *:nth-child(1) { animation-delay: 120ms; }
+  .nav-drawer.open > *:nth-child(2) { animation-delay: 170ms; }
+  .nav-drawer.open > *:nth-child(3) { animation-delay: 220ms; }
+  .nav-drawer.open > *:nth-child(4) { animation-delay: 270ms; }
+  .nav-drawer.open > *:nth-child(5) { animation-delay: 320ms; }
+  .nav-drawer.open > *:nth-child(6) { animation-delay: 370ms; }
+  @keyframes drawerItemReveal {
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Hide login link + divider w mobile nav (jest już w drawer jako "Logowanie do panelu") */
+  .nav-cta .login-link,
+  .nav-cta .nav-divider {
+    display: none !important;
+  }
+
+  /* Logo mobile — większe i nie ścieśnione */
+  .nav-logo img {
+    height: 32px !important;
+    width: auto !important;
+    max-width: 160px;
+  }
+  .nav-logo {
+    flex-shrink: 0;
+  }
+
+  /* Panel HINGO mockup — mobile fix (symetryczny, bez rotacji) */
+  .panel-mockup-v2 {
+    position: relative !important;
+    transform: none !important; /* no rotate na mobile */
+    padding: 20px 18px 18px !important;
+    margin: 56px auto 0 !important; /* miejsce nad panelem na widget */
+    max-width: 100% !important;
+    width: 100% !important;
+    border-radius: 14px !important;
+    overflow: visible !important;
+  }
+  /* Widget "Odzyskano w tym msc." — absolute, przesunięty w prawo, wystaje nad panel */
+  .panel-mockup-v2 .pm2-floating {
+    position: absolute !important;
+    top: -36px !important;
+    right: 12px !important;
+    left: auto !important;
+    margin: 0 !important;
+    transform: none !important;
+    width: auto !important;
+    max-width: calc(100% - 24px) !important;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 14px;
+    padding: 10px 14px;
+    box-shadow: 0 10px 28px -6px rgba(0,0,0,0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 3;
+    white-space: nowrap;
+  }
+  .panel-mockup-v2 .pm2-floating .pm2-floating-icon {
+    flex: none;
+    width: 32px; height: 32px;
+  }
+  .panel-mockup-v2 .pm2-floating .pm2-floating-icon svg {
+    width: 16px; height: 16px;
+  }
+  .panel-mockup-v2 .pm2-floating .pm2-floating-label {
+    font-size: 11px !important;
+    line-height: 1.2;
+  }
+  .panel-mockup-v2 .pm2-floating .pm2-floating-value {
+    font-size: 15px !important;
+    line-height: 1.2;
+  }
+  .panel-mockup-v2 .pm2-head {
+    flex-wrap: wrap;
+    gap: 10px !important;
+    margin-top: 8px !important;
+  }
+  .panel-mockup-v2 .pm2-head-left h4 { font-size: 17px !important; }
+  .panel-mockup-v2 .pm2-head-meta { font-size: 11px !important; }
+  .panel-mockup-v2 .pm2-new-btn {
+    font-size: 11.5px !important;
+    padding: 7px 11px !important;
+  }
+  .panel-mockup-v2 .pm2-case {
+    flex-wrap: nowrap !important;
+    padding: 11px 12px !important;
+    gap: 10px !important;
+    align-items: center !important;
+  }
+  .panel-mockup-v2 .pm2-case-name {
+    font-size: 13.5px !important;
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .panel-mockup-v2 .pm2-case-right {
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .panel-mockup-v2 .pm2-case-amount { font-size: 13px !important; margin-bottom: 4px !important; }
+  .panel-mockup-v2 .pm2-case-pill {
+    font-size: 10.5px !important;
+    padding: 4px 9px !important;
+    white-space: nowrap;
+  }
+  .panel-mockup-bg {
+    padding: 0 !important;
+  }
+  .panel-mockup-bg::before {
+    display: none !important; /* usuń background ozdoby na mobile */
+  }
+
+  /* Hamburger morph na X gdy drawer open */
+  body.nav-open .nav-burger span {
+    background: transparent !important;
+  }
+  body.nav-open .nav-burger span::before {
+    top: 0 !important;
+    transform: rotate(45deg);
+  }
+  body.nav-open .nav-burger span::after {
+    top: 0 !important;
+    transform: rotate(-45deg);
+  }
+  .nav-burger span,
+  .nav-burger span::before,
+  .nav-burger span::after {
+    transition: transform 320ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms ease-out, top 320ms cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* Drawer link — top-level items */
+  .nav-drawer .drawer-link {
+    display: block;
+    padding: 14px 4px;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--ink, #17130f);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    pointer-events: auto !important;
+  }
+  .nav-drawer .drawer-link:last-child { border-bottom: none; }
+
+  /* Drawer accordion group */
+  .nav-drawer .drawer-group {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .nav-drawer .drawer-group-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 4px;
+    background: none;
+    border: 0;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    line-height: 1.2;
+    color: var(--ink, #17130f);
+    cursor: pointer;
+    text-align: left;
+    min-height: 44px;
+  }
+  .nav-drawer .drawer-chevron {
+    font-size: 22px;
+    color: var(--red, #B91C1C);
+    font-weight: 300;
+    transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    line-height: 1;
+    display: inline-block;
+  }
+  .nav-drawer .drawer-group.is-open .drawer-chevron {
+    transform: rotate(45deg); /* + → × */
+  }
+
+  /* Accordion — max-height dynamicznie ustawione w JS (idealnie dopasowane do contentu) */
+  .nav-drawer .drawer-group-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-drawer .drawer-chevron {
+    transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* Drawer items hover/active */
+  .nav-drawer .drawer-link,
+  .nav-drawer .drawer-group-trigger {
+    transition: background 180ms ease-out, color 180ms ease-out;
+  }
+  .nav-drawer .drawer-link:active,
+  .nav-drawer .drawer-group-trigger:active {
+    background: var(--paper-warm, #f3ede3);
+  }
+  .nav-drawer .drawer-group-items a {
+    transition: background 180ms ease-out, color 180ms ease-out, padding-left 200ms ease-out;
+  }
+  .nav-drawer .drawer-group-items a:active {
+    background: var(--paper-warm, #f3ede3);
+    padding-left: 22px;
+  }
+  .nav-drawer .drawer-group-items a {
+    display: block;
+    padding: 10px 4px 10px 16px;
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    line-height: 1.3;
+    color: var(--ink-2, #3a322a);
+    text-decoration: none;
+    border-top: 1px solid rgba(0,0,0,0.04);
+    pointer-events: auto !important;
+  }
+  .nav-drawer .drawer-group-items a:first-child { border-top: 0; padding-top: 4px; }
+  .nav-drawer .drawer-group-items a:last-child { padding-bottom: 12px; }
+
+  /* Login link — wyróżniony */
+  .nav-drawer .drawer-login {
+    color: var(--red, #B91C1C) !important;
+    margin-top: 12px;
+    font-size: 16px !important;
+  }
+
+  /* Blokuj clicks na body content gdy drawer open */
+  body.nav-open main,
+  body.nav-open section,
+  body.nav-open footer {
+    pointer-events: none;
+  }
+
+  /* Drawer extra padding-bottom removed — no sticky bar anymore */
+  .nav-drawer { padding-bottom: 40px !important; }
 
   /* Form labels — pozwalaj na wrap "(brutto)? *" jeśli trzeba, ale nbsp utrzymuje "? *" razem */
   .hf-label .nb-end,
@@ -5259,6 +5642,184 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
   }
 }
 
+/* COMING_SOON_BADGE_v1 — subtelne oznaczenie "Premiera wkrótce" */
+.coming-soon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  margin-left: 10px;
+  background: rgba(200, 37, 58, 0.07);
+  color: var(--red, #c8253a);
+  border: 1px solid rgba(200, 37, 58, 0.22);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.coming-soon-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--red, #c8253a);
+  border-radius: 50%;
+  animation: cs-pulse 2s ease-in-out infinite;
+}
+@keyframes cs-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+.coming-soon-inline {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--red, #c8253a);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Tooltip "Zaloguj — wkrótce" w nav */
+.nav-cta .login-link { position: relative; }
+.login-soon-tip {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-6px) scale(0.96);
+  background: var(--ink, #17130f);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  padding: 8px 13px;
+  border-radius: 9px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  box-shadow: 0 8px 24px -6px rgba(0,0,0,0.28);
+  transition: opacity 200ms ease-out, transform 240ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 240ms;
+  z-index: 200;
+}
+.login-soon-tip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: var(--ink, #17130f);
+}
+.nav-cta .login-link:hover .login-soon-tip,
+.nav-cta .login-link:focus-visible .login-soon-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition: opacity 200ms ease-out, transform 240ms cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0s;
+}
+@media (max-width: 760px) {
+  .login-soon-tip { display: none; }
+}
+@media (max-width: 760px) {
+  .coming-soon-badge { display: inline-flex; margin: 8px 0 0; }
+  .section-header .coming-soon-badge { margin-left: 0; }
+}
+
+/* IMPECCABLE_ANIMATE_v1 — premium motion layer */
+:root {
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Card lift refinements — confident decisive feel */
+.service-card,
+.case-card,
+.start-card,
+.urgency-card,
+.testimonial-card,
+.method-card,
+.cost-card {
+  transition: transform 280ms var(--ease-out-expo),
+              box-shadow 320ms var(--ease-out-expo),
+              border-color 280ms var(--ease-out-expo) !important;
+  will-change: transform;
+}
+.service-card:hover,
+.case-card:hover,
+.start-card:hover,
+.urgency-card:hover,
+.testimonial-card:hover,
+.method-card:hover,
+.cost-card:hover {
+  transform: translateY(-4px) !important;
+}
+
+/* Buttons — refined feedback */
+.btn,
+.btn-primary,
+.btn-outline-red,
+.btn-ghost,
+.btn-modern-primary,
+.btn-modern-ghost {
+  transition: transform 200ms var(--ease-out-expo),
+              box-shadow 260ms var(--ease-out-expo),
+              background-color 200ms var(--ease-out-expo),
+              color 200ms var(--ease-out-expo),
+              border-color 200ms var(--ease-out-expo) !important;
+}
+.btn:active,
+.btn-primary:active,
+.btn-outline-red:active {
+  transform: scale(0.97);
+  transition-duration: 100ms !important;
+}
+
+/* Stat counter — number reveal */
+.stat-num em,
+.stat-num,
+[data-counter] {
+  font-variant-numeric: tabular-nums;
+}
+.stat-num.is-counting em {
+  display: inline-block;
+}
+
+/* Smooth reveal upgrade — exit 75% of entrance */
+.reveal {
+  transition: opacity 700ms var(--ease-out-expo),
+              transform 700ms var(--ease-out-expo);
+}
+
+/* Reduced motion — kill switch (accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .pm2-floating { animation: none !important; }
+}
+/* END IMPECCABLE_ANIMATE_v1 */
+
+
+
+/* H1→H2 w ukrytych hero variantach — styl jak h1 dla zachowania designu */
+.hero-v2 .hero-h1, .hero-v3 .hero-h1, .hero-v4 .hero-h1 {
+  font-family: var(--font-serif);
+  letter-spacing: -0.04em;
+  font-weight: 400;
+}
+.hero-v2 .hero-h1 { font-size: clamp(40px, 5.5vw, 72px); line-height: 1.05; }
+.hero-v3 .hero-h1 { font-size: clamp(36px, 5vw, 64px); line-height: 1.1; }
+.hero-v4 .hero-h1 { font-size: clamp(40px, 6vw, 80px); line-height: 1.04; letter-spacing: -0.05em; }
+
 </style>
 <script type="application/ld+json">
 {
@@ -5311,6 +5872,23 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
 <!-- Lead capture (Google Sheets via Apps Script) -->
 <script src="leads-config.js"></script>
 <script src="leads.js"></script>
+
+<!-- SCHEMA_v1_START -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Bartosz Hadyński",
+  "jobTitle": "Założyciel",
+  "worksFor": {
+    "@type": "LegalService",
+    "name": "Hadyński Inkaso Sp. z o.o.",
+    "url": "https://hadynski.github.io/hadynski-strona/Hadynski.html"
+  },
+  "description": "Założyciel Hadyński Inkaso, 14 lat doświadczenia w windykacji należności B2B i B2C."
+}
+</script>
+<!-- SCHEMA_v1_END -->
 </head>
 <body>
 
@@ -5353,9 +5931,10 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
       <a href="Hadynski - Kontakt.html" class="nav-link">Kontakt</a>
     </nav>
     <div class="nav-cta">
-      <a href="#" class="login-link">
+      <a href="#" class="login-link" aria-label="Logowanie do panelu — funkcja wkrótce dostępna">
         <svg class="lock-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
         Zaloguj
+        <span class="login-soon-tip" role="tooltip">Panel klienta — premiera wkrótce</span>
       </a>
       <span class="nav-divider" aria-hidden="true"></span>
       <a href="#" class="btn btn-outline-red" data-modal-open="contact">Zamów rozmowę <span class="arrow">→</span></a>
@@ -5363,12 +5942,42 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
     </div>
   </div>
   <nav class="nav-drawer" id="nav-drawer" aria-label="Menu mobilne">
-    <a href="Hadynski.html#uslugi">Windykacja</a>
-    <a href="Hadynski.html#uslugi">Doradztwo</a>
-    <a href="Hadynski - Gielda.html">Giełda wierzytelności</a>
-    <a href="Hadynski - Kontakt.html">Kontakt</a>
-    <a href="#" class="drawer-login">Logowanie do panelu →</a>
+    <a href="Hadynski.html" class="drawer-link">Strona główna</a>
+
+    <div class="drawer-group" data-drawer-group>
+      <button type="button" class="drawer-group-trigger" aria-expanded="false">
+        <span>Windykacja</span>
+        <span class="drawer-chevron" aria-hidden="true">+</span>
+      </button>
+      <div class="drawer-group-items">
+        <a href="Hadynski - Usluga Skup Wierzytelnosci.html">Skup wierzytelności</a>
+        <a href="Hadynski - Usluga Masowa Windykacja.html">Masowa windykacja</a>
+        <a href="Hadynski - Usluga Eksmisje Lokatorow.html">Eksmisje lokatorów</a>
+        <a href="Hadynski - Usluga Windykacja Terenowa.html">Windykacja terenowa</a>
+        <a href="Hadynski - Usluga Windykacja Miedzynarodowa.html">Windykacja międzynarodowa</a>
+        <a href="Hadynski - Usluga Windykacja Sadowa.html">Windykacja sądowa</a>
+      </div>
+    </div>
+
+    <div class="drawer-group" data-drawer-group>
+      <button type="button" class="drawer-group-trigger" aria-expanded="false">
+        <span>Doradztwo</span>
+        <span class="drawer-chevron" aria-hidden="true">+</span>
+      </button>
+      <div class="drawer-group-items">
+        <a href="Hadynski - Usluga Obsluga Prawna.html">Obsługa prawna</a>
+        <a href="Hadynski - Usluga Wywiad Gospodarczy.html">Wywiad gospodarczy</a>
+        <a href="Hadynski - Usluga Pieczec Prewencyjna.html">Pieczęć prewencyjna</a>
+        <a href="Hadynski - Usluga Poszukiwanie Majatku.html">Poszukiwanie majątku</a>
+      </div>
+    </div>
+
+    <a href="Hadynski - Gielda.html" class="drawer-link">Giełda wierzytelności</a>
+    <a href="Hadynski - Kontakt.html" class="drawer-link">Kontakt</a>
+    <a href="#" class="drawer-link drawer-login">Logowanie do panelu <span class="coming-soon-inline">(wkrótce)</span></a>
   </nav>
+  <div class="nav-drawer-backdrop" id="nav-drawer-backdrop" aria-hidden="true"></div>
+
 </header>
 
 <!-- ============== HERO (wszystkie 3 warianty, przełączane przez JS) ============== -->
@@ -5490,11 +6099,11 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
 <section class="hero hero-variant hero-v2" data-variant="v2" data-screen-label="01 Hero — Centered editorial" hidden>
   <div class="wrap hero-inner reveal">
     <span class="eyebrow eyebrow-red">● Skuteczna windykacja</span>
-    <h1>
+    <h2 class="hero-h1">
       <span class="line">Odzyskamy</span>
       <span class="line">Twoje pieniądze <em>—</em></span>
       <span class="line"><em>na koszt dłużnika.</em></span>
-    </h1>
+    </h2>
     <p class="hero-lede">
       Zostaw numer, a bezpłatnie ocenimy Twoją sprawę — sprawdzimy wypłacalność dłużnika,
       przedstawimy plan działania i wycenę. Płacisz dopiero po odzyskaniu pieniędzy.
@@ -5518,10 +6127,10 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
   <div class="hero-inner">
     <div class="hero-left reveal">
       <span class="eyebrow eyebrow-red">● Skuteczna windykacja</span>
-      <h1>
+      <h2 class="hero-h1">
         Odzyskamy Twoje<br/>
         pieniądze <em>— na<br/>koszt<br/>dłużnika.</em>
-      </h1>
+      </h2>
       <p class="hero-lede">
         Zostaw numer, a bezpłatnie ocenimy Twoją sprawę — sprawdzimy wypłacalność dłużnika,
         przedstawimy plan i wycenę. Płacisz dopiero po odzyskaniu. <strong>Zero ryzyka.</strong>
@@ -5558,9 +6167,9 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
   <div class="wrap hero-inner">
     <div class="hero-text reveal">
       <span class="hero-pill"><span class="dot"></span> Skuteczna windykacja</span>
-      <h1>
+      <h2 class="hero-h1">
         Odzyskamy Twoje pieniądze <span class="accent">— na koszt dłużnika.</span>
-      </h1>
+      </h2>
       <p class="hero-lede">
         Zostaw numer, a bezpłatnie ocenimy Twoją sprawę — sprawdzimy wypłacalność dłużnika,
         przedstawimy plan działania i wycenę. Płacisz dopiero po odzyskaniu pieniędzy.
@@ -5761,7 +6370,7 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
 <section class="panel-section" data-screen-label="06 Twój panel klienta">
   <div class="wrap">
     <div class="section-header reveal">
-      <span class="eyebrow">Twój panel klienta</span>
+      <span class="eyebrow">Twój panel klienta <span class="coming-soon-badge">Premiera wkrótce</span></span>
       <h2 class="section-title">Wiesz wszystko o swojej sprawie. <em style="font-style:normal; color:var(--red);">Zawsze.</em></h2>
     </div>
 
@@ -5884,8 +6493,8 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
     </div>
 
     <div class="panel-final-cta reveal">
-      <div class="pfc-text">Panel dostępny dla każdego klienta od pierwszej sprawy.</div>
-      <a href="#kontakt" class="btn btn-primary" data-modal-open="contact">Zamów rozmowę i&nbsp;zobacz panel <span class="arrow">→</span></a>
+      <div class="pfc-text">Panel jest w&nbsp;trakcie wdrażania. Zostaw kontakt — damy znać, gdy ruszy.</div>
+      <a href="#kontakt" class="btn btn-primary" data-modal-open="contact">Powiadom mnie o&nbsp;premierze <span class="arrow">→</span></a>
     </div>
   </div>
 </section>
@@ -5896,9 +6505,9 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
   <div class="wrap">
     <div class="section-header reveal">
       <span class="eyebrow">Portfolio spraw</span>
-      <h2 class="section-title">Prawdziwe sprawy, prawdziwe liczby</h2>
+      <h2 class="section-title">Jak prowadzimy sprawy <em style="font-style:normal; color:var(--red);">— od zgłoszenia do spłaty</em></h2>
       <p class="section-lede" style="margin:16px auto 0;">
-        Wybrane sprawy z naszego portfolio — każda z podpisaną referencją od klienta. Pobierz dokumenty i sprawdź sam.
+        Wybrane sprawy z naszego portfolio — konkretne kwoty, konkretne terminy, realne wyniki. Każdą prowadziliśmy od pierwszego kontaktu do pełnej spłaty.
       </p>
     </div>
 
@@ -5913,7 +6522,6 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
           <div><dt>Co zrobiliśmy</dt><dd><ul class="case-actions"><li>Wpis do BIG-u</li><li>Windykacja terenowa</li><li>Antyreklama</li><li>Negocjacje z&nbsp;zarządem</li></ul></dd></div>
         </dl>
         <div class="case-result"><span class="tick">✓</span> Wynik: Pełna spłata w 41 dni</div>
-        <a href="#" class="btn btn-ghost">↓ Pobierz referencję od klienta (PDF)</a>
       </article>
 
       <article class="case-card">
@@ -5921,12 +6529,11 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
         <h3>Pożyczka prywatna, Mazowsze</h3>
         <dl>
           <div><dt>Sprawa</dt><dd>150 000 zł pożyczki udzielonej osobie fizycznej</dd></div>
-          <div><dt>Materiał dowodowy</dt><dd>wiadomości Messenger (brak umowy pisemnej)</dd></div>
+          <div><dt>Dowody</dt><dd>wiadomości Messenger (brak umowy pisemnej)</dd></div>
           <div><dt>Wyzwanie</dt><dd>Dłużnik z&nbsp;bliskiego otoczenia klienta</dd></div>
           <div><dt>Co zrobiliśmy</dt><dd><ul class="case-actions"><li>Mediacja</li><li>Przedstawienie konsekwencji braku spłaty</li><li>Polubowne uzyskanie pełnej spłaty</li></ul></dd></div>
         </dl>
         <div class="case-result"><span class="tick">✓</span> Wynik: Odzyskane w 17 dni</div>
-        <a href="#" class="btn btn-ghost">↓ Pobierz referencję od klienta (PDF)</a>
       </article>
 
       <article class="case-card">
@@ -5939,7 +6546,6 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
           <div><dt>Co zrobiliśmy</dt><dd><ul class="case-actions"><li>Kontakt z&nbsp;otoczeniem biznesowym dłużnika</li><li>Przedstawienie konsekwencji braku spłaty: możliwość utraty licencji transportowej</li><li>Wpis do BIG-u</li></ul></dd></div>
         </dl>
         <div class="case-result"><span class="tick">✓</span> Wynik: 100% odzyskane w 28 dni</div>
-        <a href="#" class="btn btn-ghost">↓ Pobierz referencję od klienta (PDF)</a>
       </article>
     </div>
 
@@ -6230,14 +6836,14 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 
 /* ---------- Reels carousel (infinite loop) ---------- */
 (function(){
-  const STREAM = 'https://customer-iwk69hz1tvlvtv2z.cloudflarestream.com';
+  const STREAM = 'https://customer-au9qwixf3asv6vq1.cloudflarestream.com';
   const REELS = [
-    { title: 'Windykacja terenowa',         desc: 'Windykator pojawia się w siedzibie dłużnika',              vid: '27f86402ae8a51ff4b632b92f32ea579' },
-    { title: 'Antyreklama w Google',        desc: 'Dłużnik widoczny jako pierwszy w wyszukiwarce',            vid: '07826ac262143bd3d123097957ea2b5c' },
-    { title: 'Wpis do BIG',                 desc: 'Negatywna informacja w Biurze Informacji Gospodarczej',    vid: 'e84c958c233ec301bdbc3b4d67ef2868' },
-    { title: 'Wpływ na otoczenie biznesowe',desc: 'Kontrahenci dłużnika dowiadują się o zaległościach',       vid: 'b27277ee62025952524e084eb2a800ef' },
-    { title: 'Działania w social mediach',  desc: 'Publiczne komunikowanie zadłużenia',                       vid: '5a29ce15b50375e48cabbeca174f07d6' },
-    { title: 'Wezwania z konsekwencjami',   desc: 'Wezwania pokazujące konkretne konsekwencje braku spłaty',  vid: 'cb42ceb4a1ae727d0349b8bbdbb6be65' }
+    { title: 'Windykacja terenowa',         desc: 'Windykator pojawia się w siedzibie dłużnika',              vid: 'dd33b192b4a23c4c878024274962f297', t: '3s' },
+    { title: 'Antyreklama w Google',        desc: 'Dłużnik widoczny jako pierwszy w wyszukiwarce',            vid: '36959f2669bc894c534f54303265e454', t: '48s' },
+    { title: 'Wpis do BIG',                 desc: 'Negatywna informacja w Biurze Informacji Gospodarczej',    vid: 'bd41aa8cf2fc47bf0670a31ccd147eda', t: '31s' },
+    { title: 'Wpływ na otoczenie biznesowe',desc: 'Kontrahenci dłużnika dowiadują się o zaległościach',       vid: 'f17a4b819ee2128777e36cc3d130e5a2', t: '27s' },
+    { title: 'Działania w social mediach',  desc: 'Publiczne komunikowanie zadłużenia',                       vid: '8dda3947588f4c3387ca2ba9567e9b60', t: '27s' },
+    { title: 'Wezwania z konsekwencjami',   desc: 'Wezwania pokazujące konkretne konsekwencje braku spłaty',  vid: 'da2d5e4dc9b1a7627768530e3ac0890c', t: '10s' }
   ];
 
   const stage = document.querySelector('[data-reels]');
@@ -6251,16 +6857,35 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   const N = REELS.length;
   const CLONES = 3;
 
+  // Build poster URL — pełna proporcja 9:16 dla reels (1080×1920) + cache buster
+  function posterUrl(r) {
+    return `${STREAM}/${r.vid}/thumbnails/thumbnail.jpg?time=${r.t || '15s'}&width=1080&height=1920&fit=crop&v=4`;
+  }
+
+  // Preload wszystkich 6 posterów równolegle (fetchpriority high)
+  REELS.forEach(r => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = posterUrl(r);
+    link.setAttribute('fetchpriority', 'high');
+    document.head.appendChild(link);
+  });
+
   function cardHTML(r, realIdx, isClone) {
     const n = String(realIdx + 1).padStart(2, '0');
     const hlsUrl = `${STREAM}/${r.vid}/manifest/video.m3u8`;
-    const poster = `${STREAM}/${r.vid}/thumbnails/thumbnail.jpg?time=1s&height=900`;
+    const poster = posterUrl(r);
+    const tSec = parseFloat(r.t) || 0;
     return `
       <article class="reel-card" data-reel-real="${realIdx}"${isClone ? ' data-clone="1"' : ''}>
         <div class="reel-bg"></div>
+        <img class="reel-poster-overlay" src="${poster}" alt="" aria-hidden="true" loading="lazy">
         <video class="reel-video"
                data-src="${hlsUrl}"
+               data-poster-time="${tSec}"
                poster="${poster}"
+               fetchpriority="high"
                muted loop playsinline preload="metadata"
                aria-label="${r.title}"></video>
         <div class="reel-overlay"></div>
@@ -6292,21 +6917,45 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   const dots  = Array.from(dotsWrap.querySelectorAll('button'));
   const videos = Array.from(track.querySelectorAll('.reel-video'));
 
-  // Attach HLS source to each <video>
-  videos.forEach(v => {
+  // Lazy attach HLS — tylko dla aktywnej karty i sąsiadów (oszczędza pasmo, unika rate-limit)
+  function attachHlsIfNeeded(v) {
+    if (v.dataset.hlsAttached === '1') return;
     const src = v.dataset.src;
     if (!src) return;
+    v.dataset.hlsAttached = '1';
     if (v.canPlayType('application/vnd.apple.mpegurl')) {
-      // Safari — native HLS
       v.src = src;
     } else if (window.Hls && window.Hls.isSupported()) {
-      const hls = new window.Hls({ maxBufferLength: 15, capLevelToPlayerSize: true });
+      const hls = new window.Hls({
+        maxBufferLength: 30,
+        capLevelToPlayerSize: false,
+        startLevel: -1,
+        abrEwmaDefaultEstimate: 5e6,
+        startFragPrefetch: true
+      });
+      const card = v.closest('.reel-card');
+      // Po sparsowaniu manifestu — wymuś najwyższy level (1080p)
+      hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
+        if (hls.levels && hls.levels.length > 0) {
+          const maxLevel = hls.levels.length - 1;
+          hls.nextLevel = maxLevel;
+          hls.currentLevel = maxLevel;
+        }
+      });
+      // Po pobraniu fragmentu w najwyższym poziomie — oznacz że można pokazać video (zdejmij overlay)
+      hls.on(window.Hls.Events.FRAG_LOADED, (event, data) => {
+        const maxLevel = hls.levels.length - 1;
+        if (data && data.frag && data.frag.level === maxLevel && card) {
+          card.dataset.hqReady = '1';
+        }
+      });
       hls.loadSource(src);
       hls.attachMedia(v);
+      v._hlsInstance = hls;
     } else {
-      v.src = src; // best effort
+      v.src = src;
     }
-  });
+  }
 
   let vIndex = CLONES;
   let animating = false;
@@ -6367,11 +7016,32 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     cards.forEach((el, i) => {
       const v = el.querySelector('.reel-video');
       if (!v) return;
+      // Attach HLS dla aktywnej i bezpośrednich sąsiadów (lazy load, oszczędza pasmo)
+      const distance = Math.abs(i - vIndex);
+      if (distance <= 1) {
+        attachHlsIfNeeded(v);
+      }
       if (i === vIndex) {
         v.muted = !window.audioUnlocked;
         setSoundBtnState(el, !v.muted);
+        if (v.paused) {
+          try { v.currentTime = 0; } catch(e) {}
+        }
         const p = v.play();
-        if (p && p.catch) p.catch(() => {});
+        if (p && p.catch) {
+          p.catch(() => {
+            const onReady = () => {
+              v.removeEventListener('canplay', onReady);
+              v.muted = !window.audioUnlocked;
+              v.play().catch(() => {
+                v.muted = true;
+                setSoundBtnState(el, false);
+                v.play().catch(()=>{});
+              });
+            };
+            v.addEventListener('canplay', onReady);
+          });
+        }
       } else {
         if (!v.paused) v.pause();
         try { v.currentTime = 0; } catch(e){}
@@ -6419,6 +7089,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
       translateFor(vIndex, false);
       void track.offsetWidth;
       requestAnimationFrame(() => { track.style.transition = ''; });
+      // Po remapie z klona — nowa karta (real) musi dostać play
+      updateActiveVideo();
     }
   });
 
@@ -6438,15 +7110,14 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
     update(true);
   }
 
-  btnNext.addEventListener('click', () => { unlockAudio(); next(); });
-  btnPrev.addEventListener('click', () => { unlockAudio(); prev(); });
-  dots.forEach((d, i) => d.addEventListener('click', () => { unlockAudio(); goToReal(i); }));
+  btnNext.addEventListener('click', () => { next(); });
+  btnPrev.addEventListener('click', () => { prev(); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { goToReal(i); }));
   cards.forEach((el, i) => {
     el.addEventListener('click', (e) => {
       if (i === vIndex) return;
       if (e.target.closest('.reel-sound')) return;
       if (animating) return;
-      unlockAudio();
       animating = true;
       vIndex = i;
       update(true);
@@ -6484,15 +7155,15 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   track.addEventListener('touchend', () => {
     if (!touching) return;
     touching = false;
-    if (Math.abs(dx) > 50) { unlockAudio(); if (dx < 0) next(); else prev(); }
+    if (Math.abs(dx) > 50) { if (dx < 0) next(); else prev(); }
   });
 
   document.addEventListener('keydown', (e) => {
     const rect = stage.getBoundingClientRect();
     const inView = rect.top < window.innerHeight * 0.6 && rect.bottom > window.innerHeight * 0.4;
     if (!inView) return;
-    if (e.key === 'ArrowRight') { unlockAudio(); next(); }
-    else if (e.key === 'ArrowLeft') { unlockAudio(); prev(); }
+    if (e.key === 'ArrowRight') { next(); }
+    else if (e.key === 'ArrowLeft') { prev(); }
   });
 
   window.addEventListener('resize', () => { update(false); });
@@ -6633,7 +7304,38 @@ setTimeout(initialReveal, 800);
   });
   drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
   window.addEventListener('resize', () => { if (window.innerWidth > 760) close(); });
+
+  // Close on backdrop click
+  const backdrop = document.getElementById('nav-drawer-backdrop');
+  if (backdrop) backdrop.addEventListener('click', close);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) close();
+  });
+
+  // Accordion groups — toggle expand/collapse z dynamic max-height (smooth open + close)
+  drawer.querySelectorAll('[data-drawer-group]').forEach(group => {
+    const trigger = group.querySelector('.drawer-group-trigger');
+    const items = group.querySelector('.drawer-group-items');
+    if (!trigger || !items) return;
+    trigger.addEventListener('click', () => {
+      const isOpen = group.classList.toggle('is-open');
+      trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (isOpen) {
+        // Set exact height contentu — smooth slide-down
+        items.style.maxHeight = items.scrollHeight + 'px';
+      } else {
+        // Sequence: najpierw set current height (zamiast auto), potem 0 — smooth slide-up
+        items.style.maxHeight = items.scrollHeight + 'px';
+        // Force reflow before setting 0 (browser musi widzieć current height)
+        items.offsetHeight;
+        items.style.maxHeight = '0';
+      }
+    });
+  });
 })();
+
 
 /* ---------- Hero variant switcher ---------- */
 function setHeroVariant(v) {
@@ -6712,7 +7414,8 @@ testimonialsGrid.innerHTML = testimonials.map(t => `
     <blockquote class="testimonial-quote">„${t.lead} — <strong><span style="color: #a01818;">${t.refrain}</span></strong>"</blockquote>
     <div class="testimonial-meta">
       <span class="testimonial-author">${t.name}, ${t.role}</span>
-      ${t.verified ? `<span class="testimonial-verified">${checkIcon} Opinia zweryfikowana z&nbsp;panelu klienta</span>` : ''}
+      <!-- PANEL_PREMIERA: przywróć poniższą linię gdy panel klienta będzie live -->
+      <!-- ${t.verified ? `<span class="testimonial-verified">${checkIcon} Opinia zweryfikowana z&nbsp;panelu klienta</span>` : ''} -->
     </div>
   </article>
 `).join('');

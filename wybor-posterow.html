@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wybór posterów reels — Hadyński</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Inter Tight", system-ui, sans-serif; margin: 0; padding: 32px 24px 60px; background: #faf8f4; color: #17130f; }
+  .wrap { max-width: 1100px; margin: 0 auto; }
+  h1 { font-size: 28px; margin: 0 0 6px; }
+  p.lead { color: #6b6661; margin: 0 0 28px; font-size: 14px; }
+  .reel-section { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 18px 18px 14px; margin-bottom: 18px; }
+  .reel-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .reel-idx { font-family: ui-monospace, "SF Mono", monospace; font-size: 12px; color: #999; }
+  .reel-label { font-size: 16px; font-weight: 600; }
+  .frames { display: grid; grid-template-columns: repeat(8, 1fr); gap: 10px; }
+  @media (max-width: 900px) { .frames { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 500px) { .frames { grid-template-columns: repeat(2, 1fr); } }
+  .frame { position: relative; cursor: pointer; padding: 0; border: 3px solid transparent; border-radius: 8px; overflow: hidden; background: #000; aspect-ratio: 9/16; display: block; transition: border-color 160ms ease, transform 160ms ease; }
+  .frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .frame:hover { transform: scale(1.02); border-color: rgba(0,0,0,0.15); }
+  .frame.selected { border-color: #c8253a; }
+  .frame.selected::after { content: '✓'; position: absolute; top: 6px; right: 6px; width: 24px; height: 24px; background: #c8253a; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+  .frame-time { position: absolute; bottom: 4px; left: 6px; background: rgba(0,0,0,0.65); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-family: ui-monospace, "SF Mono", monospace; }
+  .bar { position: sticky; bottom: 0; margin: 24px -24px -60px; padding: 14px 24px 18px; background: rgba(250,248,244,0.95); backdrop-filter: blur(8px); border-top: 1px solid rgba(0,0,0,0.08); display: flex; align-items: center; gap: 16px; }
+  .status { font-size: 14px; color: #6b6661; flex: 1; }
+  .status strong { color: #17130f; }
+  button.copy { padding: 10px 18px; background: #c8253a; color: #fff; border: 0; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 160ms ease; }
+  button.copy:disabled { background: #ccc; cursor: not-allowed; }
+  button.copy:hover:not(:disabled) { background: #a91d2f; }
+  .result { margin-top: 12px; padding: 12px 16px; background: #f5f1e8; border-radius: 8px; font-family: ui-monospace, monospace; font-size: 13px; white-space: pre-wrap; display: none; }
+  .result.show { display: block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Wybór posterów reels</h1>
+  <p class="lead">Kliknij jedną klatkę z każdej linii (8 wariantów na film). Po zaznaczeniu 6 — przycisk skopiuje listę do schowka. Wklej mi to z powrotem do Claude.</p>
+
+  <div id="reels-picker"></div>
+
+  <div class="bar">
+    <span class="status"><strong id="count">0</strong> / 6 wybranych</span>
+    <button class="copy" id="copy-btn" disabled>Skopiuj wybór do schowka</button>
+  </div>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+const STREAM = 'https://customer-au9qwixf3asv6vq1.cloudflarestream.com';
+const REELS = [
+  { idx: '01', label: 'Windykacja terenowa',        vid: 'dd33b192b4a23c4c878024274962f297', dur: 42 },
+  { idx: '02', label: 'Antyreklama w Google',       vid: '36959f2669bc894c534f54303265e454', dur: 50 },
+  { idx: '03', label: 'Wpis do BIG',                vid: 'bd41aa8cf2fc47bf0670a31ccd147eda', dur: 41 },
+  { idx: '04', label: 'Wpływ na otoczenie biznesowe', vid: 'f17a4b819ee2128777e36cc3d130e5a2', dur: 45 },
+  { idx: '05', label: 'Działania w social mediach', vid: '8dda3947588f4c3387ca2ba9567e9b60', dur: 46 },
+  { idx: '06', label: 'Wezwania z konsekwencjami',  vid: 'da2d5e4dc9b1a7627768530e3ac0890c', dur: 43 }
+];
+
+function frameTimes(dur) {
+  // 8 klatek rozłożonych równomiernie od 2s do dur-2s
+  const start = 2;
+  const end = dur - 2;
+  const step = (end - start) / 7;
+  return Array.from({length: 8}, (_, i) => Math.round(start + i * step));
+}
+
+const picks = {};
+const root = document.getElementById('reels-picker');
+const countEl = document.getElementById('count');
+const btn = document.getElementById('copy-btn');
+const result = document.getElementById('result');
+
+REELS.forEach(r => {
+  const times = frameTimes(r.dur);
+  const sec = document.createElement('div');
+  sec.className = 'reel-section';
+  sec.innerHTML = `
+    <div class="reel-head">
+      <span class="reel-idx">${r.idx} · ${r.dur}s</span>
+      <span class="reel-label">${r.label}</span>
+    </div>
+    <div class="frames" data-row="${r.idx}"></div>
+  `;
+  const row = sec.querySelector('[data-row]');
+  times.forEach(t => {
+    const f = document.createElement('button');
+    f.type = 'button';
+    f.className = 'frame';
+    f.dataset.idx = r.idx;
+    f.dataset.t = t;
+    f.innerHTML = `
+      <img loading="lazy" src="${STREAM}/${r.vid}/thumbnails/thumbnail.jpg?time=${t}s&height=720&fit=crop" alt="klatka ${t}s">
+      <span class="frame-time">${t}s</span>
+    `;
+    f.addEventListener('click', () => {
+      picks[r.idx] = { t, label: r.label };
+      row.querySelectorAll('.frame').forEach(b => b.classList.toggle('selected', b === f));
+      countEl.textContent = Object.keys(picks).length;
+      if (Object.keys(picks).length === 6) btn.disabled = false;
+    });
+    row.appendChild(f);
+  });
+  root.appendChild(sec);
+});
+
+btn.addEventListener('click', () => {
+  const lines = REELS.map(r => `${r.idx} ${r.label}: ${picks[r.idx].t}s`).join('\n');
+  navigator.clipboard.writeText(lines).then(() => {
+    btn.textContent = '✓ Skopiowane!';
+    result.textContent = lines;
+    result.classList.add('show');
+    setTimeout(() => { btn.textContent = 'Skopiuj wybór do schowka'; }, 2000);
+  });
+});
+</script>
+</body>
+</html>

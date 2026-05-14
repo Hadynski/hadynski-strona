@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Podgląd klatek reels — Hadyński</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif; margin: 0; padding: 32px 24px 60px; background: #faf8f4; color: #17130f; }
+.wrap { max-width: 1400px; margin: 0 auto; }
+h1 { font-size: 28px; margin: 0 0 6px; }
+p.lead { color: #6b6661; margin: 0 0 28px; font-size: 14px; }
+.reel-section { background: #fff; border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 18px 18px 16px; margin-bottom: 22px; }
+.reel-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+.reel-idx { font-family: ui-monospace, "SF Mono", monospace; font-size: 12px; color: #999; }
+.reel-label { font-size: 17px; font-weight: 600; }
+.reel-current { margin-left: auto; font-size: 12px; color: #c8253a; font-weight: 600; padding: 4px 10px; background: #fce8eb; border-radius: 6px; }
+.frames { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+@media (max-width: 900px) { .frames { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 500px) { .frames { grid-template-columns: repeat(2, 1fr); } }
+.frame { position: relative; border: 3px solid transparent; border-radius: 8px; overflow: hidden; background: #000; aspect-ratio: 9/16; display: block; }
+.frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.frame.current { border-color: #c8253a; box-shadow: 0 6px 20px -4px rgba(200,37,58,0.4); }
+.frame.current::after { content: '✓ WYBRANE'; position: absolute; top: 6px; right: 6px; background: #c8253a; color: #fff; font-size: 9.5px; font-weight: 700; padding: 3px 7px; border-radius: 4px; letter-spacing: 0.04em; }
+.frame-time { position: absolute; bottom: 4px; left: 6px; background: rgba(0,0,0,0.75); color: #fff; font-size: 11px; padding: 3px 7px; border-radius: 4px; font-family: ui-monospace, monospace; }
+.info { background: #fef3c7; border-left: 4px solid #f59e0b; padding: 14px 18px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; }
+.info code { background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Podgląd klatek reels</h1>
+  <p class="lead">Wszystkie 36 klatek (6 filmów × 6 wariantów). Czerwoną ramką zaznaczona klatka aktualnie używana jako poster.</p>
+
+  <div class="info">
+    <strong>Jak to przeczytać:</strong> Jeśli widzisz lepszą klatkę niż obecnie wybrana — napisz mi w czacie np.: <code>02: 30s</code> i <code>06: 17s</code> a podmienię w kodzie.
+  </div>
+
+  <div id="reels"></div>
+</div>
+
+<script>
+const REELS = [
+  { idx: '01', label: 'Windykacja terenowa',         current: 3,  frames: [3, 10, 17, 24, 31, 38], file: '01_terenowa' },
+  { idx: '02', label: 'Antyreklama w Google',        current: 48, frames: [3, 12, 21, 30, 39, 48], file: '02_antyreklama' },
+  { idx: '03', label: 'Wpis do BIG',                 current: 31, frames: [3, 10, 17, 24, 31, 38], file: '03_big' },
+  { idx: '04', label: 'Wpływ na otoczenie biznesowe',current: 27, frames: [3, 11, 19, 27, 35, 43], file: '04_otoczenie' },
+  { idx: '05', label: 'Działania w social mediach',  current: 27, frames: [3, 11, 19, 27, 35, 43], file: '05_social' },
+  { idx: '06', label: 'Wezwania z konsekwencjami',   current: 10, frames: [3, 10, 17, 24, 31, 38], file: '06_wezwania' }
+];
+
+const root = document.getElementById('reels');
+REELS.forEach(r => {
+  const sec = document.createElement('div');
+  sec.className = 'reel-section';
+  let framesHTML = '';
+  r.frames.forEach(t => {
+    const isCurrent = t === r.current;
+    framesHTML += `
+      <div class="frame${isCurrent ? ' current' : ''}">
+        <img src="_reel_frames/${r.file}_t${t}s.jpg" alt="klatka ${t}s">
+        <span class="frame-time">${t}s</span>
+      </div>
+    `;
+  });
+  sec.innerHTML = `
+    <div class="reel-head">
+      <span class="reel-idx">${r.idx}</span>
+      <span class="reel-label">${r.label}</span>
+      <span class="reel-current">Aktualnie: ${r.current}s</span>
+    </div>
+    <div class="frames">${framesHTML}</div>
+  `;
+  root.appendChild(sec);
+});
+</script>
+</body>
+</html>
