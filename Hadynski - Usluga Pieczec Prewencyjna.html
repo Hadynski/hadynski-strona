@@ -2251,8 +2251,15 @@ section { padding: clamp(80px, 9vw, 120px) 0; }
   white-space: nowrap;
 }
 @media (max-width: 760px) {
-  .coming-soon-badge { display: inline-flex; margin: 8px 0 0; }
-  .section-header .coming-soon-badge { margin-left: 0; }
+  .coming-soon-badge {
+    display: flex;
+    width: fit-content;
+    margin: 10px auto 0;
+    font-size: 9.5px;
+    padding: 5px 11px;
+  }
+  .section-header .coming-soon-badge { margin: 10px auto 0; }
+  .section-header .eyebrow { display: block; }
 }
 /* END COMING_SOON_BADGE_v1 */
 
@@ -3480,13 +3487,6 @@ window.SUBMIT_ENDPOINT = "/api/contact";
         if (!v.paused) v.pause();
         const posterTime = parseFloat(v.dataset.posterTime || '0');
         try { v.currentTime = posterTime || 0; } catch(e){}
-        v.muted = true;
-        setSoundBtnState(el, false);
-      }
-    });
-  } else {
-        if (!v.paused) v.pause();
-        try { v.currentTime = 0; } catch(e){}
         v.muted = true;
         setSoundBtnState(el, false);
       }

@@ -1359,8 +1359,15 @@ h1, h2, h3, h4, h5, h6, em, strong, p, span, a, time, button, .footer-mark { fon
   white-space: nowrap;
 }
 @media (max-width: 760px) {
-  .coming-soon-badge { display: inline-flex; margin: 8px 0 0; }
-  .section-header .coming-soon-badge { margin-left: 0; }
+  .coming-soon-badge {
+    display: flex;
+    width: fit-content;
+    margin: 10px auto 0;
+    font-size: 9.5px;
+    padding: 5px 11px;
+  }
+  .section-header .coming-soon-badge { margin: 10px auto 0; }
+  .section-header .eyebrow { display: block; }
 }
 /* END COMING_SOON_BADGE_v1 */
 
