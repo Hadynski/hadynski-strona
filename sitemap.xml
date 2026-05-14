@@ -134,4 +134,54 @@
     <priority>0.3</priority>
   </url>
 
+
+
+  <url>
+    <loc>https://hadynski.github.io/hadynski-strona/blog/windykacja-zagraniczna-co-warto-wiedziec.html</loc>
+    <lastmod>2026-01-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://hadynski.github.io/hadynski-strona/blog/kiedy-skup-wierzytelnosci-jest-oplacalny.html</loc>
+    <lastmod>2026-01-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://hadynski.github.io/hadynski-strona/blog/pieczec-prewencyjna-jak-dziala.html</loc>
+    <lastmod>2025-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://hadynski.github.io/hadynski-strona/blog/wywiad-gospodarczy-przed-umowa.html</loc>
+    <lastmod>2025-12-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://hadynski.github.io/hadynski-strona/blog/5-bledow-w-wezwaniach-do-zaplaty.html</loc>
+    <lastmod>2025-11-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://hadynski.github.io/hadynski-strona/blog/jak-sprawdzic-wyplacalnosc-kontrahenta.html</loc>
+    <lastmod>2025-11-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://hadynski.github.io/hadynski-strona/blog/monitoring-naleznosci-w-praktyce.html</loc>
+    <lastmod>2025-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>
