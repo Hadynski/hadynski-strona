@@ -5643,7 +5643,7 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
   }
 }
 
-/* COMING_SOON_BADGE_v1 — subtelne oznaczenie "Dostęp dla wybranych klientów — faza testowa" */
+/* COMING_SOON_BADGE_v1 — subtelne oznaczenie "Dostęp dla wybranych klientów — faza testów" */
 .coming-soon-badge {
   display: inline-flex;
   align-items: center;
@@ -5726,14 +5726,27 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
 }
 @media (max-width: 760px) {
   .coming-soon-badge {
-    display: flex;
+    display: inline-flex;
     width: fit-content;
+    max-width: calc(100vw - 32px);
     margin: 10px auto 0;
     font-size: 9.5px;
-    padding: 5px 11px;
+    padding: 6px 12px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    line-height: 1.35;
+    /* pozwala łamać linię na bardzo wąskich ekranach */
+    white-space: normal;
   }
   .section-header .coming-soon-badge { margin: 10px auto 0; }
   .section-header .eyebrow { display: block; }
+}
+@media (max-width: 380px) {
+  .coming-soon-badge {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    padding: 6px 10px;
+  }
 }
 
 /* IMPECCABLE_ANIMATE_v1 — premium motion layer */
@@ -6552,7 +6565,7 @@ html[data-theme="bold"] .hero-lede { color: var(--ink-2) !important; }
 <section class="panel-section" data-screen-label="06 Twój panel klienta">
   <div class="wrap">
     <div class="section-header reveal">
-      <span class="eyebrow">Twój panel klienta <span class="coming-soon-badge">Dostęp dla wybranych</span></span>
+      <span class="eyebrow">Twój panel klienta <span class="coming-soon-badge">Dostęp dla wybranych klientów — faza testów</span></span>
       <h2 class="section-title">Wiesz wszystko o swojej sprawie. <em style="font-style:normal; color:var(--red);">Zawsze.</em></h2>
     </div>
 

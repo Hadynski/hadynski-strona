@@ -2805,14 +2805,26 @@ section { padding: clamp(80px, 9vw, 120px) 0; }
 }
 @media (max-width: 760px) {
   .coming-soon-badge {
-    display: flex;
+    display: inline-flex;
     width: fit-content;
+    max-width: calc(100vw - 32px);
     margin: 10px auto 0;
     font-size: 9.5px;
-    padding: 5px 11px;
+    padding: 6px 12px;
+    letter-spacing: 0.08em;
+    text-align: center;
+    line-height: 1.35;
+    white-space: normal;
   }
   .section-header .coming-soon-badge { margin: 10px auto 0; }
   .section-header .eyebrow { display: block; }
+}
+@media (max-width: 380px) {
+  .coming-soon-badge {
+    font-size: 9px;
+    letter-spacing: 0.06em;
+    padding: 6px 10px;
+  }
 }
 /* END COMING_SOON_BADGE_v1 */
 
@@ -3280,7 +3292,7 @@ section { padding: clamp(80px, 9vw, 120px) 0; }
 <section class="panel-section" data-screen-label="05 Panel HINGO dla portfela">
     <div class="wrap">
       <div class="section-header reveal">
-        <span class="eyebrow">Panel HINGO <span class="coming-soon-badge">Dostęp dla wybranych</span></span>
+        <span class="eyebrow">Panel HINGO <span class="coming-soon-badge">Dostęp dla wybranych klientów — faza testów</span></span>
         <h2 class="section-title">Cały portfel pod kontrolą. <em style="font-style:normal; color:var(--red);">Zawsze.</em></h2>
       </div>
 
