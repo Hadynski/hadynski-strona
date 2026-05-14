@@ -1,0 +1,63 @@
+name: Lighthouse CI
+
+# Po każdym pushu na main odpala Lighthouse na kluczowych stronach:
+# homepage, kontakt, najważniejsze usługi, blog.
+# Wynik widać w PR comment + w job summary.
+# Próg: performance >= 0.85, accessibility >= 0.95, SEO >= 0.95.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    name: Lighthouse Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          npm install -g @lhci/cli@0.13.x serve
+
+      - name: Start static server
+        run: |
+          serve -l 8000 . &
+          sleep 3
+
+      - name: Run Lighthouse CI
+        run: |
+          lhci autorun \
+            --collect.url=http://localhost:8000/Hadynski.html \
+            --collect.url="http://localhost:8000/Hadynski%20-%20Kontakt.html" \
+            --collect.url="http://localhost:8000/Hadynski%20-%20Usluga%20Masowa%20Windykacja.html" \
+            --collect.url="http://localhost:8000/Hadynski%20-%20Blog.html" \
+            --collect.numberOfRuns=2 \
+            --collect.settings.preset=desktop \
+            --assert.assertions.categories:performance.minScore=0.85 \
+            --assert.assertions.categories:accessibility.minScore=0.95 \
+            --assert.assertions.categories:best-practices.minScore=0.9 \
+            --assert.assertions.categories:seo.minScore=0.95 \
+            --upload.target=temporary-public-storage
+        continue-on-error: true
+
+      - name: Lighthouse mobile audit
+        run: |
+          lhci autorun \
+            --collect.url=http://localhost:8000/Hadynski.html \
+            --collect.url="http://localhost:8000/Hadynski%20-%20Kontakt.html" \
+            --collect.numberOfRuns=2 \
+            --collect.settings.preset=mobile \
+            --assert.assertions.categories:performance.minScore=0.75 \
+            --assert.assertions.categories:accessibility.minScore=0.95 \
+            --upload.target=temporary-public-storage
+        continue-on-error: true

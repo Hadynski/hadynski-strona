@@ -6,9 +6,16 @@ Disallow: /podglad-klatek.html
 Disallow: /wybor-posterow.html
 Disallow: /Mobile podglad.html
 Disallow: /Hadynski-print.html
+Disallow: /Hadynski%20v2%20(standalone).html
+Disallow: /Hadynski v2 (standalone).html
+Disallow: /Hadynski%20-%20Usluga%20v1%20(data-driven).html
+Disallow: /Hadynski - Usluga v1 (data-driven).html
 Disallow: /_backup_pre_*/
 Disallow: /audit/
 Disallow: /_scratch/
 Disallow: /hadynski-next/
+Disallow: /uploads/
+Disallow: /screenshots/
+Disallow: /_leads-setup/
 
 Sitemap: https://hadynski.github.io/hadynski-strona/sitemap.xml
