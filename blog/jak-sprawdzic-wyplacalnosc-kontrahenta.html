@@ -32,6 +32,7 @@
 <meta name="theme-color" content="#17130f">
 
 <link rel="stylesheet" href="../assets/fixes-mobile-a11y.css">
+<link rel="stylesheet" href="../assets/call-modal.css">
 <link rel="stylesheet" href="../assets/blog-article.css">
 <script src="../assets/fixes-mobile-a11y.js" defer></script>
 
@@ -97,7 +98,7 @@
       <a href="../Hadynski - Kontakt.html">Kontakt</a>
     </nav>
     <div class="nav-cta">
-      <a href="../Hadynski - Kontakt.html" class="btn">Zamów rozmowę <span class="arrow">→</span></a>
+      <button type="button" class="btn" data-modal-open>Zamów rozmowę <span class="arrow">→</span></button>
     </div>
   </div>
 </header>
@@ -241,7 +242,7 @@
       <div class="article-cta">
         <h3>Chcesz pewności że <em>kontrahent zapłaci?</em></h3>
         <p>Wywiad gospodarczy w 24-48h: KRS + KRD + Coface + nasza analiza. Ceny od 150 zł. Najlepsza inwestycja przed dużym zleceniem.</p>
-        <a href="../Hadynski - Kontakt.html" class="btn">Zamów bezpłatną analizę <span>→</span></a>
+        <button type="button" class="btn" data-modal-open>Zamów bezpłatną analizę <span>→</span></button>
       </div>
 
     </div>
@@ -302,5 +303,11 @@ document.querySelectorAll('.faq-item .faq-q').forEach(btn => {
 });
 </script>
 
+
+<!-- Call modal + lead capture -->
+<script>window.HADYNSKI_LEAD_SOURCE = "blog: jak sprawdzic wyplacalnosc";</script>
+<script src="../leads-config.js"></script>
+<script src="../leads.js"></script>
+<script src="../assets/call-modal.js" defer></script>
 </body>
 </html>
