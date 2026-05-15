@@ -18,9 +18,9 @@ Dokument dla osoby przepinającej stronę na docelową domenę hadynski.pl.
 
 ### Stan obecnej strony hadynski.pl (live, do podmiany)
 - Stara strona (`hadynski.pl`)
-- **KRYTYCZNE: subkatalog `/gielda-wierzytelnosci/` historycznie był zasilany z Soflexu (Kambit API).**
-  Ustalenie 2026-05-15: Filip Kosel (Soflex) przenosi giełdę na **osobną subdomenę `gielda.hadynski.pl`** — po przepięciu starego subkatalogu już nie musimy obsługiwać, wystarczy link z głównej na subdomenę. Filip zajmuje się tym po swojej stronie (CNAME / vhost).
-- Nowy `Hadynski - Gielda.html` w tym repo to **landing explainer** — po migracji ma robić **301 redirect → `https://gielda.hadynski.pl/`** (patrz MIGRATION_URLS.md).
+- **KRYTYCZNE: subkatalog `/gielda-wierzytelnosci/` musi pozostać nietknięty** — to działająca giełda zasilana API Kambit/Softlex (metoda `GetClaimsFromStockExchangeKambit`, cron cyklicznie zaciąga dane)
+- Ustalenie 2026-05-15: Filip Kosel (Soflex) po swojej stronie zaktualizuje konfigurację katalogu giełdy po przepięciu domeny ("u nas trzeba wskazać że katalog z giełdą jest gdzie indziej i to wystarczy"). Bez subdomeny, bez DNS — wszystko zostaje w obrębie hadynski.pl.
+- Plik `Hadynski - Gielda.html` w tym repo to **landing SEO** (po migracji URL: `/gielda`) — opisuje giełdę i ma CTA wewnętrzny do `/gielda-wierzytelnosci/`. Z głównej strony przycisk "Sprawdź giełdę" prowadzi na `/gielda`.
 
 ---
 
