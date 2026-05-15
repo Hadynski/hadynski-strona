@@ -30,13 +30,14 @@
 <meta name="twitter:image" content="https://hadynski.pl/assets/bartosz-hero.jpg" />
 
 <!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-<link rel="alternate icon" type="image/png" href="../assets/logo.png">
-<link rel="apple-touch-icon" href="../assets/logo.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
 <meta name="theme-color" content="#17130f">
 
 <!-- A11y + mobile fixes -->
 <link rel="stylesheet" href="../assets/fixes-mobile-a11y.css">
+<link rel="stylesheet" href="../assets/call-modal.css">
 <script src="../assets/fixes-mobile-a11y.js" defer></script>
 
 <!-- GA4 placeholder — Kuba odpali scripts/inject-ga4.sh G-XXXXXXXXXX -->
@@ -222,6 +223,8 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
   letter-spacing: -0.01em;
   background: transparent;
+  font-family: var(--font-sans);
+  cursor: pointer;
   transition: background 200ms ease, color 200ms ease;
 }
 .nav-cta .btn:hover {
@@ -528,8 +531,11 @@ a:hover { text-decoration: underline; }
   background: var(--red);
   color: #fff;
   border-radius: 999px;
+  border: none;
   font-weight: 600;
   font-size: 16px;
+  font-family: var(--font-sans);
+  cursor: pointer;
   transition: background 200ms ease, transform 200ms ease;
 }
 .article-cta .btn:hover {
@@ -619,7 +625,7 @@ a:hover { text-decoration: underline; }
       <a href="../Hadynski - Kontakt.html">Kontakt</a>
     </nav>
     <div class="nav-cta">
-      <a href="../Hadynski - Kontakt.html" class="btn">Zamów rozmowę <span class="arrow">→</span></a>
+      <button type="button" class="btn" data-modal-open>Zamów rozmowę <span class="arrow">→</span></button>
     </div>
   </div>
 </header>
@@ -784,7 +790,7 @@ a:hover { text-decoration: underline; }
       <div class="article-cta">
         <h3>Masz dług który nie chce się odzyskać <em>sam</em>?</h3>
         <p>Bezpłatnie ocenimy szanse, sprawdzimy wypłacalność dłużnika i przedstawimy plan działania w 24h. Bez kosztów wstępnych — prowizja tylko od skutecznie odzyskanej kwoty.</p>
-        <a href="../Hadynski - Kontakt.html" class="btn">Zamów bezpłatną analizę <span>→</span></a>
+        <button type="button" class="btn" data-modal-open>Zamów bezpłatną analizę <span>→</span></button>
       </div>
 
     </div>
@@ -856,5 +862,11 @@ document.querySelectorAll('.faq-item .faq-q').forEach(btn => {
 });
 </script>
 
+
+<!-- Call modal + lead capture -->
+<script>window.HADYNSKI_LEAD_SOURCE = "blog: jak odzyskac dlug bez sadu";</script>
+<script src="../leads-config.js"></script>
+<script src="../leads.js"></script>
+<script src="../assets/call-modal.js" defer></script>
 </body>
 </html>

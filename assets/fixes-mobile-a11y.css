@@ -296,6 +296,37 @@ body.nav-open {
   }
 }
 
+/* 7a. Panel section — rotated mockup powoduje overflow body w przedziale
+   ~700–980px (tablet portrait/landscape). Stackujemy grid + clipujemy
+   section żeby rotacja -2deg nie tworzyła poziomego scrolla. */
+@media (max-width: 980px) {
+  .panel-section {
+    overflow-x: clip;
+  }
+  .panel-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 40px !important;
+  }
+  .panel-grid > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .panel-mockup-v2,
+  .panel-mockups {
+    max-width: 100%;
+  }
+  /* Process-grid-4 — 4 kolumny się nie mieszczą w 700–980px (każda <200px
+     z min-content cards). Stackujemy do 2 kolumn już od 980px. */
+  .process-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 28px !important;
+  }
+  .process-grid-4 > * { min-width: 0; max-width: 100%; }
+  /* Body safety net — globalny clip żeby rotacje, decoracje out-of-bounds
+     nigdy nie tworzyły scrolla. */
+  html, body { overflow-x: clip; }
+}
+
 @media (max-width: 360px) {
   .services-grid,
   .process-grid,

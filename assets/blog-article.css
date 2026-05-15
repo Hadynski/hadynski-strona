@@ -77,6 +77,8 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
   letter-spacing: -0.01em;
   background: transparent;
+  font-family: var(--font-sans);
+  cursor: pointer;
   transition: background 200ms ease, color 200ms ease;
 }
 .nav-cta .btn:hover {
@@ -383,8 +385,11 @@ a:hover { text-decoration: underline; }
   background: var(--red);
   color: #fff;
   border-radius: 999px;
+  border: none;
   font-weight: 600;
   font-size: 16px;
+  font-family: var(--font-sans);
+  cursor: pointer;
   transition: background 200ms ease, transform 200ms ease;
 }
 .article-cta .btn:hover {

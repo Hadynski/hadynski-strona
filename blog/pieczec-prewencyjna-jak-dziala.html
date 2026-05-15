@@ -26,12 +26,13 @@
 <meta name="twitter:description" content="Mała pieczątka na fakturze potrafi zmienić zachowanie kontrahenta szybciej niż wezwanie do zapłaty. Wyjaśniamy mechanizm, skuteczność i jak ją zaprojektować." />
 <meta name="twitter:image" content="https://hadynski.pl/assets/bartosz-hero.jpg" />
 
-<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
-<link rel="alternate icon" type="image/png" href="../assets/logo.png">
-<link rel="apple-touch-icon" href="../assets/logo.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="../assets/favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
 <meta name="theme-color" content="#17130f">
 
 <link rel="stylesheet" href="../assets/fixes-mobile-a11y.css">
+<link rel="stylesheet" href="../assets/call-modal.css">
 <link rel="stylesheet" href="../assets/blog-article.css">
 <script src="../assets/fixes-mobile-a11y.js" defer></script>
 
@@ -97,7 +98,7 @@
       <a href="../Hadynski - Kontakt.html">Kontakt</a>
     </nav>
     <div class="nav-cta">
-      <a href="../Hadynski - Kontakt.html" class="btn">Zamów rozmowę <span class="arrow">→</span></a>
+      <button type="button" class="btn" data-modal-open>Zamów rozmowę <span class="arrow">→</span></button>
     </div>
   </div>
 </header>
@@ -199,7 +200,7 @@
       <div class="article-cta">
         <h3>Chcesz pieczęć <em>prewencyjną</em> na swoich fakturach?</h3>
         <p>Klienci Hadyński Inkaso dostają gotową grafikę + PDF do umieszczenia na fakturach. Standardowo dla wszystkich firm które z nami współpracują.</p>
-        <a href="../Hadynski - Kontakt.html" class="btn">Zamów bezpłatną analizę <span>→</span></a>
+        <button type="button" class="btn" data-modal-open>Zamów bezpłatną analizę <span>→</span></button>
       </div>
 
     </div>
@@ -260,5 +261,11 @@ document.querySelectorAll('.faq-item .faq-q').forEach(btn => {
 });
 </script>
 
+
+<!-- Call modal + lead capture -->
+<script>window.HADYNSKI_LEAD_SOURCE = "blog: pieczec prewencyjna";</script>
+<script src="../leads-config.js"></script>
+<script src="../leads.js"></script>
+<script src="../assets/call-modal.js" defer></script>
 </body>
 </html>
