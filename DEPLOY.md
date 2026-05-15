@@ -1,6 +1,8 @@
 # Deploy checklist — Hadyński Inkaso (hadynski.pl)
 
-Dokument dla Kuby Markiewicza — co potrzebne do podpięcia nowej strony na hadynski.pl z zachowaniem działającej giełdy wierzytelności.
+Dokument dla osoby przepinającej stronę na docelową domenę hadynski.pl.
+
+**Powiązany dokument:** [MIGRATION_URLS.md](MIGRATION_URLS.md) — mapa starych URL-i na czyste slug-i + lista zadań SEO.
 
 ---
 
@@ -8,15 +10,17 @@ Dokument dla Kuby Markiewicza — co potrzebne do podpięcia nowej strony na had
 
 ### Co masz w tym repo
 - **19 produkcyjnych stron HTML** (statyczne, hostowane obecnie na `hadynski.github.io/hadynski-strona/`)
+- **8 wpisów na blogu** (`blog/<slug>.html`) — gotowe slug-i, kebab-case
 - Strony lekkie po optymalizacji (homepage 272 KB, podstrony 100-250 KB)
 - Wszystko gotowe pod responsywność, SEO, Core Web Vitals
 - Formularze leadów działają (Google Apps Script → arkusz Google Sheets)
-- Mobile drawer, pop-up modale, cookie banner — wszystko sprawdzone na 320–1440px
+- Mobile drawer, pop-up modale, cookie banner — sprawdzone na 320–1440px
 
-### Stan obecnej strony hadynski.pl (live)
+### Stan obecnej strony hadynski.pl (live, do podmiany)
 - Stara strona (`hadynski.pl`)
-- **KRYTYCZNE: subkatalog `/gielda-wierzytelnosci/` musi pozostać nietknięty** — to działająca giełda zasilana API Kambit/Softlex (metoda `GetClaimsFromStockExchangeKambit`, cron cyklicznie zaciąga dane)
-- Nowa Gielda.html w tym repo to **landing explainer** który linkuje na `/gielda-wierzytelnosci/` — nie zastępuje funkcjonalności
+- **KRYTYCZNE: subkatalog `/gielda-wierzytelnosci/` historycznie był zasilany z Soflexu (Kambit API).**
+  Ustalenie 2026-05-15: Filip Kosel (Soflex) przenosi giełdę na **osobną subdomenę `gielda.hadynski.pl`** — po przepięciu starego subkatalogu już nie musimy obsługiwać, wystarczy link z głównej na subdomenę. Filip zajmuje się tym po swojej stronie (CNAME / vhost).
+- Nowy `Hadynski - Gielda.html` w tym repo to **landing explainer** — po migracji ma robić **301 redirect → `https://gielda.hadynski.pl/`** (patrz MIGRATION_URLS.md).
 
 ---
 
