@@ -42,7 +42,7 @@ Po przepięciu musi działać **301 redirect** ze starych URL-i na nowe — żeb
 | `Hadynski - Polityka Prywatnosci.html` | `/polityka-prywatnosci` |
 | `Hadynski - Polityka Cookies.html` | `/polityka-cookies` |
 | `Hadynski - Regulamin.html` | `/regulamin` |
-| `Hadynski - Gielda.html` | **przekierowanie 301 → `https://gielda.hadynski.pl/`** (zewnętrzna subdomena Soflexu) |
+| `Hadynski - Gielda.html` | `/gielda` — to nasz landing SEO. Ma własny CTA prowadzący do `/gielda-wierzytelnosci/` (działająca aplikacja Soflex, **zostaje w obecnym subkatalogu, nie ruszamy**). |
 
 ---
 
@@ -85,10 +85,11 @@ Już mają dobre slug-i, wystarczy obciąć `.html` i prefix `/blog/`.
    - Wgrać nowy sitemap.xml
    - Zgłosić change of address (jeśli wcześniej w SC był github.io)
 
-7. **Giełda wierzytelności** — Filip Kosel (Soflex) konfiguruje `gielda.hadynski.pl` po swojej stronie. Potrzebny rekord DNS:
-   - `CNAME gielda → [serwer Soflexa, do ustalenia z Filipem]` lub
-   - `A gielda → [IP od Filipa]`
-   - Plus SSL (Let's Encrypt lub po stronie Soflexa)
+7. **Giełda wierzytelności** — zostaje w obecnej lokalizacji `hadynski.pl/gielda-wierzytelnosci/` jako subkatalog. Aplikacja jest zasilana przez Soflex (API Kambit, metoda `GetClaimsFromStockExchangeKambit`, cron cyklicznie zaciąga dane).
+   - **NIE NADPISYWAĆ** subkatalogu `/gielda-wierzytelnosci/` przy deployu nowej strony
+   - Filip Kosel (Soflex) po swojej stronie zaktualizuje konfigurację, żeby ich endpoint wskazywał na właściwą lokalizację po przepięciu (ustalenie 2026-05-15: "u nas trzeba wskazać że katalog z giełdą jest gdzie indziej i to wystarczy")
+   - Plik `Hadynski - Gielda.html` z naszego repo to **landing SEO** (URL: `/gielda`), z niego CTA prowadzi do `/gielda-wierzytelnosci/`
+   - Bez DNS, bez subdomeny — wszystko w obrębie hadynski.pl
 
 ---
 
@@ -124,5 +125,5 @@ Już są w `robots.txt` jako `Disallow`. Jeśli używasz Cloudflare Pages / Verc
 ## Kontakt
 
 - **Bartosz Hadyński** — właściciel, treść, decyzje biznesowe — [telefon, email]
-- **Filip Kosel (Soflex)** — giełda wierzytelności, konfiguracja gielda.hadynski.pl — [kontakt Slack]
+- **Filip Kosel (Soflex)** — obsługa katalogu `/gielda-wierzytelnosci/` (Kambit API), aktualizacja konfiguracji po przepięciu — [kontakt Slack]
 - Pytania o kod / strukturę repo — przez Issues w GitHubie
