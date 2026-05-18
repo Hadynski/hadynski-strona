@@ -327,6 +327,15 @@ body.nav-open {
   html, body { overflow-x: clip; }
 }
 
+/* 7b. Process-grid-4 na małych mobile — 2 kolumny się nie mieszczą poniżej
+   ~640px (cards wymagają min ~280px szerokości). Wymuszamy 1 kolumnę. */
+@media (max-width: 640px) {
+  .process-grid-4 {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 32px !important;
+  }
+}
+
 @media (max-width: 360px) {
   .services-grid,
   .process-grid,
